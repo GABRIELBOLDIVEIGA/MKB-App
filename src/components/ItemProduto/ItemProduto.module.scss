@@ -1,0 +1,22 @@
+.containerButtons {
+    display: flex;
+    align-items: center;
+
+    // border: 1px solid red;
+}
+
+.item {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    // align-items: center;
+
+    // border: 1px solid greenyellow;
+}
+
+.input {
+    width: 35px;
+    text-align: center;
+
+    // border: 1px solid blueviolet;
+}
