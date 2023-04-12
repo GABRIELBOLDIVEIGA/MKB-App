@@ -1,4 +1,4 @@
-import produtos from "data/Produtos_mock.json";
+import produtos from "data/produtos.json";
 import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
 import { useState } from "react";

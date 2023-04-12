@@ -28,6 +28,7 @@ import { useContext } from "react";
 import Home from "pages/Home";
 import NovoPedido from "pages/NovoPedido";
 import Historico from "pages/Historico";
+import Empresas from "pages/Empresa";
 
 
 setupIonicReact();
@@ -53,6 +54,7 @@ function App() {
                         <IonRouterOutlet id="main">
                         <Redirect to="/page/home" />
                             <Route path="/page/home" exact={true} component={Home} />
+                            <Route path="/page/empresas" exact={true} component={Empresas} />
                             <Route path="/page/novo_pedido" exact={true} component={NovoPedido} />
                             <Route path="/page/historico" exact={true} component={Historico} />
                             {/* <Redirect to="/page/pj" />
