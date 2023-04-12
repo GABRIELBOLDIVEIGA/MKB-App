@@ -26,7 +26,7 @@ import Login from "pages/Login";
 import { UserContext } from "common/context/UserContext";
 import { useContext } from "react";
 import Home from "pages/Home";
-import NovoPedido from "pages/NovoPedido";
+import Produtos from "pages/Produtos";
 import Historico from "pages/Historico";
 import Empresas from "pages/Empresa";
 
@@ -37,8 +37,6 @@ function App() {
     const userContext = useContext(UserContext);
     if (!userContext) return null;
     const { loginValido } = userContext;
-
-    console.log("APP")
 
     return (
         <IonApp>
@@ -52,21 +50,17 @@ function App() {
                     <IonSplitPane contentId="main">
                         <Menu />
                         <IonRouterOutlet id="main">
-                        <Redirect to="/page/home" />
-                            <Route path="/page/home" exact={true} component={Home} />
-                            <Route path="/page/empresas" exact={true} component={Empresas} />
-                            <Route path="/page/novo_pedido" exact={true} component={NovoPedido} />
-                            <Route path="/page/historico" exact={true} component={Historico} />
-                            {/* <Redirect to="/page/pj" />
-                            <Route path="/page/pj" exact={true} component={PaginaPJ} />
-                            <Switch>
+                        <Redirect to="/home" />
+                            <Route path="/home" exact={true} component={Home} />
+                            <Route path="/empresas" exact={true} component={Empresas} />
+                            <Route path="/produtos" exact={true} component={Produtos} />
+                            <Route path="/historico" exact={true} component={Historico} />
+                           
+                            {/* <Switch>
                                 <Route path="/page/processos" exact={true} component={PaginaProcessos} />
                                 <Route path="/page/processo/:id" component={PaginaProcessoDetalhado} />
-                            </Switch>
-                            <Route path="/page/processo/cadastro" exact={true} component={PaginaCadastroProcesso} />
-                            <Route path="/page/empresas" exact={true} component={PaginaEmpresas} />
-                            <Route path="/page/usuarios" exact={true} component={PaginaUsuarios} />
-                            <Route path="/page/orgao" exact={true} component={PaginaOrgao} /> */}
+                            </Switch> */}
+                            
                         </IonRouterOutlet>
                     </IonSplitPane>
                 ) : (
