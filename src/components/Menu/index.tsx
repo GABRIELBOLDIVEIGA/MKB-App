@@ -1,62 +1,44 @@
-import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote } from "@ionic/react";
+import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonText } from "@ionic/react";
 import { useLocation } from "react-router-dom";
-import { briefcaseOutline, folderOpenOutline } from "ionicons/icons";
+import { briefcaseOutline, folderOpenOutline, homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline } from "ionicons/icons";
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
 import { UserContext } from "common/context/UserContext";
 import { useContext } from "react";
 
-interface AppPage {
+interface menuLink {
     url: string;
     iosIcon: string;
     mdIcon: string;
     title: string;
 }
 
-const appPages: AppPage[] = [
+const menuLinks: menuLink[] = [
     {
         title: "Home",
-        url: "/page/home",
-        iosIcon: briefcaseOutline,
-        mdIcon: briefcaseOutline,
+        url: "/home",
+        iosIcon: homeOutline,
+        mdIcon: homeOutline,
     },
     {
         title: "Novo Pedido",
-        url: "/page/empresas",
-        iosIcon: briefcaseOutline,
-        mdIcon: briefcaseOutline,
+        url: "/empresas",
+        iosIcon: addCircleOutline,
+        mdIcon: addCircleOutline,
     },
     {
         title: "Histórico",
-        url: "/page/historico",
-        iosIcon: folderOpenOutline,
-        mdIcon: folderOpenOutline,
+        url: "/historico",
+        iosIcon: fileTrayStackedOutline,
+        mdIcon: fileTrayStackedOutline,
     },
-    // {
-    //     title: "Empresas",
-    //     url: "/page/empresas",
-    //     iosIcon: businessOutline,
-    //     mdIcon: businessOutline,
-    // },
-    // {
-    //     title: "Usuários",
-    //     url: "/page/usuarios",
-    //     iosIcon: peopleOutline,
-    //     mdIcon: peopleOutline,
-    // },
-    // {
-    //     title: "Orgão",
-    //     url: "/page/orgao",
-    //     iosIcon: apertureOutline,
-    //     mdIcon: apertureOutline,
-    // },
 ];
 
 const Menu: React.FC = () => {
-    console.log("Menu")
+    console.log("Menu");
     const location = useLocation();
-    const userContext = useContext(UserContext)
+    const userContext = useContext(UserContext);
     if (!userContext) return null;
     const { email } = userContext;
 
@@ -71,7 +53,7 @@ const Menu: React.FC = () => {
                         <IonNote>{email}</IonNote>
                     </IonListHeader>
 
-                    {appPages.map((appPage, index) => {
+                    {menuLinks.map((appPage, index) => {
                         return (
                             <IonMenuToggle key={index} autoHide={false}>
                                 <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
@@ -84,7 +66,10 @@ const Menu: React.FC = () => {
                 </IonList>
 
                 <IonList id="labels-list">
-                    <IonButton fill="outline">Config.</IonButton>
+                    <IonButton fill="outline">
+                        <IonIcon slot="start" src={settingsOutline} />
+                        <IonText>Config.</IonText>
+                    </IonButton>
                     <LogOut />
                 </IonList>
             </IonContent>
