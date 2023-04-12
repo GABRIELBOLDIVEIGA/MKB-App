@@ -23,7 +23,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "pages/Login";
 
-import { UserContext } from "common/context/UserContext";
+import { UsuarioContext } from "common/context/UsuarioContext";
 import { useContext } from "react";
 import Home from "pages/Home";
 import Produtos from "pages/Produtos";
@@ -34,7 +34,7 @@ import Empresas from "pages/Empresa";
 setupIonicReact();
 
 function App() {
-    const userContext = useContext(UserContext);
+    const userContext = useContext(UsuarioContext);
     if (!userContext) return null;
     const { loginValido } = userContext;
 
@@ -53,7 +53,7 @@ function App() {
                         <Redirect to="/home" />
                             <Route path="/home" exact={true} component={Home} />
                             <Route path="/empresas" exact={true} component={Empresas} />
-                            <Route path="/produtos" exact={true} component={Produtos} />
+                            <Route path="/produtos" exact={true} component={Produtos}></Route>
                             <Route path="/historico" exact={true} component={Historico} />
                            
                             {/* <Switch>

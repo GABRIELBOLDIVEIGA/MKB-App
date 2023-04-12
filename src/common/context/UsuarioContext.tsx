@@ -11,8 +11,8 @@ interface CurrentUserContextType {
     senha: string;
 }
 
-export const UserContext = createContext<CurrentUserContextType | null>(null);
-UserContext.displayName = "Usuario";
+export const UsuarioContext = createContext<CurrentUserContextType | null>(null);
+UsuarioContext.displayName = "Usuario";
 
 type Props = {
     children: string | JSX.Element | JSX.Element[];
@@ -25,7 +25,7 @@ export const UsuarioProvider = ({ children }: Props) => {
     const [senha, setSenha] = useState("123456");
 
     return (
-        <UserContext.Provider
+        <UsuarioContext.Provider
             value={{
                 nome,
                 setNome,
@@ -37,12 +37,12 @@ export const UsuarioProvider = ({ children }: Props) => {
             }}
         >
             {children}
-        </UserContext.Provider>
+        </UsuarioContext.Provider>
     );
 };
 
-export const useUserContext = () => {
-    const userContext = useContext(UserContext)
+export const useUsuarioContext = () => {
+    const userContext = useContext(UsuarioContext)
     if (!userContext) return null;
 
     const { 

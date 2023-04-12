@@ -1,15 +1,27 @@
 import produtos from "data/produtos.json";
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBadge, IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
+import { IProduto } from "interface/IProduto";
+import { cartOutline } from "ionicons/icons";
+import { useCarrinhoContext } from './../../common/context/CarrrinhoContext';
 
 export default function Produtos() {
     const [busca, setBusca] = useState("");
+    const [filtro, setFiltro] = useState<IProduto[]>([]);
+    const carrinho = useCarrinhoContext();
+    if (!carrinho) return null;
+    console.log(carrinho)
+    
 
-    const b = busca && busca.toLowerCase();
-    const filtro = !produtos || !b ? produtos : produtos.filter((prod) => prod.Descr_Detalhada.toLowerCase().includes(b));
+    const aplicarFiltro = () => {
+        const b = busca && busca.toLowerCase();
+        const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.Descr_Detalhada.toLowerCase().includes(b));
+        setFiltro(result);
+        console.log(result);
+    };
 
     return (
         <IonPage>
@@ -18,10 +30,19 @@ export default function Produtos() {
                     <IonButtons slot="start">
                         <IonMenuButton></IonMenuButton>
                     </IonButtons>
-                    <IonTitle>Lista de Produtos</IonTitle>
+                    <IonTitle>
+                        Lista de Produtos{" "}
+                        <IonButton color="primary">
+                            <IonIcon src={cartOutline} />
+                            {carrinho.quantidadeProdutos}
+                        </IonButton>
+                    </IonTitle>
                 </IonToolbar>
                 <IonToolbar>
                     <BarraPesquisa placeholder="Produto" busca={busca} setBusca={setBusca} />
+                    <IonButton onClick={aplicarFiltro} slot="end">
+                        Filtrar
+                    </IonButton>
                 </IonToolbar>
             </IonHeader>
 

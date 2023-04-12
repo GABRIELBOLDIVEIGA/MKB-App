@@ -2,7 +2,7 @@ import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonImg, IonInput, IonI
 import React, { useContext, useState } from "react";
 import styles from "./Login.module.scss";
 import brasaoES from "./brasaoES.png";
-import { UserContext } from "common/context/UserContext";
+import { UsuarioContext } from "common/context/UsuarioContext";
 
 const Login: React.FC = () => {
     const [userEmail, setUserEmail] = useState("");
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 
     const [presentAlert] = useIonAlert();
     const [present, dismiss] = useIonLoading();
-    const userContext = useContext(UserContext);
+    const userContext = useContext(UsuarioContext);
     if (!userContext) return null;
     const { email, senha, setLoginValido } = userContext;
 

@@ -1,15 +1,22 @@
-.containerButtons {
+@import "theme/variables.css";
+
+.container {
     display: flex;
     align-items: center;
+
+    height: max-content;
+    min-width: 30%;
+    max-width: 30%;
 
     // border: 1px solid red;
 }
 
 .item {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     width: 100%;
-    // align-items: center;
+    margin-top: 10px;
 
     // border: 1px solid greenyellow;
 }
@@ -17,6 +24,6 @@
 .input {
     width: 35px;
     text-align: center;
-
-    // border: 1px solid blueviolet;
+    background-color: var(--ion-color-light);
+    border-radius: 10px;
 }

@@ -4,13 +4,19 @@ import { useState } from "react";
 import clientes from "data/clientes.json";
 import ListaEmpresas from "./ListaEmpresas";
 import { Link } from "react-router-dom";
+import { ICliente } from 'interface/ICliente';
 
 const Empresas = () => {
     const [busca, setBusca] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(0);
+    const [filtro, setFiltro] = useState<ICliente[]>([]);
 
-    const b = busca && busca.toLowerCase();
-    const filtro = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.Nome.toLowerCase().includes(b));
+    const aplicarFiltro = () => {
+        const b = busca && busca.toLowerCase();
+        const result = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.Nome.toLowerCase().includes(b))
+        setFiltro(result);
+        console.log(result);
+    };
 
     return (
         <IonPage>
@@ -23,6 +29,7 @@ const Empresas = () => {
                 </IonToolbar>
                 <IonToolbar>
                     <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
+                    <IonButton slot="end" onClick={() => aplicarFiltro()}>Filtrar</IonButton>
                 </IonToolbar>
             </IonHeader>
 

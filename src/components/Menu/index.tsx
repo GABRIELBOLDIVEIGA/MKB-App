@@ -4,7 +4,7 @@ import { briefcaseOutline, folderOpenOutline, homeOutline, addCircleOutline, fil
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
-import { UserContext } from "common/context/UserContext";
+import { UsuarioContext } from "common/context/UsuarioContext";
 import { useContext } from "react";
 
 interface menuLink {
@@ -36,9 +36,8 @@ const menuLinks: menuLink[] = [
 ];
 
 const Menu: React.FC = () => {
-    console.log("Menu");
     const location = useLocation();
-    const userContext = useContext(UserContext);
+    const userContext = useContext(UsuarioContext);
     if (!userContext) return null;
     const { email } = userContext;
 
