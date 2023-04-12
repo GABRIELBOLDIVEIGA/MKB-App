@@ -1,11 +1,13 @@
-import { IonButtons, IonContent, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonMenuButton, IonPage, IonRadioGroup, IonTitle, IonToolbar } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
-import React, { useState } from "react";
+import { useState } from "react";
 import clientes from "data/clientes.json";
-import ItemProduto from "components/ItemProduto";
+import ListaEmpresas from "./ListaEmpresas";
+import { Link } from "react-router-dom";
 
-const Empresas: React.FC = () => {
+const Empresas = () => {
     const [busca, setBusca] = useState("");
+    const [opcaoSelecionada, setOpcaoSelecionada] = useState(0);
 
     const b = busca && busca.toLowerCase();
     const filtro = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.Nome.toLowerCase().includes(b));
@@ -20,16 +22,31 @@ const Empresas: React.FC = () => {
                     <IonTitle>Empresas</IonTitle>
                 </IonToolbar>
                 <IonToolbar>
-                    <BarraPesquisa placeholder="Produto" busca={busca} setBusca={setBusca} />
+                    <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
                 </IonToolbar>
             </IonHeader>
+
             <IonContent>
-                <IonList>
+                <IonRadioGroup
+                    allowEmptySelection={false}
+                    onIonChange={(ev) => {
+                        setOpcaoSelecionada(ev.target.value);
+                    }}
+                >
                     {filtro.map((cliente, index) => {
-                        return <ItemProduto key={index} clientes={cliente} />;
+                        return <ListaEmpresas key={index} cliente={cliente} />;
                     })}
-                </IonList>
+                </IonRadioGroup>
             </IonContent>
+            <IonFooter>
+                <IonToolbar>
+                    <IonItem>
+                        <IonButton color="success" fill="outline" disabled={opcaoSelecionada === 0} size="default" slot="end">
+                            <Link to="produtos">Avançar</Link>
+                        </IonButton>
+                    </IonItem>
+                </IonToolbar>
+            </IonFooter>
         </IonPage>
     );
 };
