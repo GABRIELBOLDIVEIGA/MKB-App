@@ -1,7 +1,6 @@
 import { IProduto } from 'interface/IProduto';
 
 export interface ICarrinho {
-    item: IProduto;
+    produto: IProduto;
     quantidade: number;
-    
 }

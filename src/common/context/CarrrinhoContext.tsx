@@ -1,14 +1,17 @@
-import { createContext, useContext, useState } from "react";
-import { ICarrinho } from './../../interface/ICarrinho';
-import { IProduto } from 'interface/IProduto';
+import { createContext, useContext, useEffect, useState } from "react";
+import { ICarrinho } from "./../../interface/ICarrinho";
+import { IProduto } from "interface/IProduto";
+import { ProdutoNoCarrinho } from "interface/IProdutoNoCarrinho";
 
 type CurrentCarrinhoContextType = {
-    carrinho: ICarrinho[];
-    setCarrinho: React.Dispatch<React.SetStateAction<ICarrinho[]>>;
-    quantidadeProdutos: number;
-    setQuantidadeProdutos: React.Dispatch<React.SetStateAction<number>>;
+    carrinho: IProdCarrinho[];
+    setCarrinho: React.Dispatch<React.SetStateAction<IProdCarrinho[]>>;
+    quantidadeDoItem: number;
+    setQuantidadeDoItem: React.Dispatch<React.SetStateAction<number>>;
     valorTotalCarrinho: number;
     setValorTotalCarrinho: React.Dispatch<React.SetStateAction<number>>;
+    quantidadeDeProdutos: number;
+    setQuantidadeDeProdutos: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const CarrinhoContext = createContext<CurrentCarrinhoContextType | null>(null);
@@ -19,17 +22,20 @@ interface IProps {
 }
 
 export const CarrinhoProvider = ({ children }: IProps) => {
-    const [carrinho, setCarrinho] = useState<ICarrinho[]>([]);
-    const [quantidadeProdutos, setQuantidadeProdutos] = useState(0);
+    const [carrinho, setCarrinho] = useState<IProdCarrinho[]>([]);
+    const [quantidadeDoItem, setQuantidadeDoItem] = useState(0);
     const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
+    const [quantidadeDeProdutos, setQuantidadeDeProdutos] = useState(0);
 
     return (
         <CarrinhoContext.Provider
             value={{
                 carrinho,
                 setCarrinho,
-                quantidadeProdutos,
-                setQuantidadeProdutos,
+                quantidadeDoItem,
+                setQuantidadeDoItem,
+                quantidadeDeProdutos,
+                setQuantidadeDeProdutos,
                 valorTotalCarrinho,
                 setValorTotalCarrinho,
             }}
@@ -39,27 +45,43 @@ export const CarrinhoProvider = ({ children }: IProps) => {
     );
 };
 
+interface IProdCarrinho {
+    produto: IProduto;
+    quantidade: number;
+}
+
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
     if (!carrinhoContext) return null;
 
-    const { carrinho, setCarrinho, quantidadeProdutos, setQuantidadeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
-
-    function mudarQuantidade(Cod_Prod: string, quantidade: number) {
-        return carrinho.map(itemDoCarrinho => {
-            if(itemDoCarrinho.item.Cod_Prod === Cod_Prod) itemDoCarrinho.quantidade += quantidade;
-            return itemDoCarrinho;
-        })
+    const { 
+        carrinho, 
+        setCarrinho, 
+        quantidadeDoItem, 
+        setQuantidadeDoItem,
+        quantidadeDeProdutos,
+        setQuantidadeDeProdutos,
+        valorTotalCarrinho,
+    } = carrinhoContext;
+     
+     
+    const adicionaProduto = (produto: IProduto, unidades: number | null) => {
+        const uni: number = unidades === null ? 0 : unidades;
+        setCarrinho([...carrinho, {produto: produto, quantidade: uni}]);
+        verificaItemExistente(produto);
     }
 
-    function adicionaProduto(novoProduto: IProduto) {
-        const temOProduto = carrinho.some(itemDoCarrinho => itemDoCarrinho.item.Cod_Prod === novoProduto.Cod_Prod);
-
-        return temOProduto;
+    const verificaItemExistente = (produto: IProduto) => {
+        const existe = carrinho.map(element => element.produto.Cod_Prod);
+        console.log(existe)
     }
+    
 
     return {
-        quantidadeProdutos,
-        setQuantidadeProdutos
-    }
+        quantidadeDeProdutos,
+        setQuantidadeDeProdutos,
+        quantidadeDoItem,
+        setQuantidadeDoItem,
+        adicionaProduto,
+    };
 };

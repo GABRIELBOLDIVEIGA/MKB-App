@@ -13,14 +13,12 @@ export default function Produtos() {
     const [filtro, setFiltro] = useState<IProduto[]>([]);
     const carrinho = useCarrinhoContext();
     if (!carrinho) return null;
-    console.log(carrinho)
-    
 
     const aplicarFiltro = () => {
         const b = busca && busca.toLowerCase();
         const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.Descr_Detalhada.toLowerCase().includes(b));
         setFiltro(result);
-        console.log(result);
+        // console.log(result);
     };
 
     return (
@@ -34,7 +32,7 @@ export default function Produtos() {
                         Lista de Produtos{" "}
                         <IonButton color="primary">
                             <IonIcon src={cartOutline} />
-                            {carrinho.quantidadeProdutos}
+                            {carrinho.quantidadeDeProdutos}
                         </IonButton>
                     </IonTitle>
                 </IonToolbar>
