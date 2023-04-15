@@ -8,13 +8,28 @@ type CurrentCarrinhoContextType = {
     setCarrinho: React.Dispatch<React.SetStateAction<IProdCarrinho[]>>;
     quantidadeDoItem: number;
     setQuantidadeDoItem: React.Dispatch<React.SetStateAction<number>>;
-    valorTotalCarrinho: number;
-    setValorTotalCarrinho: React.Dispatch<React.SetStateAction<number>>;
     quantidadeDeProdutos: number;
     setQuantidadeDeProdutos: React.Dispatch<React.SetStateAction<number>>;
+    valorTotalCarrinho: number;
+    setValorTotalCarrinho: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const CarrinhoContext = createContext<CurrentCarrinhoContextType | null>(null);
+const DEFAULT_VALUE = {
+    carrinho: [{ produto: {}, quantidade: 0 }],
+    setCarrinho: () => {},
+
+    quantidadeDoItem: 0,
+    setQuantidadeDoItem: () => {},
+
+    quantidadeDeProdutos: 0,
+    setQuantidadeDeProdutos: () => {},
+
+    valorTotalCarrinho: 0,
+    setValorTotalCarrinho: () => {},
+};
+
+export const CarrinhoContext = createContext<CurrentCarrinhoContextType>(DEFAULT_VALUE);
+// export const CarrinhoContext = createContext<CurrentCarrinhoContextType | null>(null);
 CarrinhoContext.displayName = "Carrinho";
 
 interface IProps {
@@ -52,30 +67,47 @@ interface IProdCarrinho {
 
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
-    if (!carrinhoContext) return null;
+    // if (!carrinhoContext) return null;
 
-    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho } = carrinhoContext;
+    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
 
-    
-    const adicionaProduto = (produto: IProduto, unidades: number | null) => {
-        if(unidades === (null || 0)) return;
-        
-        const temProduto = carrinho.some(itensNoCarrinho => itensNoCarrinho.produto.Cod_Prod === produto.Cod_Prod)
+    useEffect(() => {
+        carrinho.map((item, index) => {
+            console.log(index)
+        })
 
-        if(temProduto) {
+
+    },[carrinho])
+
+
+    const adicionaProduto = (produto: IProduto, unidades: number) => {
+        console.log("Adiconar Produto.")
+        if (unidades === 0) return;
+
+        const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.Cod_Prod === produto.Cod_Prod);
+
+        if (temProduto) {
             return;
         }
-        
+
         setQuantidadeDeProdutos(quantidadeDeProdutos + 1);
-        return setCarrinho([...carrinho, { produto: produto, quantidade: +unidades! }]);
+        setCarrinho([...carrinho, { produto: produto, quantidade: unidades }]);
+        calculaValorTotal();
     };
 
     const removerProduto = (Cod_Prod: string) => {
+        console.log("Remover Produto.")
+        if (quantidadeDeProdutos === 0) return;
+
         const novaLista = carrinho.filter((produto) => !(produto.produto.Cod_Prod === Cod_Prod));
-        console.log(novaLista);
-        
+        // console.log(novaLista);
+
         setQuantidadeDeProdutos(quantidadeDeProdutos - 1);
         setCarrinho(novaLista);
+    };
+
+    const calculaValorTotal = () => {
+        console.log("Calcular Total.")
     }
 
     return {

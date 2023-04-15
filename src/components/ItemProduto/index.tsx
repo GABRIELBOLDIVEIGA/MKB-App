@@ -1,5 +1,5 @@
 import { IonItem, IonInput, IonCheckbox } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./ItemProduto.module.scss";
 import { IProduto } from "interface/IProduto";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
@@ -9,25 +9,11 @@ interface IProps {
 }
 
 const ItemProduto = ({ produto }: IProps) => {
-    const [inputQuantidade, setInputQuantidade] = useState<number | null>(null);
+    const [inputQuantidade, setInputQuantidade] = useState<number>(0);
+    const [checkBoxDisabled, setCheckBoxDisabled] = useState(true);
     const carrinho = useCarrinhoContext();
 
-
-    const handlerChange = (ev: React.MouseEvent<HTMLElement>) => {
-        const btn = ev.target as HTMLButtonElement;
-        switch (btn.id) {
-            case "subtrair":
-                setInputQuantidade(inputQuantidade! - 1);
-                break;
-            case "adicionar":
-                setInputQuantidade(inputQuantidade! + 1);
-                break;
-            default:
-                return;
-        }
-    };
-
-    if (!carrinho) return null;
+    // if (!carrinho) return null;
 
     return (
         <IonItem>
@@ -39,21 +25,22 @@ const ItemProduto = ({ produto }: IProps) => {
                         className={styles.input}
                         placeholder="0"
                         id="input"
-                        onIonChange={(ev) => setInputQuantidade(Number(ev.target.value!))}
+                        onIonChange={(ev) => {
+                            setInputQuantidade(Number(ev.target.value));
+                            inputQuantidade === 0 ? setCheckBoxDisabled(true) : setCheckBoxDisabled(false);
+                        }}
                         value={inputQuantidade}
                     />
-
                     <div>
                         <IonCheckbox
                             value={produto.Cod_Prod}
-                            disabled={inputQuantidade === null}
+                            disabled={checkBoxDisabled}
                             onIonChange={(ev) => {
                                 if (ev.target.checked) {
-                                    carrinho.adicionaProduto(produto, inputQuantidade)
+                                    carrinho.adicionaProduto(produto, inputQuantidade);
                                 } else {
-                                    // setInputQuantidade(null);
-                                    // setInputQuantidade(0);
-                                    carrinho.removerProduto(produto.Cod_Prod!)
+                                    setInputQuantidade(0);
+                                    carrinho.removerProduto(produto.Cod_Prod!);
                                 }
                             }}
                         />
