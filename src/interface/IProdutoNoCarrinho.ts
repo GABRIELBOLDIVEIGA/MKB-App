@@ -10,6 +10,5 @@ export interface ProdutoNoCarrinho {
     Unidade?: string;
     NCMSH?: string;
     EAN?: string;
-
     quantidade: number;
 }

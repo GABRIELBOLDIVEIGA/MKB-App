@@ -12,6 +12,7 @@ const ItemProduto = ({ produto }: IProps) => {
     const [inputQuantidade, setInputQuantidade] = useState<number | null>(null);
     const carrinho = useCarrinhoContext();
 
+
     const handlerChange = (ev: React.MouseEvent<HTMLElement>) => {
         const btn = ev.target as HTMLButtonElement;
         switch (btn.id) {
@@ -27,7 +28,6 @@ const ItemProduto = ({ produto }: IProps) => {
     };
 
     if (!carrinho) return null;
-    
 
     return (
         <IonItem>
@@ -41,11 +41,6 @@ const ItemProduto = ({ produto }: IProps) => {
                         id="input"
                         onIonChange={(ev) => setInputQuantidade(Number(ev.target.value!))}
                         value={inputQuantidade}
-                        onIonBlur={(ev) => {
-                            if (ev.target.value) {
-                                // console.log(ev.target.value);
-                            }
-                        }}
                     />
 
                     <div>
@@ -55,11 +50,10 @@ const ItemProduto = ({ produto }: IProps) => {
                             onIonChange={(ev) => {
                                 if (ev.target.checked) {
                                     carrinho.adicionaProduto(produto, inputQuantidade)
-                                    carrinho.setQuantidadeDeProdutos(carrinho.quantidadeDeProdutos + 1);
                                 } else {
-                                    carrinho.setQuantidadeDeProdutos(carrinho.quantidadeDeProdutos - 1);
-                                    setInputQuantidade(0);
-                                    // carrinho.removerProduto();
+                                    // setInputQuantidade(null);
+                                    // setInputQuantidade(0);
+                                    carrinho.removerProduto(produto.Cod_Prod!)
                                 }
                             }}
                         />

@@ -54,28 +54,29 @@ export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
     if (!carrinhoContext) return null;
 
-    const { 
-        carrinho, 
-        setCarrinho, 
-        quantidadeDoItem, 
-        setQuantidadeDoItem,
-        quantidadeDeProdutos,
-        setQuantidadeDeProdutos,
-        valorTotalCarrinho,
-    } = carrinhoContext;
-     
-     
-    const adicionaProduto = (produto: IProduto, unidades: number | null) => {
-        const uni: number = unidades === null ? 0 : unidades;
-        setCarrinho([...carrinho, {produto: produto, quantidade: uni}]);
-        verificaItemExistente(produto);
-    }
+    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho } = carrinhoContext;
 
-    const verificaItemExistente = (produto: IProduto) => {
-        const existe = carrinho.map(element => element.produto.Cod_Prod);
-        console.log(existe)
-    }
     
+    const adicionaProduto = (produto: IProduto, unidades: number | null) => {
+        if(unidades === (null || 0)) return;
+        
+        const temProduto = carrinho.some(itensNoCarrinho => itensNoCarrinho.produto.Cod_Prod === produto.Cod_Prod)
+
+        if(temProduto) {
+            return;
+        }
+        
+        setQuantidadeDeProdutos(quantidadeDeProdutos + 1);
+        return setCarrinho([...carrinho, { produto: produto, quantidade: +unidades! }]);
+    };
+
+    const removerProduto = (Cod_Prod: string) => {
+        const novaLista = carrinho.filter((produto) => !(produto.produto.Cod_Prod === Cod_Prod));
+        console.log(novaLista);
+        
+        setQuantidadeDeProdutos(quantidadeDeProdutos - 1);
+        setCarrinho(novaLista);
+    }
 
     return {
         quantidadeDeProdutos,
@@ -83,5 +84,6 @@ export const useCarrinhoContext = () => {
         quantidadeDoItem,
         setQuantidadeDoItem,
         adicionaProduto,
+        removerProduto,
     };
 };
