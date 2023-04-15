@@ -72,16 +72,14 @@ export const useCarrinhoContext = () => {
     const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
 
     useEffect(() => {
-        carrinho.map((item, index) => {
-            console.log(index)
-        })
-
-
-    },[carrinho])
-
+        let soma = 0;
+        carrinho.forEach((item) => {
+            soma += item.quantidade * +item.produto.Preco_Venda!;
+        });
+        setValorTotalCarrinho(soma);
+    }, [carrinho, setValorTotalCarrinho]);
 
     const adicionaProduto = (produto: IProduto, unidades: number) => {
-        console.log("Adiconar Produto.")
         if (unidades === 0) return;
 
         const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.Cod_Prod === produto.Cod_Prod);
@@ -92,23 +90,16 @@ export const useCarrinhoContext = () => {
 
         setQuantidadeDeProdutos(quantidadeDeProdutos + 1);
         setCarrinho([...carrinho, { produto: produto, quantidade: unidades }]);
-        calculaValorTotal();
     };
 
     const removerProduto = (Cod_Prod: string) => {
-        console.log("Remover Produto.")
         if (quantidadeDeProdutos === 0) return;
 
         const novaLista = carrinho.filter((produto) => !(produto.produto.Cod_Prod === Cod_Prod));
-        // console.log(novaLista);
 
         setQuantidadeDeProdutos(quantidadeDeProdutos - 1);
         setCarrinho(novaLista);
     };
-
-    const calculaValorTotal = () => {
-        console.log("Calcular Total.")
-    }
 
     return {
         quantidadeDeProdutos,
@@ -117,5 +108,6 @@ export const useCarrinhoContext = () => {
         setQuantidadeDoItem,
         adicionaProduto,
         removerProduto,
+        valorTotalCarrinho,
     };
 };

@@ -31,7 +31,7 @@ const ItemProduto = ({ produto }: IProps) => {
                         }}
                         value={inputQuantidade}
                     />
-                    <div>
+                    <div >
                         <IonCheckbox
                             value={produto.Cod_Prod}
                             disabled={checkBoxDisabled}
