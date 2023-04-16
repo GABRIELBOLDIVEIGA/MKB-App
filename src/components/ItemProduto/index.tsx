@@ -1,8 +1,8 @@
 import { IonItem, IonInput, IonCheckbox } from "@ionic/react";
 import React, { useState } from "react";
-import styles from "./ItemProduto.module.scss";
 import { IProduto } from "interface/IProduto";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
+import styles from "./ItemProduto.module.scss";
 
 interface IProps {
     produto: IProduto;
@@ -11,9 +11,7 @@ interface IProps {
 const ItemProduto = ({ produto }: IProps) => {
     const [inputQuantidade, setInputQuantidade] = useState<number>(0);
     const [checkBoxDisabled, setCheckBoxDisabled] = useState(true);
-    const carrinho = useCarrinhoContext();
-
-    // if (!carrinho) return null;
+    const {adicionaProduto, removerProduto} = useCarrinhoContext();
 
     return (
         <IonItem>
@@ -37,10 +35,10 @@ const ItemProduto = ({ produto }: IProps) => {
                             disabled={checkBoxDisabled}
                             onIonChange={(ev) => {
                                 if (ev.target.checked) {
-                                    carrinho.adicionaProduto(produto, inputQuantidade);
+                                    adicionaProduto(produto, inputQuantidade);
                                 } else {
                                     setInputQuantidade(0);
-                                    carrinho.removerProduto(produto.Cod_Prod!);
+                                    removerProduto(produto.Cod_Prod!);
                                 }
                             }}
                         />

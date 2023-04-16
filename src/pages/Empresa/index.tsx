@@ -15,7 +15,6 @@ const Empresas = () => {
         const b = busca && busca.toLowerCase();
         const result = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.Nome.toLowerCase().includes(b))
         setFiltro(result);
-        console.log(result);
     };
 
     return (

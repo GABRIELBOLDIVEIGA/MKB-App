@@ -11,8 +11,7 @@ import { useCarrinhoContext } from 'common/context/CarrrinhoContext';
 export default function Produtos() {
     const [busca, setBusca] = useState("");
     const [filtro, setFiltro] = useState<IProduto[]>([]);
-    const carrinho = useCarrinhoContext();
-    if (!carrinho) return null;
+    const {quantidadeDeProdutos, valorTotalCarrinho} = useCarrinhoContext();
 
     const formatador = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' });
 
@@ -33,7 +32,7 @@ export default function Produtos() {
                         Lista de Produtos{" "}
                         <IonButton color="primary">
                             <IonIcon src={cartOutline} />
-                            {carrinho.quantidadeDeProdutos}
+                            {quantidadeDeProdutos}
                         </IonButton>
                     </IonTitle>
                 </IonToolbar>
@@ -56,7 +55,7 @@ export default function Produtos() {
             <IonFooter>
                 <IonToolbar>
                     <div className={styles.rodape}>
-                        <IonTitle>Valor Total: {formatador.format(carrinho.valorTotalCarrinho)}</IonTitle>
+                        <IonTitle>Valor Total: {formatador.format(valorTotalCarrinho)}</IonTitle>
                         <IonButton>Conferir</IonButton>
                     </div>
                 </IonToolbar>

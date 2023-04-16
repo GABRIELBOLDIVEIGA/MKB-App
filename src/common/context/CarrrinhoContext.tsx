@@ -69,13 +69,23 @@ export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
     // if (!carrinhoContext) return null;
 
-    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
+    const { 
+        carrinho, 
+        setCarrinho, 
+        quantidadeDoItem, 
+        setQuantidadeDoItem, 
+        quantidadeDeProdutos, 
+        setQuantidadeDeProdutos, 
+        valorTotalCarrinho, 
+        setValorTotalCarrinho 
+    } = carrinhoContext;
 
     useEffect(() => {
         let soma = 0;
         carrinho.forEach((item) => {
             soma += item.quantidade * +item.produto.Preco_Venda!;
         });
+        console.log(soma);
         setValorTotalCarrinho(soma);
     }, [carrinho, setValorTotalCarrinho]);
 

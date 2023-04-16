@@ -60,5 +60,9 @@
   ],
   "devDependencies": {
     "@types/uuid": "^9.0.1"
-  }
+  },
+  "engines": {
+    "node": ">=14.17.4 <=16.13.2",
+    "npm": ">=5.0.0"
+}
 }
