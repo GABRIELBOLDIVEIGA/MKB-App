@@ -119,5 +119,6 @@ export const useCarrinhoContext = () => {
         adicionaProduto,
         removerProduto,
         valorTotalCarrinho,
+        carrinho
     };
 };

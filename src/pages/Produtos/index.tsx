@@ -11,7 +11,7 @@ import { useCarrinhoContext } from 'common/context/CarrrinhoContext';
 export default function Produtos() {
     const [busca, setBusca] = useState("");
     const [filtro, setFiltro] = useState<IProduto[]>([]);
-    const {quantidadeDeProdutos, valorTotalCarrinho} = useCarrinhoContext();
+    const {carrinho, quantidadeDeProdutos, valorTotalCarrinho} = useCarrinhoContext();
 
     const formatador = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' });
 
@@ -56,7 +56,7 @@ export default function Produtos() {
                 <IonToolbar>
                     <div className={styles.rodape}>
                         <IonTitle>Valor Total: {formatador.format(valorTotalCarrinho)}</IonTitle>
-                        <IonButton>Conferir</IonButton>
+                        <IonButton onClick={() => {console.log(JSON.stringify(carrinho)); console.log(carrinho)}}>Conferir</IonButton>
                     </div>
                 </IonToolbar>
             </IonFooter>
