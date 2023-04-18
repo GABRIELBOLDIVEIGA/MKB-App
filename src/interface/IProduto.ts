@@ -1,13 +1,8 @@
-export interface IProduto {
-    Cod_Prod?: string;
-    Linha?: number;
-    Categoria?: string;
-    Sequencial?: number;
-    Descr_Resumida?: string;
-    Descr_Detalhada?: string;
-    Preco_Venda?: number | undefined;
-    Peso_Unit?: number;
-    Unidade?: string;
-    NCMSH?: string;
-    EAN?: string;
+export interface IProdutoNew {
+    cod_prod: string;
+    descr_resumida: string;
+    descr_detalhada: string;
+    preco_venda: number;
+    unidade: string;
+    id: number;
 }

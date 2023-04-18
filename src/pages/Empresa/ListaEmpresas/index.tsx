@@ -1,6 +1,5 @@
 import { IonItem, IonRadio, IonText } from "@ionic/react";
-import { ICliente } from "interface/ICliente";
-import { IClientesNew } from "interface/IClientesNew";
+import { IClientesNew } from "interface/ICliente";
 
 interface IProps {
     cliente: IClientesNew;

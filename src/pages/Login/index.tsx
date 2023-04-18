@@ -1,7 +1,6 @@
-import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonImg, IonInput, IonItem, IonLabel, IonPage, IonRouterLink, IonText, useIonAlert, useIonLoading } from "@ionic/react";
+import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonInput, IonItem, IonLabel, IonPage, IonRouterLink, IonText, useIonAlert, useIonLoading } from "@ionic/react";
 import React, { useContext, useState } from "react";
 import styles from "./Login.module.scss";
-import brasaoES from "./brasaoES.png";
 import { UsuarioContext } from "common/context/UsuarioContext";
 
 const Login: React.FC = () => {
@@ -77,7 +76,7 @@ const Login: React.FC = () => {
                     <IonCardTitle>Tribunal de Justiça do Espírito Santo</IonCardTitle>
                 </IonCardHeader>
 
-                <IonImg className={styles.login__imagem} src={brasaoES} alt="logo" />
+                {/* LOGO aqui */}
 
                 <IonItem className={styles.login__item}>
                     <IonLabel position="floating">Email</IonLabel>

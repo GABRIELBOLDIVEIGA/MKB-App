@@ -3,6 +3,7 @@
 .container {
     display: flex;
     align-items: center;
+    gap: 10px;
 
     height: max-content;
     min-width: 30%;
@@ -26,4 +27,6 @@
     text-align: center;
     background-color: var(--ion-color-light);
     border-radius: 10px;
+
+    // border: 1px solid orangered;
 }

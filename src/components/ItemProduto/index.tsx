@@ -2,7 +2,7 @@ import { IonItem, IonInput, IonCheckbox } from "@ionic/react";
 import React, { useState } from "react";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
 import styles from "./ItemProduto.module.scss";
-import { IProdutoNew } from "interface/IProdutoNew";
+import { IProdutoNew } from "interface/IProduto";
 
 interface IProps {
     produto: IProdutoNew;

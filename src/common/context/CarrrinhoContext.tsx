@@ -1,14 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { IProdutoNew } from "interface/IProdutoNew";
-
-interface IProdCarrinho {
-    produto: IProdutoNew;
-    quantidade: number;
-}
+import { IProdutoNew } from "interface/IProduto";
+import { ICarrinho } from "interface/ICarrinho";
 
 type CurrentCarrinhoContextType = {
-    carrinho: IProdCarrinho[];
-    setCarrinho: React.Dispatch<React.SetStateAction<IProdCarrinho[]>>;
+    carrinho: ICarrinho[];
+    setCarrinho: React.Dispatch<React.SetStateAction<ICarrinho[]>>;
     quantidadeDoItem: number;
     setQuantidadeDoItem: React.Dispatch<React.SetStateAction<number>>;
     quantidadeDeProdutos: number;
@@ -44,7 +40,6 @@ const DEFAULT_VALUE = {
 };
 
 export const CarrinhoContext = createContext<CurrentCarrinhoContextType>(DEFAULT_VALUE);
-// export const CarrinhoContext = createContext<CurrentCarrinhoContextType | null>(null);
 CarrinhoContext.displayName = "Carrinho";
 
 interface IProps {
@@ -52,7 +47,7 @@ interface IProps {
 }
 
 export const CarrinhoProvider = ({ children }: IProps) => {
-    const [carrinho, setCarrinho] = useState<IProdCarrinho[]>([]);
+    const [carrinho, setCarrinho] = useState<ICarrinho[]>([]);
     const [quantidadeDoItem, setQuantidadeDoItem] = useState(0);
     const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
     const [quantidadeDeProdutos, setQuantidadeDeProdutos] = useState(0);
@@ -77,7 +72,6 @@ export const CarrinhoProvider = ({ children }: IProps) => {
 
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
-    // if (!carrinhoContext) return null;
 
     const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
 
@@ -86,7 +80,7 @@ export const useCarrinhoContext = () => {
         carrinho.forEach((item) => {
             soma += item.quantidade * +item.produto.preco_venda!;
         });
-        console.log(soma);
+        
         setValorTotalCarrinho(soma);
     }, [carrinho, setValorTotalCarrinho]);
 

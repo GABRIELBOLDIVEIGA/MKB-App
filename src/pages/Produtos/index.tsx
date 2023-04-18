@@ -1,5 +1,4 @@
-import produtos from "data/produtos.json";
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon } from "@ionic/react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonItem } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
 import { useEffect, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
@@ -7,8 +6,9 @@ import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
 import API from "services/serviceAPI";
-import { IProdutoNew } from "interface/IProdutoNew";
-
+import { IProdutoNew } from "interface/IProduto";
+import ModalCarrinho from "components/ModalCarrinho";
+import { formatadorMonetario } from "common/function/formatadorMonetario";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState<IProdutoNew[]>([]);
@@ -19,7 +19,6 @@ export default function Produtos() {
     useEffect(() => {
         API.get("/produtos")
             .then((resp) => {
-                console.log(resp.data);
                 setProdutos(resp.data);
             })
             .catch((err) => {
@@ -27,9 +26,10 @@ export default function Produtos() {
             });
     }, []);
 
-    const formatador = Intl.NumberFormat("pt-br", { style: "currency", currency: "BRL" });
-
+    // se fizer o filtro com produtos ja adicionados ao carrinho,
+    // a nova lista resultante nao vai aparecer com o checkbox marcado dos itens q ja estao dentro do carrinho
     const aplicarFiltro = () => {
+        console.log(produtos);
         const b = busca && busca.toLowerCase();
         const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
         setFiltro(result);
@@ -39,16 +39,14 @@ export default function Produtos() {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonMenuButton></IonMenuButton>
-                    </IonButtons>
-                    <IonTitle>
-                        Lista de Produtos{" "}
+                    <IonItem>
+                        <IonMenuButton />
+                        <IonTitle>Lista de Produtos </IonTitle>
                         <IonButton color="primary">
-                            <IonIcon src={cartOutline} />
+                            <IonIcon src={cartOutline} slot="start" />
                             {quantidadeDeProdutos}
                         </IonButton>
-                    </IonTitle>
+                    </IonItem>
                 </IonToolbar>
                 <IonToolbar>
                     <BarraPesquisa placeholder="Produto" busca={busca} setBusca={setBusca} />
@@ -64,16 +62,21 @@ export default function Produtos() {
                         return <ItemProduto key={index} produto={produto} />;
                     })}
                 </IonList>
+
+                {carrinho.length > 0 && <ModalCarrinho carrinho={carrinho} />}
             </IonContent>
 
             <IonFooter>
                 <IonToolbar>
                     <div className={styles.rodape}>
-                        <IonTitle>Valor Total: {formatador.format(valorTotalCarrinho)}</IonTitle>
+                        <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
                         <IonButton
+                            id="open-modal"
+                            expand="block"
                             onClick={() => {
-                                console.log(JSON.stringify(carrinho));
+                                console.log(JSON.stringify(carrinho), valorTotalCarrinho);
                                 console.table(carrinho);
+
                                 console.log("Carrinho: ", carrinho);
                             }}
                         >

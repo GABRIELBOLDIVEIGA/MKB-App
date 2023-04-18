@@ -6,7 +6,8 @@ import ListaEmpresas from "./ListaEmpresas";
 import { Link } from "react-router-dom";
 
 import API from "services/serviceAPI";
-import { IClientesNew } from "interface/IClientesNew";
+import { IClientesNew } from "interface/ICliente";
+import styles from "./Empresa.module.scss"; 
 
 const Empresas = () => {
     const [busca, setBusca] = useState("");
@@ -21,7 +22,7 @@ const Empresas = () => {
             })
             .catch((err) => alert(err));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const aplicarFiltro = () => {
@@ -63,11 +64,13 @@ const Empresas = () => {
             <IonFooter>
                 <IonToolbar>
                     <IonItem>
-                        <Link to="produtos">
-                            <IonButton color="tertiary" fill="outline" disabled={opcaoSelecionada === 0} size="default">
-                                Avançar
-                            </IonButton>
-                        </Link>
+                        <div className={styles.ionButtonContainer}>
+                            <Link to="produtos">
+                                <IonButton slot="end" color="primary" fill="outline" disabled={opcaoSelecionada === 0} size="default">
+                                    Avançar
+                                </IonButton>
+                            </Link>
+                        </div>
                     </IonItem>
                 </IonToolbar>
             </IonFooter>
