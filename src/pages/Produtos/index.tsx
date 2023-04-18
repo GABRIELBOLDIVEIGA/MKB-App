@@ -1,23 +1,37 @@
 import produtos from "data/produtos.json";
 import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
-import { IProduto } from "interface/IProduto";
 import { cartOutline } from "ionicons/icons";
-import { useCarrinhoContext } from 'common/context/CarrrinhoContext';
+import { useCarrinhoContext } from "common/context/CarrrinhoContext";
+import API from "services/serviceAPI";
+import { IProdutoNew } from "interface/IProdutoNew";
+
 
 export default function Produtos() {
+    const [produtos, setProdutos] = useState<IProdutoNew[]>([]);
     const [busca, setBusca] = useState("");
-    const [filtro, setFiltro] = useState<IProduto[]>([]);
-    const {carrinho, quantidadeDeProdutos, valorTotalCarrinho} = useCarrinhoContext();
+    const [filtro, setFiltro] = useState<IProdutoNew[]>([]);
+    const { carrinho, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
 
-    const formatador = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' });
+    useEffect(() => {
+        API.get("/produtos")
+            .then((resp) => {
+                console.log(resp.data);
+                setProdutos(resp.data);
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    }, []);
+
+    const formatador = Intl.NumberFormat("pt-br", { style: "currency", currency: "BRL" });
 
     const aplicarFiltro = () => {
         const b = busca && busca.toLowerCase();
-        const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.Descr_Detalhada.toLowerCase().includes(b));
+        const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
         setFiltro(result);
     };
 
@@ -56,7 +70,15 @@ export default function Produtos() {
                 <IonToolbar>
                     <div className={styles.rodape}>
                         <IonTitle>Valor Total: {formatador.format(valorTotalCarrinho)}</IonTitle>
-                        <IonButton onClick={() => {console.log(JSON.stringify(carrinho)); console.log(carrinho)}}>Conferir</IonButton>
+                        <IonButton
+                            onClick={() => {
+                                console.log(JSON.stringify(carrinho));
+                                console.table(carrinho);
+                                console.log("Carrinho: ", carrinho);
+                            }}
+                        >
+                            Conferir
+                        </IonButton>
                     </div>
                 </IonToolbar>
             </IonFooter>

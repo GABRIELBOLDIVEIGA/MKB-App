@@ -1,16 +1,17 @@
 import { IonItem, IonRadio, IonText } from "@ionic/react";
 import { ICliente } from "interface/ICliente";
+import { IClientesNew } from "interface/IClientesNew";
 
 interface IProps {
-    cliente: ICliente;
+    cliente: IClientesNew;
 }
 
 const ListaEmpresas = ({ cliente }: IProps) => {
     return (
         <IonItem>
             <div>
-                <IonText>{cliente.Nome}</IonText>
-                <IonRadio value={cliente.Cod} />
+                <IonText>{cliente.nome}</IonText>
+                <IonRadio value={cliente.cod} />
             </div>
         </IonItem>
     );

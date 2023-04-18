@@ -1,19 +1,33 @@
 import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonMenuButton, IonPage, IonRadioGroup, IonTitle, IonToolbar } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
-import { useState } from "react";
-import clientes from "data/clientes.json";
+import { useEffect, useState } from "react";
+
 import ListaEmpresas from "./ListaEmpresas";
 import { Link } from "react-router-dom";
-import { ICliente } from 'interface/ICliente';
+
+import API from "services/serviceAPI";
+import { IClientesNew } from "interface/IClientesNew";
 
 const Empresas = () => {
     const [busca, setBusca] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(0);
-    const [filtro, setFiltro] = useState<ICliente[]>([]);
+    const [filtro, setFiltro] = useState<IClientesNew[]>([]);
+    const [clientes, setClientes] = useState<IClientesNew[]>([]);
+
+    useEffect(() => {
+        API.get("/clientes")
+            .then((resp) => {
+                setClientes(resp.data);
+            })
+            .catch((err) => alert(err));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const aplicarFiltro = () => {
         const b = busca && busca.toLowerCase();
-        const result = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.Nome.toLowerCase().includes(b))
+        const result = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.nome.toLowerCase().includes(b));
+
         setFiltro(result);
     };
 
@@ -28,7 +42,9 @@ const Empresas = () => {
                 </IonToolbar>
                 <IonToolbar>
                     <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
-                    <IonButton slot="end" onClick={() => aplicarFiltro()}>Filtrar</IonButton>
+                    <IonButton slot="end" onClick={() => aplicarFiltro()}>
+                        Filtrar
+                    </IonButton>
                 </IonToolbar>
             </IonHeader>
 
@@ -47,9 +63,11 @@ const Empresas = () => {
             <IonFooter>
                 <IonToolbar>
                     <IonItem>
-                        <IonButton color="success" fill="outline" disabled={opcaoSelecionada === 0} size="default" slot="end">
-                            <Link to="produtos">Avançar</Link>
-                        </IonButton>
+                        <Link to="produtos">
+                            <IonButton color="tertiary" fill="outline" disabled={opcaoSelecionada === 0} size="default">
+                                Avançar
+                            </IonButton>
+                        </Link>
                     </IonItem>
                 </IonToolbar>
             </IonFooter>

@@ -1,7 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { ICarrinho } from "./../../interface/ICarrinho";
-import { IProduto } from "interface/IProduto";
-import { ProdutoNoCarrinho } from "interface/IProdutoNoCarrinho";
+import { IProdutoNew } from "interface/IProdutoNew";
+
+interface IProdCarrinho {
+    produto: IProdutoNew;
+    quantidade: number;
+}
 
 type CurrentCarrinhoContextType = {
     carrinho: IProdCarrinho[];
@@ -15,7 +18,19 @@ type CurrentCarrinhoContextType = {
 };
 
 const DEFAULT_VALUE = {
-    carrinho: [{ produto: {}, quantidade: 0 }],
+    carrinho: [
+        {
+            produto: {
+                cod_prod: "",
+                descr_resumida: "",
+                descr_detalhada: "",
+                preco_venda: 0,
+                unidade: "",
+                id: 0,
+            },
+            quantidade: 0,
+        },
+    ],
     setCarrinho: () => {},
 
     quantidadeDoItem: 0,
@@ -60,39 +75,25 @@ export const CarrinhoProvider = ({ children }: IProps) => {
     );
 };
 
-interface IProdCarrinho {
-    produto: IProduto;
-    quantidade: number;
-}
-
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
     // if (!carrinhoContext) return null;
 
-    const { 
-        carrinho, 
-        setCarrinho, 
-        quantidadeDoItem, 
-        setQuantidadeDoItem, 
-        quantidadeDeProdutos, 
-        setQuantidadeDeProdutos, 
-        valorTotalCarrinho, 
-        setValorTotalCarrinho 
-    } = carrinhoContext;
+    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
 
     useEffect(() => {
         let soma = 0;
         carrinho.forEach((item) => {
-            soma += item.quantidade * +item.produto.Preco_Venda!;
+            soma += item.quantidade * +item.produto.preco_venda!;
         });
         console.log(soma);
         setValorTotalCarrinho(soma);
     }, [carrinho, setValorTotalCarrinho]);
 
-    const adicionaProduto = (produto: IProduto, unidades: number) => {
+    const adicionaProduto = (produto: IProdutoNew, unidades: number) => {
         if (unidades === 0) return;
 
-        const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.Cod_Prod === produto.Cod_Prod);
+        const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod);
 
         if (temProduto) {
             return;
@@ -102,10 +103,10 @@ export const useCarrinhoContext = () => {
         setCarrinho([...carrinho, { produto: produto, quantidade: unidades }]);
     };
 
-    const removerProduto = (Cod_Prod: string) => {
+    const removerProduto = (cod_prod: string) => {
         if (quantidadeDeProdutos === 0) return;
 
-        const novaLista = carrinho.filter((produto) => !(produto.produto.Cod_Prod === Cod_Prod));
+        const novaLista = carrinho.filter((produto) => !(produto.produto.cod_prod === cod_prod));
 
         setQuantidadeDeProdutos(quantidadeDeProdutos - 1);
         setCarrinho(novaLista);
@@ -119,6 +120,6 @@ export const useCarrinhoContext = () => {
         adicionaProduto,
         removerProduto,
         valorTotalCarrinho,
-        carrinho
+        carrinho,
     };
 };

@@ -1,10 +1,30 @@
+import axios from "axios";
 
-
-const axiosPost = axios.create({
-    baseURL: 'http://localhost/ronney/ronney/public/pages/',
+const API = axios.create({
+    baseURL: "http://localhost:4500",
     headers: {
-        Accept: 'application/json',
-        Content: 'application/json',
-        "Content-Type":"multipart/form-data"
+        Accept: "application/json",
+        Content: "application/json",
+    },
+});
+
+API.interceptors.response.use(function (config) {
+    // console.log(config.data);
+
+    return config;
+});
+
+API.interceptors.request.use(
+    function (config) {
+        // console.log(config);
+
+        return config;
+    },
+    function (error) {
+        console.log(error);
+        return Promise.reject(error);
     }
-})
+);
+
+
+export default API;

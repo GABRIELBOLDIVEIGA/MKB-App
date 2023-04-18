@@ -1,272 +1,272 @@
 {
-    "usuarios": [
+  "usuarios": [
+    {
+      "nome": "ADM",
+      "cpf": "835.330.430-96",
+      "email": "adm@gmail.com",
+      "senha": "123",
+      "privilegio": 1,
+      "id": 1
+    },
+    {
+      "nome": "joao getulio",
+      "cpf": "347.331.520-60",
+      "email": "jg@gmail.com",
+      "senha": "123",
+      "privilegio": 0,
+      "id": 2
+    },
+    {
+      "nome": "Biledir Curumouron",
+      "cpf": "938.659.790-09",
+      "email": "bc@gmail.com",
+      "senha": "123",
+      "privilegio": 0,
+      "id": 3
+    },
+    {
+      "nome": "Helledei Falon",
+      "cpf": "100.162.280-49",
+      "email": "hf@gmail.com",
+      "senha": "123",
+      "privilegio": 0,
+      "id": 4
+    },
+    {
+      "nome": "Largdeaog Ulatacu",
+      "cpf": "243.239.290-64",
+      "email": "lu@gmail.com",
+      "senha": "123",
+      "privilegio": 0,
+      "id": 5
+    },
+    {
+      "nome": "Wiaro Deirey",
+      "cpf": "523.577.870-74",
+      "email": "2d@gmail.com",
+      "senha": "123",
+      "privilegio": 0,
+      "id": 6
+    }
+  ],
+  "clientes": [
+    {
+      "cod": 3645,
+      "nome": "HORIZONTE BORRACHAS E VEDACOES LTDA",
+      "juridica": true,
+      "cnpj": "01988713000178",
+      "endereco": "RUA RIO GRANDE DO SUL",
+      "bairro": "BARRO PRETO",
+      "cidade": "BELO HORIZONTE",
+      "cep": "30170110",
+      "uf": "MG",
+      "email": "HORIZONTE@HORIZONTEBORRACHAS.COM.BR",
+      "ddd": "31",
+      "fone1": "32721919",
+      "fone2": "",
+      "celular": "",
+      "fax": "",
+      "contato": "ADRIANO",
+      "fantasia": "HORIZONTE BORRACHAS E VEDACOES",
+      "id": 1
+    },
+    {
+      "cod": 3643,
+      "nome": "GUARUJA COMERCIO DE FERRAGENS LTDA",
+      "juridica": true,
+      "cnpj": "08139789000178",
+      "endereco": "AV TRANSCONTINENTAL",
+      "bairro": "PRIMAVERA",
+      "cidade": "JI-PARANA",
+      "cep": "76914874",
+      "uf": "RO",
+      "email": "GUARUJASOLDAS@UOL.COM.BR",
+      "dd": "69",
+      "fone1": "34213864",
+      "fone2": "",
+      "celular": "",
+      "fax": "",
+      "contato": "ARTUR",
+      "fantasia": "GUARUJA SOLDAS",
+      "id": 2
+    },
+    {
+      "cod": 3619,
+      "nome": "BUNKER COMERCIAL LTDA",
+      "juridica": true,
+      "cnpj": "03213418000175",
+      "endereco": "RUA SANTA ALBERTINA, GALPAO 01",
+      "bairro": "SANTA ROSA IPES",
+      "cidade": "PIRACICABA",
+      "cep": "13414316",
+      "uf": "SP",
+      "email": "FISCAL@BUNKER.IND.BR",
+      "ddd": "19",
+      "fone1": "21053100",
+      "fone2": "",
+      "celular": "",
+      "fax": "",
+      "contato": "",
+      "fantasia": "BUNKER GRUPO NOVA INSTRUMENTS",
+      "id": 3
+    },
+    {
+      "cod": 3094,
+      "nome": "MKB RODAS E RODIZIOS EIRELI",
+      "juridica": true,
+      "cnpj": "18627409000106",
+      "endereco": "RUA PROFESSOR WALTER WEY",
+      "bairro": "PQ PEREIRA",
+      "cidade": "SAO PAULO",
+      "cep": "03257150",
+      "uf": "SP",
+      "ddd": "11",
+      "fone1": "",
+      "fone2": "",
+      "celular": "",
+      "fax": "",
+      "contato": "",
+      "fantasia": "MKB RODAS",
+      "id": 4
+    },
+    {
+      "cod": 1234,
+      "nome": "GBV",
+      "juridica": false,
+      "cnpj": "01699718000180",
+      "endereco": "Travessa Doutor Edson Antônio Ferreira",
+      "bairro": "Monte Belo",
+      "cidade": "Vitória",
+      "cep": "29053-330",
+      "uf": "ES",
+      "ddd": "27",
+      "fone1": "",
+      "fone2": "",
+      "celular": "",
+      "fax": "",
+      "contato": "",
+      "fantasia": "BOLDI LTDA",
+      "id": 5
+    }
+  ],
+  "produtos": [
+    {
+      "cod_prod": "004FBR1634",
+      "descr_resumida": "FB 102 FE/PU RO",
+      "descr_detalhada": "RODIZIO DE AÇO FIXO FM 102 UFS 10\"",
+      "preco_venda": 20.5,
+      "unidade": "PECA",
+      "id": 1
+    },
+    {
+      "cod_prod": "004GBR1635",
+      "descr_resumida": "GB 102 FE/PU RO",
+      "descr_detalhada": "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10\"",
+      "preco_venda": 11.5,
+      "unidade": "PECA",
+      "id": 2
+    },
+    {
+      "cod_prod": "004RO1484",
+      "descr_resumida": "KIT 3/8 - L14",
+      "descr_detalhada": "KIT PARAFUSO E PORCA 3/8x67 DA LINHA 14 LEVE",
+      "preco_venda": 23.9,
+      "unidade": "PECA",
+      "id": 3
+    },
+    {
+      "cod_prod": "004RO1632",
+      "descr_resumida": "RO 12 PU MO",
+      "descr_detalhada": "RODA DE PU MOLDADO MODELO R123UFL 12\" (300X70X78MM)",
+      "preco_venda": 41.15,
+      "unidade": "PECA",
+      "id": 4
+    },
+    {
+      "cod_prod": "004RO2149",
+      "descr_resumida": "RO 92 BI B",
+      "descr_detalhada": "RODA BORRACHA INTEGRAL 225X50X56 - 9\" C/BUCHA7/8",
+      "preco_venda": 9.3,
+      "unidade": "PECA",
+      "id": 5
+    }
+  ],
+  "historico": [
+    {
+      "usuario": {
+        "nome": "joao getulio",
+        "cpf": "347.331.520-60",
+        "email": "jg@gmail.com",
+        "senha": "123",
+        "privilegio": 0,
+        "id": 2
+      },
+      "cliente": {
+        "cod": 3645,
+        "nome": "HORIZONTE BORRACHAS E VEDACOES LTDA",
+        "juridica": true,
+        "cnpj": "01988713000178",
+        "endereco": "RUA RIO GRANDE DO SUL",
+        "bairro": "BARRO PRETO",
+        "cidade": "BELO HORIZONTE",
+        "cep": "30170110",
+        "uf": "MG",
+        "email": "HORIZONTE@HORIZONTEBORRACHAS.COM.BR",
+        "ddd": "31",
+        "fone1": "32721919",
+        "fone2": "",
+        "celular": "",
+        "fax": "",
+        "contato": "ADRIANO",
+        "fantasia": "HORIZONTE BORRACHAS E VEDACOES",
+        "id": 1
+      },
+      "carrinho": [
         {
-            "nome": "ADM",
-            "cpf": "835.330.430-96",
-            "email": "adm@gmail.com",
-            "senha": "123",
-            "privilegio": 1,
-            "id": 1
-        },
-        {
-            "nome": "joao getulio",
-            "cpf": "347.331.520-60",
-            "email": "jg@gmail.com",
-            "senha": "123",
-            "privilegio": 0,
-            "id": 2
-        },
-        {
-            "nome": "Biledir Curumouron",
-            "cpf": "938.659.790-09",
-            "email": "bc@gmail.com",
-            "senha": "123",
-            "privilegio": 0,
-            "id": 3
-        },
-        {
-            "nome": "Helledei Falon",
-            "cpf": "100.162.280-49",
-            "email": "hf@gmail.com",
-            "senha": "123",
-            "privilegio": 0,
-            "id": 4
-        },
-        {
-            "nome": "Largdeaog Ulatacu",
-            "cpf": "243.239.290-64",
-            "email": "lu@gmail.com",
-            "senha": "123",
-            "privilegio": 0,
-            "id": 5
-        },
-        {
-            "nome": "Wiaro Deirey",
-            "cpf": "523.577.870-74",
-            "email": "2d@gmail.com",
-            "senha": "123",
-            "privilegio": 0,
-            "id": 6
-        }
-    ],
-    "clientes": [
-        {
-            "cod": 3645,
-            "nome": "HORIZONTE BORRACHAS E VEDACOES LTDA",
-            "juridica": true,
-            "cnpj": "01988713000178",
-            "endereco": "RUA RIO GRANDE DO SUL",
-            "bairro": "BARRO PRETO",
-            "cidade": "BELO HORIZONTE",
-            "cep": "30170110",
-            "uf": "MG",
-            "email": "HORIZONTE@HORIZONTEBORRACHAS.COM.BR",
-            "ddd": "31",
-            "fone1": "32721919",
-            "fone2": "",
-            "celular": "",
-            "fax": "",
-            "contato": "ADRIANO",
-            "fantasia": "HORIZONTE BORRACHAS E VEDACOES",
-            "id": 1
-        },
-        {
-            "cod": 3643,
-            "nome": "GUARUJA COMERCIO DE FERRAGENS LTDA",
-            "juridica": true,
-            "cnpj": "08139789000178",
-            "endereco": "AV TRANSCONTINENTAL",
-            "bairro": "PRIMAVERA",
-            "cidade": "JI-PARANA",
-            "cep": "76914874",
-            "uf": "RO",
-            "email": "GUARUJASOLDAS@UOL.COM.BR",
-            "dd": "69",
-            "fone1": "34213864",
-            "fone2": "",
-            "celular": "",
-            "fax": "",
-            "contato": "ARTUR",
-            "fantasia": "GUARUJA SOLDAS",
-            "id": 2
-        },
-        {
-            "cod": 3619,
-            "nome": "BUNKER COMERCIAL LTDA",
-            "juridica": true,
-            "cnpj": "03213418000175",
-            "endereco": "RUA SANTA ALBERTINA, GALPAO 01",
-            "bairro": "SANTA ROSA IPES",
-            "cidade": "PIRACICABA",
-            "cep": "13414316",
-            "uf": "SP",
-            "email": "FISCAL@BUNKER.IND.BR",
-            "ddd": "19",
-            "fone1": "21053100",
-            "fone2": "",
-            "celular": "",
-            "fax": "",
-            "contato": "",
-            "fantasia": "BUNKER GRUPO NOVA INSTRUMENTS",
-            "id": 3
-        },
-        {
-            "cod": 3094,
-            "nome": "MKB RODAS E RODIZIOS EIRELI",
-            "juridica": true,
-            "cnpj": "18627409000106",
-            "endereco": "RUA PROFESSOR WALTER WEY",
-            "bairro": "PQ PEREIRA",
-            "cidade": "SAO PAULO",
-            "cep": "03257150",
-            "uf": "SP",
-            "ddd": "11",
-            "fone1": "",
-            "fone2": "",
-            "celular": "",
-            "fax": "",
-            "contato": "",
-            "fantasia": "MKB RODAS",
-            "id": 4
-        },
-        {
-            "cod": 1234,
-            "nome": "GBV",
-            "juridica": false,
-            "cnpj": "01699718000180",
-            "endereco": "Travessa Doutor Edson Antônio Ferreira",
-            "bairro": "Monte Belo",
-            "cidade": "Vitória",
-            "cep": "29053-330",
-            "uf": "ES",
-            "ddd": "27",
-            "fone1": "",
-            "fone2": "",
-            "celular": "",
-            "fax": "",
-            "contato": "",
-            "fantasia": "BOLDI LTDA",
-            "id": 5
-        }
-    ],
-    "produtos": [
-        {
-            "cod_prod": "004FBR1634",
-            "descr_resumida": "FB 102 FE/PU RO",
-            "descr_detalhada": "RODIZIO DE AÇO FIXO FM 102 UFS 10\"",
-            "preco_venda": 183,
-            "unidade": "PECA",
-            "id": 1
-        },
-        {
-            "cod_prod": "004GBR1635",
-            "descr_resumida": "GB 102 FE/PU RO",
-            "descr_detalhada": "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10\"",
-            "preco_venda": 252,
-            "unidade": "PECA",
-            "id": 2
-        },
-        {
-            "cod_prod": "004RO1484",
-            "descr_resumida": "KIT 3/8 - L14",
-            "descr_detalhada": "KIT PARAFUSO E PORCA 3/8x67 DA LINHA 14 LEVE",
-            "preco_venda": 1.2,
-            "unidade": "PECA",
-            "id": 3
-        },
-        {
-            "cod_prod": "004RO1632",
-            "descr_resumida": "RO 12 PU MO",
-            "descr_detalhada": "RODA DE PU MOLDADO MODELO R123UFL 12\" (300X70X78MM)",
-            "preco_venda": 320,
-            "unidade": "PECA",
-            "id": 4
-        },
-        {
+          "produto": {
             "cod_prod": "004RO2149",
             "descr_resumida": "RO 92 BI B",
             "descr_detalhada": "RODA BORRACHA INTEGRAL 225X50X56 - 9\" C/BUCHA7/8",
             "preco_venda": 20.55,
             "unidade": "PECA",
             "id": 5
-        }
-    ],
-    "historico": [
+          },
+          "quantidade": 1
+        },
         {
-            "usuario": {
-                "nome": "joao getulio",
-                "cpf": "347.331.520-60",
-                "email": "jg@gmail.com",
-                "senha": "123",
-                "privilegio": 0,
-                "id": 2
-            },
-            "cliente": {
-                "cod": 3645,
-                "nome": "HORIZONTE BORRACHAS E VEDACOES LTDA",
-                "juridica": true,
-                "cnpj": "01988713000178",
-                "endereco": "RUA RIO GRANDE DO SUL",
-                "bairro": "BARRO PRETO",
-                "cidade": "BELO HORIZONTE",
-                "cep": "30170110",
-                "uf": "MG",
-                "email": "HORIZONTE@HORIZONTEBORRACHAS.COM.BR",
-                "ddd": "31",
-                "fone1": "32721919",
-                "fone2": "",
-                "celular": "",
-                "fax": "",
-                "contato": "ADRIANO",
-                "fantasia": "HORIZONTE BORRACHAS E VEDACOES",
-                "id": 1
-            },
-            "carrinho": [
-                {
-                    "produto": {
-                        "cod_prod": "004RO2149",
-                        "descr_resumida": "RO 92 BI B",
-                        "descr_detalhada": "RODA BORRACHA INTEGRAL 225X50X56 - 9\" C/BUCHA7/8",
-                        "preco_venda": 20.55,
-                        "unidade": "PECA",
-                        "id": 5
-                    },
-                    "quantidade": 1
-                },
-                {
-                    "produto": {
-                        "cod_prod": "004RO1632",
-                        "descr_resumida": "RO 12 PU MO",
-                        "descr_detalhada": "RODA DE PU MOLDADO MODELO R123UFL 12\" (300X70X78MM)",
-                        "preco_venda": 320,
-                        "unidade": "PECA",
-                        "id": 4
-                    },
-                    "quantidade": 2
-                },
-                {
-                    "produto": {
-                        "cod_prod": "004GBR1635",
-                        "descr_resumida": "GB 102 FE/PU RO",
-                        "descr_detalhada": "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10\"",
-                        "preco_venda": 252,
-                        "unidade": "PECA",
-                        "id": 2
-                    },
-                    "quantidade": 3
-                },
-                {
-                    "produto": {
-                        "cod_prod": "004FBR1634",
-                        "descr_resumida": "FB 102 FE/PU RO",
-                        "descr_detalhada": "RODIZIO DE AÇO FIXO FM 102 UFS 10\"",
-                        "preco_venda": 183,
-                        "unidade": "PECA",
-                        "id": 1
-                    },
-                    "quantidade": 4
-                }
-            ]
+          "produto": {
+            "cod_prod": "004RO1632",
+            "descr_resumida": "RO 12 PU MO",
+            "descr_detalhada": "RODA DE PU MOLDADO MODELO R123UFL 12\" (300X70X78MM)",
+            "preco_venda": 320,
+            "unidade": "PECA",
+            "id": 4
+          },
+          "quantidade": 2
+        },
+        {
+          "produto": {
+            "cod_prod": "004GBR1635",
+            "descr_resumida": "GB 102 FE/PU RO",
+            "descr_detalhada": "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10\"",
+            "preco_venda": 252,
+            "unidade": "PECA",
+            "id": 2
+          },
+          "quantidade": 3
+        },
+        {
+          "produto": {
+            "cod_prod": "004FBR1634",
+            "descr_resumida": "FB 102 FE/PU RO",
+            "descr_detalhada": "RODIZIO DE AÇO FIXO FM 102 UFS 10\"",
+            "preco_venda": 183,
+            "unidade": "PECA",
+            "id": 1
+          },
+          "quantidade": 4
         }
-    ]
+      ]
+    }
+  ]
 }
