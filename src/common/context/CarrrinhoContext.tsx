@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Produto } from "interface/Produto";
 import { Carrinho } from "interface/Carrinho";
 import { Cliente } from "interface/Cliente";
+import API from "services/serviceAPI";
 
 type CurrentCarrinhoContextType = {
     cliente: Cliente;
@@ -105,8 +106,7 @@ export const CarrinhoProvider = ({ children }: IProps) => {
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
 
-    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho,
-        cliente ,setCliente, } = carrinhoContext;
+    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho, cliente, setCliente } = carrinhoContext;
 
     useEffect(() => {
         let soma = 0;
@@ -118,9 +118,18 @@ export const useCarrinhoContext = () => {
     }, [carrinho, setValorTotalCarrinho]);
 
     const selecionaCliente = (codigoDoCliente: number) => {
-        console.log("Codigo do cliente: ", codigoDoCliente)
+        console.log("Codigo do cliente: ", codigoDoCliente);
+        API.get(`/clientes?cod=${codigoDoCliente}`)
+            .then((resp) => {
+                console.log(resp);
+                setCliente(resp.data[0]);
+            })
+            .catch((erro) => {
+                console.log(erro);
+            });
+
         // setCliente();
-    }
+    };
 
     const adicionaProduto = (produto: Produto, unidades: number) => {
         if (unidades === 0) return;
@@ -151,8 +160,6 @@ export const useCarrinhoContext = () => {
 
         const novaLista = carrinho.filter((produto) => !(produto.produto.cod_prod === cod_prod));
 
-        console.log(novaLista);
-
         setQuantidadeDeProdutos(quantidadeDeProdutos - 1);
         setCarrinho(novaLista);
     };
@@ -168,6 +175,5 @@ export const useCarrinhoContext = () => {
         carrinho,
         cliente,
         selecionaCliente,
-
     };
 };

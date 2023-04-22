@@ -14,7 +14,7 @@ export default function Produtos() {
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [busca, setBusca] = useState("");
     const [filtro, setFiltro] = useState<Produto[]>([]);
-    const { carrinho, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
+    const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
 
     useEffect(() => {
         API.get("/produtos")
@@ -79,8 +79,15 @@ export default function Produtos() {
                             onClick={() => {
                                 console.log(JSON.stringify(carrinho), valorTotalCarrinho);
                                 console.table(carrinho);
-
+                               
                                 console.log("Carrinho: ", carrinho);
+                                console.log(JSON.stringify(cliente))
+                                const x = {
+                                    cliente,
+                                    carrinho
+                                }
+                                console.log(JSON.stringify(x));
+                                console.log(x)
                             }}
                         >
                             Conferir

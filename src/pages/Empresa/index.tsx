@@ -12,16 +12,16 @@ import { useCarrinhoContext } from "common/context/CarrrinhoContext";
 
 const Empresas = () => {
     const [busca, setBusca] = useState("");
-    const [opcaoSelecionada, setOpcaoSelecionada] = useState(0);
+    const [btnAvancar, setBtnAvancar] = useState(false);
     const [filtro, setFiltro] = useState<Cliente[]>([]);
-    const [clientes, setClientes] = useState<Cliente[]>([]);
+    const [listaFixa, setListaFixa] = useState<Cliente[]>([]);
     const { selecionaCliente } = useCarrinhoContext();
 
     useEffect(() => {
-        API.get("/clientes?_page=1&_limit=30")
+        API.get("/clientes?_page=1&_limit=50")
             .then((resp) => {
-                setClientes(resp.data);
-                setFiltro(resp.data)
+                setFiltro(resp.data);
+                setListaFixa(resp.data);
             })
             .catch((err) => alert(err));
 
@@ -29,26 +29,21 @@ const Empresas = () => {
     }, []);
 
     useEffect(() => {
-        if(busca.length >= 3) {
-            console.log("API")
-            API.get(`/clientes?q=${busca}`)
+        if (busca.length >= 3) {
+            API.get(`/clientes?q=${busca}&_limit=50`)
                 .then((resp) => {
-                    console.log(resp.data)
-                    setFiltro(resp.data)
+                    setFiltro(resp.data);
                 })
                 .catch((erro) => {
-                    console.log(erro)
-                })
+                    alert(erro);
+                });
         }
 
-    },[busca, setBusca])
-
-    const aplicarFiltro = () => {
-        const b = busca && busca.toLowerCase();
-        const result = !clientes || !b ? clientes : clientes.filter((cliente) => cliente.nome.toLowerCase().includes(b));
-
-        setFiltro(result);
-    };
+        if (busca.length === 0) {
+            setFiltro(listaFixa);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [busca, setBusca]);
 
     return (
         <IonPage>
@@ -61,9 +56,6 @@ const Empresas = () => {
                 </IonToolbar>
                 <IonToolbar>
                     <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
-                    <IonButton slot="end" onClick={() => aplicarFiltro()}>
-                        Filtrar
-                    </IonButton>
                 </IonToolbar>
             </IonHeader>
 
@@ -72,7 +64,7 @@ const Empresas = () => {
                     allowEmptySelection={false}
                     onIonChange={(ev) => {
                         selecionaCliente(ev.target.value);
-                        setOpcaoSelecionada(ev.target.value);
+                        setBtnAvancar(true);
                     }}
                 >
                     {filtro.map((cliente, index) => {
@@ -84,7 +76,7 @@ const Empresas = () => {
                 <IonToolbar>
                     <IonItem>
                         <div className={styles.ionButtonContainer}>
-                            <IonButton slot="end" color="primary" fill="outline" disabled={opcaoSelecionada === 0} size="default">
+                            <IonButton slot="end" color="primary" fill="outline" disabled={!btnAvancar} size="default">
                                 <Link to="produtos">Avançar</Link>
                             </IonButton>
                         </div>

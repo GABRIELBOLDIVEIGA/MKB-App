@@ -18,7 +18,6 @@ const ItemProduto = ({ produto }: IProps) => {
         const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod);
 
         if (temProduto) {
-            console.log("Este produto ja esta no carrinho...");
             const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod)
             setInputQuantidade(prod[0].quantidade);
             setChecked(true);
