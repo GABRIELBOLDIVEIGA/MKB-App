@@ -7,11 +7,22 @@ interface CurrentUserContextType {
     setEmail: React.Dispatch<React.SetStateAction<string>>;
     loginValido: boolean;
     setLoginValido: React.Dispatch<React.SetStateAction<boolean>>;
-
     senha: string;
+    setSenha: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const UsuarioContext = createContext<CurrentUserContextType | null>(null);
+const DEFAULT_VALUE = {
+    nome: "",
+    setNome: () => {},
+    email: "",
+    setEmail: () => {},
+    loginValido: true,
+    setLoginValido: () => {},
+    senha: "",
+    setSenha: () => {},
+};
+
+export const UsuarioContext = createContext<CurrentUserContextType>(DEFAULT_VALUE);
 UsuarioContext.displayName = "Usuario";
 
 type Props = {
@@ -34,6 +45,7 @@ export const UsuarioProvider = ({ children }: Props) => {
                 loginValido,
                 setLoginValido,
                 senha,
+                setSenha
             }}
         >
             {children}
@@ -42,27 +54,17 @@ export const UsuarioProvider = ({ children }: Props) => {
 };
 
 export const useUsuarioContext = () => {
-    const userContext = useContext(UsuarioContext)
+    const userContext = useContext(UsuarioContext);
     if (!userContext) return null;
 
-    const { 
-        nome, 
-        setNome, 
-        email, 
-        setEmail, 
-        loginValido, 
-        setLoginValido 
-    } = userContext;
-
-
-    
+    const { nome, setNome, email, setEmail, loginValido, setLoginValido } = userContext;
 
     return {
-        nome , 
-        setNome, 
-        email, 
-        setEmail, 
-        loginValido, 
-        setLoginValido 
+        nome,
+        setNome,
+        email,
+        setEmail,
+        loginValido,
+        setLoginValido,
     };
 };

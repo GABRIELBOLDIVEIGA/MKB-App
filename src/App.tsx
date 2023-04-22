@@ -30,13 +30,10 @@ import Produtos from "pages/Produtos";
 import Historico from "pages/Historico";
 import Empresas from "pages/Empresa";
 
-
 setupIonicReact();
 
 function App() {
-    const userContext = useContext(UsuarioContext);
-    if (!userContext) return null;
-    const { loginValido } = userContext;
+    const { loginValido } = useContext(UsuarioContext);
 
     return (
         <IonApp>
@@ -50,17 +47,16 @@ function App() {
                     <IonSplitPane contentId="main">
                         <Menu />
                         <IonRouterOutlet id="main">
-                        <Redirect to="/home" />
+                            <Redirect to="/home" />
                             <Route path="/home" exact={true} component={Home} />
                             <Route path="/empresas" exact={true} component={Empresas} />
                             <Route path="/produtos" exact={true} component={Produtos}></Route>
                             <Route path="/historico" exact={true} component={Historico} />
-                           
+
                             {/* <Switch>
                                 <Route path="/page/processos" exact={true} component={PaginaProcessos} />
                                 <Route path="/page/processo/:id" component={PaginaProcessoDetalhado} />
                             </Switch> */}
-                            
                         </IonRouterOutlet>
                     </IonSplitPane>
                 ) : (

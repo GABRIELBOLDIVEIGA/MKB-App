@@ -1,8 +1,8 @@
 import { IonItem, IonRadio, IonText } from "@ionic/react";
-import { IClientesNew } from "interface/ICliente";
+import { Cliente } from "interface/Cliente";
 
 interface IProps {
-    cliente: IClientesNew;
+    cliente: Cliente;
 }
 
 const ListaEmpresas = ({ cliente }: IProps) => {

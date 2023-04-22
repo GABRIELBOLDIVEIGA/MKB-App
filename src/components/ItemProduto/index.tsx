@@ -1,17 +1,29 @@
 import { IonItem, IonInput, IonCheckbox } from "@ionic/react";
-import React, { useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
 import styles from "./ItemProduto.module.scss";
-import { IProdutoNew } from "interface/IProduto";
+import { Produto } from "interface/Produto";
 
 interface IProps {
-    produto: IProdutoNew;
+    produto: Produto;
 }
 
 const ItemProduto = ({ produto }: IProps) => {
     const [inputQuantidade, setInputQuantidade] = useState<number>(0);
     const [checkBoxDisabled, setCheckBoxDisabled] = useState(true);
-    const {adicionaProduto, removerProduto} = useCarrinhoContext();
+    const [checked, setChecked] = useState(false);
+    const { adicionaProduto, removerProduto, carrinho } = useCarrinhoContext();
+
+    useEffect(() => {
+        const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod);
+
+        if (temProduto) {
+            console.log("Este produto ja esta no carrinho...");
+            const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod)
+            setInputQuantidade(prod[0].quantidade);
+            setChecked(true);
+        }
+    }, []);
 
     return (
         <IonItem>
@@ -29,16 +41,18 @@ const ItemProduto = ({ produto }: IProps) => {
                         }}
                         value={inputQuantidade}
                     />
-                    <div >
+                    <div>
                         <IonCheckbox
+                            checked={checked}
                             value={produto.cod_prod}
                             disabled={checkBoxDisabled}
                             onIonChange={(ev) => {
+                                setChecked(!checked);
                                 if (ev.target.checked) {
                                     adicionaProduto(produto, inputQuantidade);
                                 } else {
                                     setInputQuantidade(0);
-                                    removerProduto(produto.cod_prod!);
+                                    removerProduto(produto.cod_prod);
                                 }
                             }}
                         />
@@ -49,4 +63,4 @@ const ItemProduto = ({ produto }: IProps) => {
     );
 };
 
-export default React.memo(ItemProduto);
+export default memo(ItemProduto);

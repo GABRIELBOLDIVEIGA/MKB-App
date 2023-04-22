@@ -6,14 +6,14 @@ import ListaEmpresas from "./ListaEmpresas";
 import { Link } from "react-router-dom";
 
 import API from "services/serviceAPI";
-import { IClientesNew } from "interface/ICliente";
+import { Cliente } from "interface/Cliente";
 import styles from "./Empresa.module.scss"; 
 
 const Empresas = () => {
     const [busca, setBusca] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState(0);
-    const [filtro, setFiltro] = useState<IClientesNew[]>([]);
-    const [clientes, setClientes] = useState<IClientesNew[]>([]);
+    const [filtro, setFiltro] = useState<Cliente[]>([]);
+    const [clientes, setClientes] = useState<Cliente[]>([]);
 
     useEffect(() => {
         API.get("/clientes")

@@ -1,38 +1,41 @@
 import { IonButton, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonItem } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
 import { useCarrinhoContext } from "common/context/CarrrinhoContext";
 import API from "services/serviceAPI";
-import { IProdutoNew } from "interface/IProduto";
+import { Produto } from "interface/Produto";
 import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 
 export default function Produtos() {
-    const [produtos, setProdutos] = useState<IProdutoNew[]>([]);
+    const [produtos, setProdutos] = useState<Produto[]>([]);
     const [busca, setBusca] = useState("");
-    const [filtro, setFiltro] = useState<IProdutoNew[]>([]);
+    const [filtro, setFiltro] = useState<Produto[]>([]);
     const { carrinho, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
 
     useEffect(() => {
         API.get("/produtos")
             .then((resp) => {
                 setProdutos(resp.data);
+                setFiltro(resp.data.slice(0, 100));
             })
             .catch((err) => {
                 alert(err);
             });
     }, []);
 
-    // se fizer o filtro com produtos ja adicionados ao carrinho,
-    // a nova lista resultante nao vai aparecer com o checkbox marcado dos itens q ja estao dentro do carrinho
     const aplicarFiltro = () => {
-        console.log(produtos);
         const b = busca && busca.toLowerCase();
-        const result = !produtos || !b ? produtos : produtos.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
-        setFiltro(result);
+        const result = !produtos || b ? produtos : produtos.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
+        
+        if (result.length >= 50) {
+            setFiltro(result.slice(0, 100));
+        } else {
+            setFiltro(result);
+        }
     };
 
     return (

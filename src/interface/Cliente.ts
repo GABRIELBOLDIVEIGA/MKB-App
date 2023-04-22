@@ -1,4 +1,4 @@
-export interface IClientesNew {
+export interface Cliente {
     cod: number;
     nome: string;
     juridica: boolean;

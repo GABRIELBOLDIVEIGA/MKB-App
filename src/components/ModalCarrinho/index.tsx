@@ -1,10 +1,10 @@
 import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent } from "@ionic/react";
 import { useRef } from "react";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
-import { ICarrinho } from "interface/ICarrinho";
+import { Carrinho } from "interface/Carrinho";
 
 interface IProps {
-    carrinho: ICarrinho[];
+    carrinho: Carrinho[];
 }
 
 export default function ModalCarrinho({ carrinho }: IProps) {
@@ -37,11 +37,11 @@ export default function ModalCarrinho({ carrinho }: IProps) {
                             </IonCardHeader>
                             <IonCardContent>
                                 <IonItem>
-                                    <IonItem slot="start">R$ {prod.produto.preco_venda}</IonItem>
+                                    <IonItem slot="start">R$ {prod.produto.preco}</IonItem>
                                     <IonItem slot="end">Quantidade {prod.quantidade}</IonItem>
                                 </IonItem>
 
-                                <IonItem>Total: {formatadorMonetario.format(prod.produto.preco_venda * prod.quantidade)}</IonItem>
+                                <IonItem>Total: {formatadorMonetario.format(prod.produto.preco * prod.quantidade)}</IonItem>
                             </IonCardContent>
                         </IonCard>
                     ))}
