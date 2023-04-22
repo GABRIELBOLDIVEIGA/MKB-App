@@ -23,6 +23,8 @@ const ItemProduto = ({ produto }: IProps) => {
             setInputQuantidade(prod[0].quantidade);
             setChecked(true);
         }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -40,6 +42,7 @@ const ItemProduto = ({ produto }: IProps) => {
                             inputQuantidade === 0 ? setCheckBoxDisabled(true) : setCheckBoxDisabled(false);
                         }}
                         value={inputQuantidade}
+                        disabled={checked}
                     />
                     <div>
                         <IonCheckbox

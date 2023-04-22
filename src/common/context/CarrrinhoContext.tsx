@@ -1,8 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Produto } from "interface/Produto";
 import { Carrinho } from "interface/Carrinho";
+import { Cliente } from "interface/Cliente";
 
 type CurrentCarrinhoContextType = {
+    cliente: Cliente;
+    setCliente: React.Dispatch<React.SetStateAction<Cliente>>;
     carrinho: Carrinho[];
     setCarrinho: React.Dispatch<React.SetStateAction<Carrinho[]>>;
     quantidadeDoItem: number;
@@ -13,20 +16,46 @@ type CurrentCarrinhoContextType = {
     setValorTotalCarrinho: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const DEFAULT_VALUE = {
-    carrinho: [
-        {
-            produto: {
-                cod_prod: "",
-                descr_resumida: "",
-                descr_detalhada: "",
-                preco: 0,
-                unidade: "",
-                id: 0,
-            },
-            quantidade: 0,
+const DEFAULT_CARRINHO = [
+    {
+        produto: {
+            cod_prod: "",
+            descr_resumida: "",
+            descr_detalhada: "",
+            preco: 0,
+            unidade: "",
+            id: 0,
         },
-    ],
+        quantidade: 0,
+    },
+];
+
+const DEFAULT_CLIENTE = {
+    cod: 0,
+    nome: "",
+    juridica: false,
+    cnpj: "",
+    endereco: "",
+    bairro: "",
+    cidade: "",
+    cep: "",
+    uf: "",
+    email: "",
+    ddd: "",
+    fone1: "",
+    fone2: "",
+    celular: "",
+    fax: "",
+    contato: "",
+    fantasia: "",
+    id: 0,
+};
+
+const DEFAULT_VALUE = {
+    cliente: DEFAULT_CLIENTE,
+    setCliente: () => {},
+
+    carrinho: DEFAULT_CARRINHO,
     setCarrinho: () => {},
 
     quantidadeDoItem: 0,
@@ -51,6 +80,7 @@ export const CarrinhoProvider = ({ children }: IProps) => {
     const [quantidadeDoItem, setQuantidadeDoItem] = useState(0);
     const [valorTotalCarrinho, setValorTotalCarrinho] = useState(0);
     const [quantidadeDeProdutos, setQuantidadeDeProdutos] = useState(0);
+    const [cliente, setCliente] = useState<Cliente>(DEFAULT_CLIENTE);
 
     return (
         <CarrinhoContext.Provider
@@ -63,6 +93,8 @@ export const CarrinhoProvider = ({ children }: IProps) => {
                 setQuantidadeDeProdutos,
                 valorTotalCarrinho,
                 setValorTotalCarrinho,
+                cliente,
+                setCliente,
             }}
         >
             {children}
@@ -73,16 +105,22 @@ export const CarrinhoProvider = ({ children }: IProps) => {
 export const useCarrinhoContext = () => {
     const carrinhoContext = useContext(CarrinhoContext);
 
-    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho } = carrinhoContext;
+    const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho,
+        cliente ,setCliente, } = carrinhoContext;
 
     useEffect(() => {
         let soma = 0;
         carrinho.forEach((item) => {
-            soma += item.quantidade * +item.produto.preco!;
+            soma += item.quantidade * item.produto.preco;
         });
 
         setValorTotalCarrinho(soma);
     }, [carrinho, setValorTotalCarrinho]);
+
+    const selecionaCliente = (codigoDoCliente: number) => {
+        console.log("Codigo do cliente: ", codigoDoCliente)
+        // setCliente();
+    }
 
     const adicionaProduto = (produto: Produto, unidades: number) => {
         if (unidades === 0) return;
@@ -128,5 +166,8 @@ export const useCarrinhoContext = () => {
         removerProduto,
         valorTotalCarrinho,
         carrinho,
+        cliente,
+        selecionaCliente,
+
     };
 };
