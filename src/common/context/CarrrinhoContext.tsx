@@ -17,20 +17,6 @@ type CurrentCarrinhoContextType = {
     setValorTotalCarrinho: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const DEFAULT_CARRINHO = [
-    {
-        produto: {
-            cod_prod: "",
-            descr_resumida: "",
-            descr_detalhada: "",
-            preco: 0,
-            unidade: "",
-            id: 0,
-        },
-        quantidade: 0,
-    },
-];
-
 const DEFAULT_CLIENTE = {
     cod: 0,
     nome: "",
@@ -51,6 +37,20 @@ const DEFAULT_CLIENTE = {
     fantasia: "",
     id: 0,
 };
+
+const DEFAULT_CARRINHO = [
+    {
+        produto: {
+            cod_prod: "",
+            descr_resumida: "",
+            descr_detalhada: "",
+            preco: 0,
+            unidade: "",
+            id: 0,
+        },
+        quantidade: 0,
+    },
+];
 
 const DEFAULT_VALUE = {
     cliente: DEFAULT_CLIENTE,
