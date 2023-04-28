@@ -7,7 +7,7 @@ CREATE TABLE produtos (
    unidade TEXT NOT NULL
 );
 
-CREATE TABLE clientes(
+CREATE TABLE clientes (
    id INTEGER PRIMARY KEY,
    cod INTEGER,
    nome TEXT,
@@ -24,7 +24,7 @@ CREATE TABLE clientes(
    celular TEXT,
    fax TEXT,
    fantasia TEXT,
-   numero TEXT,
+   numero TEXT
 );
 
 CREATE TABLE usuarios (
@@ -33,7 +33,7 @@ CREATE TABLE usuarios (
    cpf TEXT NOT NULL,
    email TEXT NOT NULL,
    senha TEXT NOT NULL,
-   privilegio INTEGER,
+   privilegio INTEGER
 );
 
 INSERT INTO produtos (
@@ -53,7 +53,7 @@ INSERT INTO produtos (
    "GB 102 FE/PU RO",
    "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10\",
    252,
-   "PECA",
+   "PECA"
 ), (
    "004RO1484",
    "KIT 3/8 - L14",
@@ -77,8 +77,8 @@ INSERT INTO clientes (
    fone2,
    celular,
    fax,
-   fantasia
-   numero,
+   fantasia,
+   numero
 ) VALUES (
    1,
    "KMB INDÚSTRIA E COMÉRCIO LTDA EPP",
@@ -95,7 +95,7 @@ INSERT INTO clientes (
    0,
    0,
    "KMB RODIOZIOS",
-   "237",
+   "237"
 ), (
    2,
    "INFORMAL INFORMATICA",
@@ -112,7 +112,7 @@ INSERT INTO clientes (
    0,
    0,
    "INFORMAL",
-   "968",
+   "968"
 ), (
    4,
    "617 B MERCADO DA BORRACHA LTDA",
@@ -129,8 +129,8 @@ INSERT INTO clientes (
    0,
    0,
    "617 B",
-   "367",
-)
+   "367"
+);
 
 INSERT INTO usuarios (
    nome,
@@ -149,11 +149,11 @@ INSERT INTO usuarios (
    "523.577.870-74",
    "2d@gmail.com",
    "123",
-   0,
+   0
 ), (
    "Largdeaog Ulatacu",
    "243.239.290-64",
    "lu@gmail.com",
    "123",
-   0,
-)
+   0
+);
