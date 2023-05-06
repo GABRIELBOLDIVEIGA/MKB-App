@@ -12,22 +12,27 @@ import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { useProduto } from "graphQL/produtos/hooks";
 
 export default function Produtos() {
-    const [produtos, setProdutos] = useState<Produto[]>([]);
     const [busca, setBusca] = useState("");
     const [filtro, setFiltro] = useState<Produto[]>([]);
     const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
     const data = useProduto();
-    console.log("[Produtos]: " , data)
 
+    useEffect(() => {
+        if (data) setFiltro(data);
+    }, [data]);
 
     const aplicarFiltro = () => {
         const b = busca && busca.toLowerCase();
-        const result = !produtos || b ? produtos : produtos.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
-        
-        if (result.length >= 50) {
-            setFiltro(result.slice(0, 100));
-        } else {
-            setFiltro(result);
+
+        const result = data?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
+
+        console.log(result);
+        if (result) {
+            if (result.length >= 50) {
+                setFiltro(result.slice(0, 100));
+            } else {
+                setFiltro(result);
+            }
         }
     };
 
@@ -54,7 +59,7 @@ export default function Produtos() {
 
             <IonContent>
                 <IonList>
-                    {data?.map((produto, index) => {
+                    {filtro?.map((produto, index) => {
                         return <ItemProduto key={index} produto={produto} />;
                     })}
                 </IonList>
@@ -72,15 +77,15 @@ export default function Produtos() {
                             onClick={() => {
                                 console.log(JSON.stringify(carrinho), valorTotalCarrinho);
                                 console.table(carrinho);
-                               
+
                                 console.log("Carrinho: ", carrinho);
-                                console.log(JSON.stringify(cliente))
+                                console.log(JSON.stringify(cliente));
                                 const x = {
                                     cliente,
-                                    carrinho
-                                }
+                                    carrinho,
+                                };
                                 console.log(JSON.stringify(x));
-                                console.log(x)
+                                console.log(x);
                             }}
                         >
                             Conferir
