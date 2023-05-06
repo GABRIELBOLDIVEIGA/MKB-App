@@ -75,9 +75,11 @@ const Clientes = () => {
                 <IonToolbar>
                     <IonItem>
                         <div className={styles.ionButtonContainer}>
-                            <IonButton slot="end" color="primary" fill="outline" disabled={!btnAvancar} size="default">
-                                <Link to="produtos">Avançar</Link>
-                            </IonButton>
+                            <Link to="produtos">
+                                <IonButton slot="end" color="primary" disabled={!btnAvancar} size="default">
+                                    Avançar
+                                </IonButton>
+                            </Link>
                         </div>
                     </IonItem>
                 </IonToolbar>

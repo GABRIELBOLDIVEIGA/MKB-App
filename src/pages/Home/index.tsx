@@ -1,4 +1,4 @@
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonText } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter } from "@ionic/react";
 
 export default function Home() {
     return (
@@ -14,9 +14,9 @@ export default function Home() {
             <IonContent></IonContent>
 
             <IonFooter>
-              <IonToolbar>
-                <IonText>Rodape</IonText>
-              </IonToolbar>
+                <IonToolbar>
+        
+                </IonToolbar>
             </IonFooter>
         </IonPage>
     );

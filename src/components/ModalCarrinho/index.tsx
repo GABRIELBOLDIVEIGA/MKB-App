@@ -1,15 +1,17 @@
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent } from "@ionic/react";
+import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText } from "@ionic/react";
 import { useRef } from "react";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { Carrinho } from "interface/Carrinho";
+import { useCarrinhoContext } from "context/CarrrinhoContext";
+import styles from "./ModalCarrinho.module.scss";
 
 interface IProps {
     carrinho: Carrinho[];
 }
 
 export default function ModalCarrinho({ carrinho }: IProps) {
-
     const modal = useRef<HTMLIonModalElement>(null);
+    const { valorTotalCarrinho } = useCarrinhoContext();
 
     function dismiss() {
         modal.current?.dismiss();
@@ -47,6 +49,14 @@ export default function ModalCarrinho({ carrinho }: IProps) {
                     ))}
                 </IonList>
             </IonContent>
+
+            <IonFooter>
+                <IonToolbar>
+                    <div className={styles.rodape}>
+                        <IonTitle className={styles.textoRodape}>Valor Total do pedido: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
+                    </div>
+                </IonToolbar>
+            </IonFooter>
         </IonModal>
     );
 }

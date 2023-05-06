@@ -44,33 +44,35 @@ const Menu: React.FC = () => {
     return (
         <IonMenu contentId="main" type="overlay">
             <IonContent>
-                <IonList id="inbox-list">
-                    <IonListHeader>
-                        <IonAvatar className="avatar">
-                            <img alt="Img de um minecraft" src={avatar} />
-                        </IonAvatar>
-                        <IonNote>{email}</IonNote>
-                    </IonListHeader>
+                <div className="menu">
+                    <IonList id="inbox-list">
+                        <IonListHeader>
+                            <IonAvatar className="avatar">
+                                <img alt="Img de um minecraft" src={avatar} />
+                            </IonAvatar>
+                            <IonNote>{email}</IonNote>
+                        </IonListHeader>
 
-                    {menuLinks.map((appPage, index) => {
-                        return (
-                            <IonMenuToggle key={index} autoHide={false}>
-                                <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                                    <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                                    <IonLabel>{appPage.title}</IonLabel>
-                                </IonItem>
-                            </IonMenuToggle>
-                        );
-                    })}
-                </IonList>
+                        {menuLinks.map((appPage, index) => {
+                            return (
+                                <IonMenuToggle key={index} autoHide={false}>
+                                    <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                                        <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                                        <IonLabel>{appPage.title}</IonLabel>
+                                    </IonItem>
+                                </IonMenuToggle>
+                            );
+                        })}
+                    </IonList>
 
-                <IonList id="labels-list">
-                    <IonButton fill="outline">
-                        <IonIcon slot="start" src={settingsOutline} />
-                        <IonText>Config.</IonText>
-                    </IonButton>
-                    <LogOut />
-                </IonList>
+                    <IonList id="labels-list" className="listaBotoes">
+                        <IonButton fill="outline">
+                            <IonIcon slot="start" src={settingsOutline} />
+                            <IonText>Config.</IonText>
+                        </IonButton>
+                        <LogOut />
+                    </IonList>
+                </div>
             </IonContent>
         </IonMenu>
     );
