@@ -1,7 +1,7 @@
 export interface Cliente {
-    _id: number;
-    cod: number;
-    nome?: string;
+    _id: string;
+    cod?: string;
+    nome: string;
     cnpj?: string;
     endereco?: string;
     bairro?: string;

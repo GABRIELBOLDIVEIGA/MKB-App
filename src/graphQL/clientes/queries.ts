@@ -4,6 +4,15 @@ export const OBTER_CLIENTES = gql`
     query GetClientes($limit: Int) {
         getClientes(limit: $limit) {
             _id
+            nome
+        }
+    }
+`;
+
+export const OBTER_CLIENTE = gql`
+    query GetCliente($id: ID!) {
+        getCliente(ID: $id) {
+            _id
             cod
             nome
             cnpj

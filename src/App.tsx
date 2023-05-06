@@ -28,7 +28,7 @@ import { useContext } from "react";
 import Home from "pages/Home";
 import Produtos from "pages/Produtos";
 import Historico from "pages/Historico";
-import Empresas from "pages/Empresa";
+import Clientes from "pages/Clientes";
 
 setupIonicReact();
 
@@ -49,7 +49,7 @@ function App() {
                         <IonRouterOutlet id="main">
                             <Redirect to="/home" />
                             <Route path="/home" exact={true} component={Home} />
-                            <Route path="/empresas" exact={true} component={Empresas} />
+                            <Route path="/empresas" exact={true} component={Clientes} />
                             <Route path="/produtos" exact={true} component={Produtos}></Route>
                             <Route path="/historico" exact={true} component={Historico} />
 

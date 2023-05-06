@@ -2,24 +2,20 @@ import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonMe
 import BarraPesquisa from "components/BarraPesquisa";
 import { useState } from "react";
 
-import ListaEmpresas from "./ListaEmpresas";
+import ListaDeClientes from "./ListaDeClientes";
 import { Link } from "react-router-dom";
-import { Cliente } from "interface/Cliente";
 import styles from "./Empresa.module.scss";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
-import { useQuery } from "@apollo/client";
-import { OBTER_CLIENTES } from "graphQL/clientes/queries";
-import { useCliente } from "graphQL/clientes/hooks";
+import { useClientes } from "graphQL/clientes/hooks";
 
-const Empresas = () => {
+const Clientes = () => {
     const [busca, setBusca] = useState("");
     const [btnAvancar, setBtnAvancar] = useState(false);
     // const [filtro, setFiltro] = useState<Cliente[]>([]);
     // const [listaFixa, setListaFixa] = useState<Cliente[]>([]);
     const { selecionaCliente } = useCarrinhoContext();
 
-    const data = useCliente();
-    // console.log("[Empresas]: ", data);
+    const data = useClientes();
 
     return (
         <IonPage>
@@ -44,7 +40,7 @@ const Empresas = () => {
                     }}
                 >
                     {data?.map((cliente, index) => {
-                        return <ListaEmpresas key={index} cliente={cliente} />;
+                        return <ListaDeClientes key={index} cliente={cliente} />;
                     })}
                 </IonRadioGroup>
             </IonContent>
@@ -63,4 +59,4 @@ const Empresas = () => {
     );
 };
 
-export default Empresas;
+export default Clientes;
