@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonInput, IonItem, IonLabel, IonPage, IonRouterLink, IonText, useIonAlert, useIonLoading } from "@ionic/react";
 import React, { useContext, useState } from "react";
 import styles from "./Login.module.scss";
-import { UsuarioContext } from "common/context/UsuarioContext";
+import { UsuarioContext } from "context/UsuarioContext";
 
 const Login: React.FC = () => {
     const [userEmail, setUserEmail] = useState("");

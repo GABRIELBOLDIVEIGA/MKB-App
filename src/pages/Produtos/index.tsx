@@ -4,28 +4,21 @@ import { useEffect, useMemo, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
-import { useCarrinhoContext } from "common/context/CarrrinhoContext";
+import { useCarrinhoContext } from "context/CarrrinhoContext";
 import API from "services/serviceAPI";
 import { Produto } from "interface/Produto";
 import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
+import { useProduto } from "graphQL/produtos/hooks";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [busca, setBusca] = useState("");
     const [filtro, setFiltro] = useState<Produto[]>([]);
     const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
+    const data = useProduto();
+    console.log("[Produtos]: " , data)
 
-    useEffect(() => {
-        API.get("/produtos")
-            .then((resp) => {
-                setProdutos(resp.data);
-                setFiltro(resp.data.slice(0, 100));
-            })
-            .catch((err) => {
-                alert(err);
-            });
-    }, []);
 
     const aplicarFiltro = () => {
         const b = busca && busca.toLowerCase();
@@ -61,7 +54,7 @@ export default function Produtos() {
 
             <IonContent>
                 <IonList>
-                    {filtro.map((produto, index) => {
+                    {data?.map((produto, index) => {
                         return <ItemProduto key={index} produto={produto} />;
                     })}
                 </IonList>

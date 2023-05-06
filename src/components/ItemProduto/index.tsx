@@ -1,6 +1,6 @@
 import { IonItem, IonInput, IonCheckbox } from "@ionic/react";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { useCarrinhoContext } from "common/context/CarrrinhoContext";
+import { useCarrinhoContext } from "context/CarrrinhoContext";
 import styles from "./ItemProduto.module.scss";
 import { Produto } from "interface/Produto";
 

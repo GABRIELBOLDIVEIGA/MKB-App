@@ -23,7 +23,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "pages/Login";
 
-import { UsuarioContext } from "common/context/UsuarioContext";
+import { UsuarioContext } from "context/UsuarioContext";
 import { useContext } from "react";
 import Home from "pages/Home";
 import Produtos from "pages/Produtos";

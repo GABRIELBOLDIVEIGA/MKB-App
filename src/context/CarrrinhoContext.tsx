@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Produto } from "interface/Produto";
 import { Carrinho } from "interface/Carrinho";
 import { Cliente } from "interface/Cliente";
-import API from "services/serviceAPI";
 
 type CurrentCarrinhoContextType = {
     cliente: Cliente;
@@ -18,9 +17,9 @@ type CurrentCarrinhoContextType = {
 };
 
 const DEFAULT_CLIENTE = {
+    _id: 0,
     cod: 0,
     nome: "",
-    juridica: false,
     cnpj: "",
     endereco: "",
     bairro: "",
@@ -33,20 +32,19 @@ const DEFAULT_CLIENTE = {
     fone2: "",
     celular: "",
     fax: "",
-    contato: "",
     fantasia: "",
-    id: 0,
+    contato: "",
 };
 
 const DEFAULT_CARRINHO = [
     {
         produto: {
+            _id: "",
             cod_prod: "",
             descr_resumida: "",
             descr_detalhada: "",
             preco: 0,
             unidade: "",
-            id: 0,
         },
         quantidade: 0,
     },
@@ -119,16 +117,6 @@ export const useCarrinhoContext = () => {
 
     const selecionaCliente = (codigoDoCliente: number) => {
         console.log("Codigo do cliente: ", codigoDoCliente);
-        API.get(`/clientes?cod=${codigoDoCliente}`)
-            .then((resp) => {
-                console.log(resp);
-                setCliente(resp.data[0]);
-            })
-            .catch((erro) => {
-                console.log(erro);
-            });
-
-        // setCliente();
     };
 
     const adicionaProduto = (produto: Produto, unidades: number) => {

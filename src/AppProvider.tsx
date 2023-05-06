@@ -1,14 +1,16 @@
-import { CarrinhoProvider } from "common/context/CarrrinhoContext";
-import { UsuarioProvider } from "common/context/UsuarioContext";
+import { CarrinhoProvider } from "context/CarrrinhoContext";
+import { UsuarioProvider } from "context/UsuarioContext";
 import App from "./App";
-
+import ApolloClient from "components/ApolloClient";
 
 export default function AppProvider() {
     return (
-        <UsuarioProvider>
-            <CarrinhoProvider>
-                <App />
-            </CarrinhoProvider>
-        </UsuarioProvider>
+        <ApolloClient>
+            <UsuarioProvider>
+                <CarrinhoProvider>
+                    <App />
+                </CarrinhoProvider>
+            </UsuarioProvider>
+        </ApolloClient>
     );
 }

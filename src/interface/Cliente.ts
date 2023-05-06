@@ -1,21 +1,21 @@
 export interface Cliente {
-    id: number;
+    _id: number;
     cod: number;
-    nome: string;
-    cnpj: string;
-    cep: string;
-    uf: string;
-    cidade: string;
-    bairro: string;
-    endereco: string;
-    ddd: string;
-    fone1: string;
-    fone2: string;
-    celular: string;
-    fax: string;
-    fantasia: string;
-    email: string;
-    contato: string;
+    nome?: string;
+    cnpj?: string;
+    endereco?: string;
+    bairro?: string;
+    cidade?: string;
+    cep?: string;
+    uf?: string;
+    email?: string;
+    ddd?: string;
+    fone1?: string;
+    fone2?: string;
+    celular?: string;
+    fax?: string;
+    fantasia?: string;
+    contato?: string;
 }
 
 

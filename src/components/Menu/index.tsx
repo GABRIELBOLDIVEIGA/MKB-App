@@ -4,7 +4,7 @@ import { homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline 
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
-import { UsuarioContext } from "common/context/UsuarioContext";
+import { UsuarioContext } from "context/UsuarioContext";
 import { useContext } from "react";
 
 interface menuLink {
