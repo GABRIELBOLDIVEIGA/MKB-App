@@ -29,6 +29,7 @@ import Home from "pages/Home";
 import Produtos from "pages/Produtos";
 import Historico from "pages/Historico";
 import Clientes from "pages/Clientes";
+import add from "pages/testeAddUsuariosAoBanco";
 
 setupIonicReact();
 
@@ -52,6 +53,7 @@ function App() {
                             <Route path="/empresas" exact={true} component={Clientes} />
                             <Route path="/produtos" exact={true} component={Produtos}></Route>
                             <Route path="/historico" exact={true} component={Historico} />
+                            <Route path="/add" exact={true} component={add} />
 
                             {/* <Switch>
                                 <Route path="/page/processos" exact={true} component={PaginaProcessos} />

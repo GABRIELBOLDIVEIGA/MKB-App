@@ -1,11 +1,10 @@
 import { IonButton, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonItem } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
-import API from "services/serviceAPI";
 import { Produto } from "interface/Produto";
 import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
