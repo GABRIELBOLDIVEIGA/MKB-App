@@ -17,7 +17,13 @@ export default function Produtos() {
     const data = useProduto();
 
     useEffect(() => {
-        if (data) setFiltro(data);
+        if (data) {
+            if (data.length >= 50) {
+                setFiltro(data.slice(0, 100));
+            } else {
+                setFiltro(data);
+            }
+        }
     }, [data]);
 
     const aplicarFiltro = () => {
@@ -25,7 +31,6 @@ export default function Produtos() {
 
         const result = data?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
 
-        console.log(result);
         if (result) {
             if (result.length >= 50) {
                 setFiltro(result.slice(0, 100));
