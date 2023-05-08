@@ -1,8 +1,8 @@
 export interface Usuario {
     _id?: string;
-    nome: string;
-    cpf: string;
-    email: string;
-    senha: string;
-    privilegio: number;
+    nome?: string;
+    cpf?: string;
+    email?: string;
+    senha?: string;
+    privilegio?: number;
 }
