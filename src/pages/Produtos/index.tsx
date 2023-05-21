@@ -79,17 +79,18 @@ export default function Produtos() {
                             id="open-modal"
                             expand="block"
                             onClick={() => {
-                                console.log(JSON.stringify(carrinho), valorTotalCarrinho);
-                                console.table(carrinho);
+                                // console.log(JSON.stringify(carrinho), valorTotalCarrinho);
+                                // console.table(carrinho);
 
-                                console.log("Carrinho: ", carrinho);
-                                console.log(JSON.stringify(cliente));
-                                const x = {
-                                    cliente,
-                                    carrinho,
-                                };
-                                console.log(JSON.stringify(x));
-                                console.log(x);
+                                // console.log("Carrinho: ", carrinho);
+                                // console.log(JSON.stringify(cliente));
+                                // const x = {
+                                //     cliente,
+                                //     carrinho,
+                                //     total: valorTotalCarrinho
+                                // };
+                                // console.log(JSON.stringify(x));
+                                // console.log(x);
                             }}
                         >
                             Conferir

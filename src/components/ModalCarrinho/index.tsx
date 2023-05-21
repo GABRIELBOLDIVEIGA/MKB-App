@@ -4,14 +4,16 @@ import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { Carrinho } from "interface/Carrinho";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
 import styles from "./ModalCarrinho.module.scss";
+import { useCriarPedido } from "graphQL/pedidos/hooks"
 
 interface IProps {
     carrinho: Carrinho[];
 }
 
-export default function ModalCarrinho({ carrinho }: IProps) {
+export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
     const modal = useRef<HTMLIonModalElement>(null);
-    const { valorTotalCarrinho } = useCarrinhoContext();
+    const [criarPedido, { data, loading, error }] = useCriarPedido();
+    const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
 
     function dismiss() {
         modal.current?.dismiss();
@@ -25,13 +27,46 @@ export default function ModalCarrinho({ carrinho }: IProps) {
                         <IonButton onClick={() => dismiss()}>Voltar</IonButton>
                         <IonTitle>Confira seu pedido</IonTitle>
 
-                        <IonButton onClick={() => console.log("finalizar")}>Finalizar</IonButton>
+                        <IonButton onClick={() => {
+                            console.log("finalizar")
+                            const x = {
+                                cliente,
+                                carrinho: carrinho,
+                                total: valorTotalCarrinho
+                            };
+                            // console.log(JSON.stringify(x));
+                            
+                            
+                            var json = JSON.stringify(x);  // {"type":"Fiat","model":"500","color":"White"}
+                            console.log(json);
+                            var unquoted = json.replace(/"([^"]+)":/g, '$1:');
+                            console.log(unquoted);  // {type:"Fiat",model:"500",color:"White"}
+                            var result = unquoted.replaceAll("\"", "'");
+                            console.log(result); // {type:'Fiat',model:'500',color:'White'}
+                            
+
+                            // aqui !!!!
+                            
+                            const resultado = result.replace(/''/g, '"');
+                            console.log(resultado)
+                            console.log(JSON.parse(resultado))
+
+                            criarPedido({
+                                variables: {
+                                    pedidoInput: {
+                                        pedido: resultado
+                                    }
+                                }
+                            })
+
+
+                        }}>Finalizar</IonButton>
                     </IonItem>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
                 <IonList>
-                    {carrinho?.map((prod) => (
+                    {itemNoCarrinho?.map((prod) => (
                         <IonCard key={prod.produto.cod_prod}>
                             <IonCardHeader>
                                 <IonCardTitle>{prod.produto.descr_detalhada}</IonCardTitle>
