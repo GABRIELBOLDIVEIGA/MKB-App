@@ -1,6 +1,6 @@
 import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonText } from "@ionic/react";
 import { useLocation } from "react-router-dom";
-import { homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline } from "ionicons/icons";
+import { homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline, businessOutline } from "ionicons/icons";
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
@@ -28,10 +28,10 @@ const menuLinks: menuLink[] = [
         mdIcon: addCircleOutline,
     },
     {
-        title: "Histórico",
-        url: "/historico",
-        iosIcon: fileTrayStackedOutline,
-        mdIcon: fileTrayStackedOutline,
+        title: "Cadastrar Cliente",
+        url: "/cadastrarCliente",
+        iosIcon: businessOutline,
+        mdIcon: businessOutline,
     },
 ];
 
