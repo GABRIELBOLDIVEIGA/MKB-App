@@ -1,97 +1,119 @@
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText } from "@ionic/react";
+import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText, useIonAlert, useIonLoading } from "@ionic/react";
 import { useRef } from "react";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { Carrinho } from "interface/Carrinho";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
 import styles from "./ModalCarrinho.module.scss";
 import { useCriarPedido } from "graphQL/pedidos/hooks"
+import { useHistory } from "react-router";
 
 interface IProps {
-    carrinho: Carrinho[];
+  carrinho: Carrinho[];
 }
 
 export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
-    const modal = useRef<HTMLIonModalElement>(null);
-    const [criarPedido, { data, loading, error }] = useCriarPedido();
-    const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
+  const modal = useRef<HTMLIonModalElement>(null);
+  const [criarPedido, { loading, data, error }] = useCriarPedido();
+  const { carrinho, setCarrinho, cliente, valorTotalCarrinho } = useCarrinhoContext();
+  const [presentAlert] = useIonAlert();
+  const [present] = useIonLoading();
+  const history = useHistory();
 
-    function dismiss() {
-        modal.current?.dismiss();
+  function dismiss() {
+    modal.current?.dismiss();
+  }
+
+  function submit() {
+    const carrinhoFormatado = carrinho.map(produto => {
+      delete produto._id
+      delete produto.__typename
+      return produto
+    })
+
+    criarPedido({
+      variables: {
+        pedidoInput: {
+          clienteID: cliente._id,
+          carrinho: carrinhoFormatado,
+          total: valorTotalCarrinho
+        }
+      }
+    })
+
+    if (loading) {
+      present({
+        message: "Verificando...",
+        duration: 3000
+      })
     }
 
-    return (
-        <IonModal ref={modal} trigger="open-modal">
-            <IonHeader>
-                <IonToolbar>
-                    <IonItem>
-                        <IonButton onClick={() => dismiss()}>Voltar</IonButton>
-                        <IonTitle>Confira seu pedido</IonTitle>
+    if (error) {
+      presentAlert({
+        header: "Erro",
+        message: "Algo estranho aconteceu, tente novamente...",
+        buttons: ["OK"],
+        onDidDismiss() {
+          dismiss();
+        }
+      })
+    } else {
+      presentAlert({
+        header: "Sucesso",
+        message: "Pedido cadastrado com sucesso!",
+        buttons: ["OK"],
+        onDidDismiss() {
+          dismiss();
+          history.push('/home');
+          setCarrinho([])
+        }
+      })
+    }
+  }
 
-                        <IonButton onClick={() => {
-                            console.log("finalizar")
-                            const x = {
-                                cliente,
-                                carrinho: carrinho,
-                                total: valorTotalCarrinho
-                            };
-                            // console.log(JSON.stringify(x));
-                            
-                            
-                            var json = JSON.stringify(x);  // {"type":"Fiat","model":"500","color":"White"}
-                            console.log(json);
-                            var unquoted = json.replace(/"([^"]+)":/g, '$1:');
-                            console.log(unquoted);  // {type:"Fiat",model:"500",color:"White"}
-                            var result = unquoted.replaceAll("\"", "'");
-                            console.log(result); // {type:'Fiat',model:'500',color:'White'}
-                            
+  return (
+    <IonModal ref={modal} trigger="open-modal">
+      <IonHeader>
+        <IonToolbar>
+          <IonItem>
+            <IonButton onClick={() => dismiss()}>Voltar</IonButton>
+            <IonTitle>Confira seu pedido</IonTitle>
 
-                            // aqui !!!!
-                            
-                            const resultado = result.replace(/''/g, '"');
-                            console.log(resultado)
-                            console.log(JSON.parse(resultado))
+            <IonButton
+              onClick={() => {
+                submit()
+              }}
+            >Finalizar</IonButton>
+          </IonItem>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+        <IonList>
+          {itemNoCarrinho?.map((prod) => (
+            <IonCard key={prod.cod_prod}>
+              <IonCardHeader>
+                <IonCardTitle>{prod.descr_detalhada}</IonCardTitle>
+                <IonCardSubtitle>{prod.descr_resumida}</IonCardSubtitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <IonItem>
+                  <IonItem slot="start">R$ {prod.preco}</IonItem>
+                  <IonItem slot="end">Quantidade {prod.quantidade}</IonItem>
+                </IonItem>
 
-                            criarPedido({
-                                variables: {
-                                    pedidoInput: {
-                                        pedido: resultado
-                                    }
-                                }
-                            })
+                <IonItem>Total: {formatadorMonetario.format(prod.preco * prod.quantidade)}</IonItem>
+              </IonCardContent>
+            </IonCard>
+          ))}
+        </IonList>
+      </IonContent>
 
-
-                        }}>Finalizar</IonButton>
-                    </IonItem>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent className="ion-padding">
-                <IonList>
-                    {itemNoCarrinho?.map((prod) => (
-                        <IonCard key={prod.produto.cod_prod}>
-                            <IonCardHeader>
-                                <IonCardTitle>{prod.produto.descr_detalhada}</IonCardTitle>
-                                <IonCardSubtitle>{prod.produto.descr_resumida}</IonCardSubtitle>
-                            </IonCardHeader>
-                            <IonCardContent>
-                                <IonItem>
-                                    <IonItem slot="start">R$ {prod.produto.preco}</IonItem>
-                                    <IonItem slot="end">Quantidade {prod.quantidade}</IonItem>
-                                </IonItem>
-
-                                <IonItem>Total: {formatadorMonetario.format(prod.produto.preco * prod.quantidade)}</IonItem>
-                            </IonCardContent>
-                        </IonCard>
-                    ))}
-                </IonList>
-            </IonContent>
-
-            <IonFooter>
-                <IonToolbar>
-                    <div className={styles.rodape}>
-                        <IonTitle className={styles.textoRodape}>Valor Total do pedido: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
-                    </div>
-                </IonToolbar>
-            </IonFooter>
-        </IonModal>
-    );
+      <IonFooter>
+        <IonToolbar>
+          <div className={styles.rodape}>
+            <IonTitle className={styles.textoRodape}>Valor Total do pedido: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
+          </div>
+        </IonToolbar>
+      </IonFooter>
+    </IonModal>
+  );
 }

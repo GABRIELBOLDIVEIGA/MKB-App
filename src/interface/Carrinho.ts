@@ -1,6 +1,5 @@
 import { Produto } from "./Produto";
 
-export interface Carrinho {
-    produto: Produto;
+export interface Carrinho extends Produto {
     quantidade: number;
 }

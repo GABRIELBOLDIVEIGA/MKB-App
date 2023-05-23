@@ -14,17 +14,17 @@ const ItemProduto = ({ produto }: IProps) => {
     const [checked, setChecked] = useState(false);
     const { adicionaProduto, removerProduto, carrinho } = useCarrinhoContext();
 
-    useEffect(() => {
-        const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod);
+    // useEffect(() => {
+    //     const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.cod_prod === produto.cod_prod);
 
-        if (temProduto) {
-            const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho.produto.cod_prod === produto.cod_prod)
-            setInputQuantidade(prod[0].quantidade);
-            setChecked(true);
-        }
+    //     if (temProduto) {
+    //         const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho.cod_prod === produto.cod_prod)
+    //         setInputQuantidade(prod[0].quantidade);
+    //         setChecked(true);
+    //     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     return (
         <IonItem>

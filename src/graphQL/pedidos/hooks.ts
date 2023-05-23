@@ -7,6 +7,7 @@ interface Pedido {
 }
 
 export const useCriarPedido = () => {
-    const pedido = useMutation<Pedido>(CRIAR_PEDIDO);
-    return pedido;
-}
+    const criarPedido = useMutation<Pedido>(CRIAR_PEDIDO);
+    
+    return criarPedido
+};
