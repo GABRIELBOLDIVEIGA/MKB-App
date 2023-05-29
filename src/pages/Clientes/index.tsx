@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonMenuButton, IonPage, IonRadioGroup, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonLoading, IonMenuButton, IonPage, IonRadioGroup, IonTitle, IonToolbar } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
 import { useEffect, useState } from "react";
 
@@ -10,82 +10,91 @@ import { useClientes } from "graphQL/clientes/hooks";
 import { Cliente } from "interface/Cliente";
 
 const Clientes = () => {
-    const [busca, setBusca] = useState("");
-    const [btnAvancar, setBtnAvancar] = useState(false);
-    const [filtro, setFiltro] = useState<Cliente[]>([]);
-    const { selecionaCliente } = useCarrinhoContext();
-    const data = useClientes();
+  const [busca, setBusca] = useState("");
+  const [btnAvancar, setBtnAvancar] = useState(false);
+  const [filtro, setFiltro] = useState<Cliente[]>([]);
+  const { selecionaCliente } = useCarrinhoContext();
+  const { data, loading, error } = useClientes();
+  const [showLoading, setShowLoading] = useState(false);
 
-    useEffect(() => {
-        if (data) {
-            if (data.length >= 50) {
-                setFiltro(data.slice(0, 100));
-            } else {
-                setFiltro(data);
-            }
-        }
-    }, [data]);
+  useEffect(() => {
+    if (data) {
+      if (data.length >= 50) {
+        setFiltro(data.slice(0, 100));
+      } else {
+        setFiltro(data);
+      }
+    }
+  }, [data]);
 
-    const aplicarFiltro = () => {
-        const b = busca && busca.toLowerCase();
+  useEffect(() => {
+    setShowLoading(loading)
+  }, [loading])
 
-        const result = data?.filter((prod) => prod.nome.toLowerCase().includes(b));
+  const aplicarFiltro = () => {
+    const b = busca && busca.toLowerCase();
 
-        console.log(result);
-        if (result) {
-            if (result.length >= 50) {
-                setFiltro(result.slice(0, 100));
-            } else {
-                setFiltro(result);
-            }
-        }
-    };
+    const result = data?.filter((prod) => prod.nome.toLowerCase().includes(b));
 
-    return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonMenuButton></IonMenuButton>
-                    </IonButtons>
-                    <IonTitle>Empresas</IonTitle>
-                </IonToolbar>
-                <IonToolbar>
-                    <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
-                    <IonButton onClick={aplicarFiltro} slot="end">
-                        Filtrar
-                    </IonButton>
-                </IonToolbar>
-            </IonHeader>
+    console.log(result);
+    if (result) {
+      if (result.length >= 50) {
+        setFiltro(result.slice(0, 100));
+      } else {
+        setFiltro(result);
+      }
+    }
+  };
 
-            <IonContent>
-                <IonRadioGroup
-                    allowEmptySelection={false}
-                    onIonChange={(ev) => {
-                        selecionaCliente(ev.target.value);
-                        setBtnAvancar(true);
-                    }}
-                >
-                    {filtro.map((cliente, index) => {
-                        return <ListaDeClientes key={index} cliente={cliente} />;
-                    })}
-                </IonRadioGroup>
-            </IonContent>
-            <IonFooter>
-                <IonToolbar>
-                    <IonItem>
-                        <div className={styles.ionButtonContainer}>
-                            <Link to="produtos">
-                                <IonButton slot="end" color="primary" disabled={!btnAvancar} size="default">
-                                    Avançar
-                                </IonButton>
-                            </Link>
-                        </div>
-                    </IonItem>
-                </IonToolbar>
-            </IonFooter>
-        </IonPage>
-    );
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton></IonMenuButton>
+          </IonButtons>
+          <IonTitle>Empresas</IonTitle>
+        </IonToolbar>
+        <IonToolbar>
+          <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
+          <IonButton onClick={aplicarFiltro} slot="end">
+            Filtrar
+          </IonButton>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <IonRadioGroup
+          allowEmptySelection={false}
+          onIonChange={(ev) => {
+            selecionaCliente(ev.target.value);
+            setBtnAvancar(true);
+          }}
+        >
+          {filtro.map((cliente, index) => {
+            return <ListaDeClientes key={index} cliente={cliente} />;
+          })}
+        </IonRadioGroup>
+      </IonContent>
+      <IonFooter>
+        <IonToolbar>
+          <IonItem>
+            <div className={styles.ionButtonContainer}>
+              <Link to="produtos">
+                <IonButton slot="end" color="primary" disabled={!btnAvancar} size="default">
+                  Avançar
+                </IonButton>
+              </Link>
+            </div>
+          </IonItem>
+        </IonToolbar>
+      </IonFooter>
+      <IonLoading
+        isOpen={showLoading}
+        message={'Carregando lista de clientes...'}
+      />
+    </IonPage>
+  );
 };
 
 export default Clientes;

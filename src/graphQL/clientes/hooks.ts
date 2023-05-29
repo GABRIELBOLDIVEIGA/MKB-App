@@ -4,9 +4,9 @@ import { OBTER_CLIENTES, OBTER_CLIENTE } from "./queries";
 import { CRIAR_CLIENTE } from "./mudations";
 
 export const useClientes = () => {
-    const { data } = useQuery<{ getClientes: Cliente[] }>(OBTER_CLIENTES);
+    const { data, loading, error } = useQuery<{ getClientes: Cliente[] }>(OBTER_CLIENTES);
 
-    return data?.getClientes;
+    return { data: data?.getClientes, loading, error };
 };
 
 export const useCliente = (id: string) => {
