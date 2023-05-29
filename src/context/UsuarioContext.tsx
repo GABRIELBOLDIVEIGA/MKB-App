@@ -32,7 +32,7 @@ type Props = {
 export const UsuarioProvider = ({ children }: Props) => {
     const [nome, setNome] = useState("GabrielBoldi");
     const [email, setEmail] = useState("gabriel.boldi@gmail.com");
-    const [loginValido, setLoginValido] = useState<boolean>(true);
+    const [loginValido, setLoginValido] = useState<boolean>(false);
     const [senha, setSenha] = useState("123456");
 
     return (
