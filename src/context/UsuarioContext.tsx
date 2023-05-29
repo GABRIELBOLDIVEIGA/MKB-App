@@ -1,70 +1,84 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
+import { Usuario } from "interface/Usuario";
 
 interface CurrentUserContextType {
-    nome: string;
-    setNome: React.Dispatch<React.SetStateAction<string>>;
-    email: string;
-    setEmail: React.Dispatch<React.SetStateAction<string>>;
     loginValido: boolean;
     setLoginValido: React.Dispatch<React.SetStateAction<boolean>>;
-    senha: string;
-    setSenha: React.Dispatch<React.SetStateAction<string>>;
+
+    usuario: Usuario;
+    setUsuario: React.Dispatch<React.SetStateAction<Usuario>>
 }
 
-const DEFAULT_VALUE = {
-    nome: "",
-    setNome: () => {},
-    email: "",
-    setEmail: () => {},
-    loginValido: true,
-    setLoginValido: () => {},
-    senha: "",
-    setSenha: () => {},
+const DEFAULT_CONTEXT = {
+    loginValido: false,
+    setLoginValido: () => { },
+
+    usuario: {},
+    setUsuario: () => { },
 };
 
-export const UsuarioContext = createContext<CurrentUserContextType>(DEFAULT_VALUE);
-UsuarioContext.displayName = "Usuario";
+export const UserContext = createContext<CurrentUserContextType>(DEFAULT_CONTEXT);
+UserContext.displayName = "Usuario";
 
 type Props = {
     children: string | JSX.Element | JSX.Element[];
 };
 
 export const UsuarioProvider = ({ children }: Props) => {
-    const [nome, setNome] = useState("GabrielBoldi");
-    const [email, setEmail] = useState("gabriel.boldi@gmail.com");
     const [loginValido, setLoginValido] = useState<boolean>(false);
-    const [senha, setSenha] = useState("123456");
+    const [usuario, setUsuario] = useState<Usuario>({});
+
+    useEffect(() => {
+        const user = localStorage.getItem("user");
+        if (user) {
+            setLoginValido(true);
+            setUsuario(JSON.parse(user));
+        }
+    }, []);
 
     return (
-        <UsuarioContext.Provider
+        <UserContext.Provider
             value={{
-                nome,
-                setNome,
-                email,
-                setEmail,
                 loginValido,
                 setLoginValido,
-                senha,
-                setSenha
+                usuario: usuario,
+                setUsuario: setUsuario
             }}
         >
             {children}
-        </UsuarioContext.Provider>
+        </UserContext.Provider>
     );
 };
 
-export const useUsuarioContext = () => {
-    const userContext = useContext(UsuarioContext);
-    if (!userContext) return null;
+export const useUserContext = () => {
+    const userContext = useContext(UserContext);
+    const { loginValido, setLoginValido, usuario, setUsuario } = userContext;
 
-    const { nome, setNome, email, setEmail, loginValido, setLoginValido } = userContext;
+    useEffect(() => {
+        const usuario = localStorage.getItem("user");
+
+        if (usuario) {
+            setUsuario(JSON.parse(usuario))
+        }
+    }, [])
+
+    const saveUser = (userData: Usuario) => {
+        if (userData) {
+            localStorage.setItem("user", JSON.stringify(userData));
+            setUsuario(userData);
+            setLoginValido(true)
+        }
+    }
+
+    const removeUser = () => { 
+        localStorage.removeItem("user")
+        setLoginValido(false)
+    }
 
     return {
-        nome,
-        setNome,
-        email,
-        setEmail,
         loginValido,
-        setLoginValido,
+        usuario,
+        saveUser,
+        removeUser
     };
 };

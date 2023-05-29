@@ -23,8 +23,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "pages/Login";
 
-import { UsuarioContext } from "context/UsuarioContext";
-import { useContext } from "react";
+import { useUserContext } from "context/UsuarioContext";
 import Home from "pages/Home";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
@@ -33,15 +32,11 @@ import Clientes from "pages/Clientes";
 setupIonicReact();
 
 function App() {
-    const { loginValido } = useContext(UsuarioContext);
+    const { loginValido } = useUserContext();
 
     return (
         <IonApp>
             <IonReactRouter>
-                <Route path="/" exact={true}>
-                    <Redirect to="/login" />
-                </Route>
-                {/* <Route path="/fazerCadastro" exact={true} component={PaginaCadatrosUsuario} /> */}
 
                 {loginValido ? (
                     <IonSplitPane contentId="main">
@@ -52,16 +47,13 @@ function App() {
                             <Route path="/empresas" exact={true} component={Clientes} />
                             <Route path="/produtos" exact={true} component={Produtos}></Route>
                             <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
-                            
-
-                            {/* <Switch>
-                                <Route path="/page/processos" exact={true} component={PaginaProcessos} />
-                                <Route path="/page/processo/:id" component={PaginaProcessoDetalhado} />
-                            </Switch> */}
                         </IonRouterOutlet>
                     </IonSplitPane>
                 ) : (
-                    <Route path="/login" component={Login} />
+                    <Route path="*">
+                        <Redirect to="/login" />
+                        <Route path="/login" component={Login} />
+                    </Route>
                 )}
             </IonReactRouter>
         </IonApp>

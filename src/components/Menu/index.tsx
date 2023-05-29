@@ -4,8 +4,8 @@ import { homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline,
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
-import { UsuarioContext } from "context/UsuarioContext";
-import { useContext } from "react";
+import { useUserContext } from "context/UsuarioContext";
+
 
 interface menuLink {
     url: string;
@@ -37,10 +37,8 @@ const menuLinks: menuLink[] = [
 
 const Menu: React.FC = () => {
     const location = useLocation();
-    const userContext = useContext(UsuarioContext);
-    if (!userContext) return null;
-    const { email } = userContext;
-
+    const { usuario } = useUserContext();
+    
     return (
         <IonMenu contentId="main" type="overlay">
             <IonContent>
@@ -50,7 +48,7 @@ const Menu: React.FC = () => {
                             <IonAvatar className="avatar">
                                 <img alt="Img de um minecraft" src={avatar} />
                             </IonAvatar>
-                            <IonNote>{email}</IonNote>
+                            {/* <IonNote>{email}</IonNote> */}
                         </IonListHeader>
 
                         {menuLinks.map((appPage, index) => {

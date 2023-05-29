@@ -5,4 +5,6 @@ export interface Usuario {
     email?: string;
     senha?: string;
     privilegio?: number;
+    token?: string;
+    __typename?: string;
 }

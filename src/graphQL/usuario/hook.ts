@@ -4,5 +4,5 @@ import { LOGIN } from "./mutation"
 export const useLogin = () => {
   const [efetuaLogin, { loading, data, error }] = useMutation(LOGIN)
 
-  return { efetuaLogin, loading, data, error };
+  return { efetuaLogin, loading, data: data?.loginUsuario, error };
 }
