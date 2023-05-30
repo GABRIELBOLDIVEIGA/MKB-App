@@ -1,0 +1,77 @@
+{
+  "data": {
+    "getPedidosByUserIdV2": [
+      {
+        "pedido": {
+          "carrinho": [
+            {
+              "descr_resumida": "GB 114 PP BCA",
+              "preco": 1.72,
+              "quantidade": 123
+            },
+            {
+              "descr_resumida": "PB 114 PP PTA SB",
+              "preco": 1.3442,
+              "quantidade": 321
+            },
+            {
+              "descr_resumida": "GB 114 CRISTAL",
+              "preco": 2,
+              "quantidade": 789
+            },
+            {
+              "descr_resumida": "PB 114 NY PTA B5/8",
+              "preco": 2.05,
+              "quantidade": 987
+            }
+          ],
+          "total": 4244.3982
+        },
+        "cliente": {
+          "nome": "ARMAZEM SAO GERALDO LTDA",
+          "cnpj": "23338148000136",
+          "email": "asgeral@terra.com.br"
+        }
+      },
+      {
+        "pedido": {
+          "carrinho": [
+            {
+              "descr_resumida": "FB 102 FE/PU RO",
+              "preco": 183,
+              "quantidade": 1
+            },
+            {
+              "descr_resumida": "GB 102 FE/PU RO",
+              "preco": 252,
+              "quantidade": 2
+            }
+          ],
+          "total": 687
+        },
+        "cliente": {
+          "nome": "A PLASTILANDIA PLASTICOS BORRACHAS LTDA M",
+          "cnpj": "33095662000141",
+          "email": ""
+        }
+      },
+      {
+        "pedido": {
+          "carrinho": [
+            {
+              "descr_resumida": "RO 12 PU MO",
+              "preco": 320,
+              "quantidade": 1
+            }
+          ],
+          "total": 320
+        },
+        "cliente": {
+          "nome": "A LUMINOSA CAXIAS 718 MAT ELET. LTDA",
+          "cnpj": "05030134000179",
+          "email": "carlos@aluminosa.com.br"
+        }
+      }
+    ]
+  }
+}

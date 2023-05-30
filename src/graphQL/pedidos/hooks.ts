@@ -2,11 +2,6 @@ import { useMutation, useQuery } from "@apollo/client"
 import { CRIAR_PEDIDO } from "./mutations"
 import { GET_PEDIDOS_BY_USER_ID } from "./queries"
 
-interface Pedido { 
-    _id: string,
-    pedido: string
-}
-
 export const useCriarPedido = () => {
     const [criarPedido, { data, loading, error }] = useMutation(CRIAR_PEDIDO);
     
@@ -19,5 +14,6 @@ export const useGetPedidoByUserId = (id: string) => {
             id
         }
     })
+    
     return  { data: data?.getPedidosByUserId, loading, error, refetch }
 }

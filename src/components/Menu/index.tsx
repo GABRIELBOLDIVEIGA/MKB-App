@@ -8,72 +8,73 @@ import { useUserContext } from "context/UsuarioContext";
 
 
 interface menuLink {
-    url: string;
-    iosIcon: string;
-    mdIcon: string;
-    title: string;
+  url: string;
+  iosIcon: string;
+  mdIcon: string;
+  title: string;
 }
 
 const menuLinks: menuLink[] = [
-    {
-        title: "Home",
-        url: "/home",
-        iosIcon: homeOutline,
-        mdIcon: homeOutline,
-    },
-    {
-        title: "Novo Pedido",
-        url: "/empresas",
-        iosIcon: addCircleOutline,
-        mdIcon: addCircleOutline,
-    },
-    {
-        title: "Cadastrar Cliente",
-        url: "/cadastrarCliente",
-        iosIcon: businessOutline,
-        mdIcon: businessOutline,
-    },
+  {
+    title: "Home",
+    url: "/home",
+    iosIcon: homeOutline,
+    mdIcon: homeOutline,
+  },
+  {
+    title: "Novo Pedido",
+    url: "/empresas",
+    iosIcon: addCircleOutline,
+    mdIcon: addCircleOutline,
+  },
+  {
+    title: "Cadastrar Cliente",
+    url: "/cadastrarCliente",
+    iosIcon: businessOutline,
+    mdIcon: businessOutline,
+  },
 ];
 
 const Menu: React.FC = () => {
-    const location = useLocation();
-    const { usuario } = useUserContext();
-    
-    return (
-        <IonMenu contentId="main" type="overlay">
-            <IonContent>
-                <div className="menu">
-                    <IonList id="inbox-list">
-                        <IonListHeader>
-                            <IonAvatar className="avatar">
-                                <img alt="Img de um minecraft" src={avatar} />
-                            </IonAvatar>
-                            {/* <IonNote>{email}</IonNote> */}
-                        </IonListHeader>
+  const location = useLocation();
+  const { usuario } = useUserContext();
 
-                        {menuLinks.map((appPage, index) => {
-                            return (
-                                <IonMenuToggle key={index} autoHide={false}>
-                                    <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                                        <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                                        <IonLabel>{appPage.title}</IonLabel>
-                                    </IonItem>
-                                </IonMenuToggle>
-                            );
-                        })}
-                    </IonList>
+  return (
+    <IonMenu contentId="main" type="overlay">
+      <IonContent>
+        <div className="menu">
+          <IonList id="inbox-list">
+            <IonListHeader>
+              <IonAvatar className="avatar">
+                <img alt="Img de um minecraft" src={avatar} />
+              </IonAvatar>
+              <IonNote>{usuario.nome}</IonNote>
+              <IonNote>{usuario.email}</IonNote>
+            </IonListHeader>
 
-                    <IonList id="labels-list" className="listaBotoes">
-                        <IonButton fill="outline">
-                            <IonIcon slot="start" src={settingsOutline} />
-                            <IonText>Config.</IonText>
-                        </IonButton>
-                        <LogOut />
-                    </IonList>
-                </div>
-            </IonContent>
-        </IonMenu>
-    );
+            {menuLinks.map((appPage, index) => {
+              return (
+                <IonMenuToggle key={index} autoHide={false}>
+                  <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                    <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                    <IonLabel>{appPage.title}</IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+              );
+            })}
+          </IonList>
+
+          <IonList id="labels-list" className="listaBotoes">
+            <IonButton fill="outline">
+              <IonIcon slot="start" src={settingsOutline} />
+              <IonText>Config.</IonText>
+            </IonButton>
+            <LogOut />
+          </IonList>
+        </div>
+      </IonContent>
+    </IonMenu>
+  );
 };
 
 export default Menu;
