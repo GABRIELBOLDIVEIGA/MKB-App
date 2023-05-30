@@ -1,23 +1,30 @@
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText, useIonAlert, useIonLoading } from "@ionic/react";
-import { useRef } from "react";
+import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText, useIonAlert, useIonLoading, IonLoading } from "@ionic/react";
+import { useEffect, useRef, useState } from "react";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { Carrinho } from "interface/Carrinho";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
 import styles from "./ModalCarrinho.module.scss";
 import { useCriarPedido } from "graphQL/pedidos/hooks"
 import { useHistory } from "react-router";
+import { useUserContext } from "context/UsuarioContext";
 
 interface IProps {
   carrinho: Carrinho[];
 }
 
 export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
+  const { usuario } = useUserContext();
   const modal = useRef<HTMLIonModalElement>(null);
-  const [criarPedido, { loading, data, error }] = useCriarPedido();
+  const { criarPedido, loading, data, error } = useCriarPedido();
   const { carrinho, setCarrinho, cliente, valorTotalCarrinho } = useCarrinhoContext();
   const [presentAlert] = useIonAlert();
   const [present] = useIonLoading();
   const history = useHistory();
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    setShowLoading(loading)
+  }, [loading])
 
   function dismiss() {
     modal.current?.dismiss();
@@ -34,18 +41,12 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
       variables: {
         pedidoInput: {
           clienteID: cliente._id,
+          usuarioID: usuario._id,
           carrinho: carrinhoFormatado,
           total: valorTotalCarrinho
         }
       }
     })
-
-    if (loading) {
-      present({
-        message: "Verificando...",
-        duration: 3000
-      })
-    }
 
     if (error) {
       presentAlert({
@@ -57,16 +58,18 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
         }
       })
     } else {
-      presentAlert({
-        header: "Sucesso",
-        message: "Pedido cadastrado com sucesso!",
-        buttons: ["OK"],
-        onDidDismiss() {
-          dismiss();
-          history.push('/home');
-          setCarrinho([])
-        }
-      })
+      if (loading === false) {
+        presentAlert({
+          header: "Sucesso",
+          message: "Pedido cadastrado com sucesso!",
+          buttons: ["OK"],
+          onDidDismiss() {
+            dismiss();
+            history.push('/home');
+            setCarrinho([])
+          }
+        })
+      }
     }
   }
 
@@ -114,6 +117,10 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
           </div>
         </IonToolbar>
       </IonFooter>
+      <IonLoading
+        isOpen={showLoading}
+        message={'Verificando...'}
+      />
     </IonModal>
   );
 }
