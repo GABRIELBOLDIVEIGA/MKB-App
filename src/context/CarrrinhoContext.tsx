@@ -134,7 +134,7 @@ export const useCarrinhoContext = () => {
     };
 
     const removerProduto = (cod_prod: string) => {
-        if (quantidadeDeProdutos === 0) return;
+        // if (quantidadeDeProdutos === 0) return;
 
         const novaLista = carrinho.filter((produto) => !(produto.cod_prod === cod_prod));
 
@@ -142,7 +142,7 @@ export const useCarrinhoContext = () => {
     };
 
     return {
-        quantidadeDeProdutos,
+        // quantidadeDeProdutos,
         setQuantidadeDeProdutos,
         quantidadeDoItem,
         setQuantidadeDoItem,

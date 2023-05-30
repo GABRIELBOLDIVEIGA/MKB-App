@@ -1,7 +1,6 @@
-import { IonButton, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonItem, IonLoading } from "@ionic/react";
+import { IonButton, IonContent, IonFooter, IonHeader, IonList, IonMenuButton, IonPage, IonTitle, IonToolbar, IonIcon, IonItem, IonLoading, IonSearchbar } from "@ionic/react";
 import ItemProduto from "components/ItemProduto";
 import { useEffect, useState } from "react";
-import BarraPesquisa from "components/BarraPesquisa";
 import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
@@ -11,9 +10,9 @@ import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { useProduto } from "graphQL/produtos/hooks";
 
 export default function Produtos() {
-  const [busca, setBusca] = useState("");
+  const [busca, setBusca] = useState<string | null | undefined>("");
   const [filtro, setFiltro] = useState<Produto[]>([]);
-  const { carrinho, cliente, quantidadeDeProdutos, valorTotalCarrinho } = useCarrinhoContext();
+  const { carrinho, cliente, valorTotalCarrinho } = useCarrinhoContext();
   const { data, loading, error } = useProduto();
   const [showLoading, setShowLoading] = useState(false);
 
@@ -31,10 +30,10 @@ export default function Produtos() {
     setShowLoading(loading)
   }, [loading])
 
-  const aplicarFiltro = () => {
+  useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result = data?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b));
+    const result = data?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
 
     if (result) {
       if (result.length >= 50) {
@@ -43,7 +42,7 @@ export default function Produtos() {
         setFiltro(result);
       }
     }
-  };
+  }, [busca])
 
   return (
     <IonPage>
@@ -53,16 +52,19 @@ export default function Produtos() {
             <IonMenuButton />
             <IonTitle>Lista de Produtos </IonTitle>
             <IonButton color="primary">
-              <IonIcon src={cartOutline} slot="start" />
-              {quantidadeDeProdutos}
+              <IonIcon  src={cartOutline} slot="start" />
+              {carrinho.length }
             </IonButton>
           </IonItem>
         </IonToolbar>
         <IonToolbar>
-          <BarraPesquisa placeholder="Produto" busca={busca} setBusca={setBusca} />
-          <IonButton onClick={aplicarFiltro} slot="end">
-            Filtrar
-          </IonButton>
+          <IonSearchbar
+            placeholder="Filtro..."
+            color="light"
+            showCancelButton="focus"
+            animated={true}
+            onIonChange={(ev) => setBusca(ev.target.value)}
+          />
         </IonToolbar>
       </IonHeader>
 
