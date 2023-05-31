@@ -18,3 +18,23 @@ query GetPedidosByUserId($id: ID!) {
   }
 }
 `
+
+export const GET_PEDIDOS_BY_USER_ID_V2 = gql`
+query GetPedidosByUserIdV2($id: ID!) {
+  getPedidosByUserIdV2(ID: $id) {
+    pedido {
+      carrinho {
+        descr_resumida
+        preco
+        quantidade
+      }
+      total
+    }
+    cliente {
+      nome
+      cnpj
+      email
+    }
+  }
+}
+`
