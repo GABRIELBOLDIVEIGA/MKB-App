@@ -1,10 +1,11 @@
 import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonText } from "@ionic/react";
 import { useLocation } from "react-router-dom";
-import { homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline, businessOutline } from "ionicons/icons";
+import { pricetagOutline, peopleOutline, documentTextOutline, homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline, businessOutline } from "ionicons/icons";
 import "./Menu.css";
 import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
 import { useUserContext } from "context/UsuarioContext";
+import { useEffect, useState } from "react";
 
 
 interface menuLink {
@@ -14,7 +15,7 @@ interface menuLink {
   title: string;
 }
 
-const menuLinks: menuLink[] = [
+const menuFuncionario: menuLink[] = [
   {
     title: "Home",
     url: "/home",
@@ -35,9 +36,56 @@ const menuLinks: menuLink[] = [
   },
 ];
 
+const menuADM: menuLink[] = [
+  {
+    title: "Home",
+    url: "/home",
+    iosIcon: homeOutline,
+    mdIcon: homeOutline,
+  },
+  {
+    title: "Cliente",
+    url: "/cliente",
+    iosIcon: businessOutline,
+    mdIcon: businessOutline,
+  },
+  {
+    title: "Produtos",
+    url: "/produto",
+    iosIcon: pricetagOutline,
+    mdIcon: pricetagOutline,
+  },
+  {
+    title: "Funcionários",
+    url: "/funcionarios",
+    iosIcon: peopleOutline,
+    mdIcon: peopleOutline,
+  },
+  {
+    title: "Pedidos",
+    url: "/pedidos",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
+  },
+];
+
 const Menu: React.FC = () => {
   const location = useLocation();
   const { usuario } = useUserContext();
+  const [menu, setMenu] = useState<menuLink[]>([]);
+
+  useEffect(() => {
+    switch (usuario.privilegio) {
+      case 0:
+        setMenu(menuADM);
+        break;
+      case 1:
+        setMenu(menuFuncionario);
+        break;
+      default:
+        break;
+    }
+  }, [])
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -52,7 +100,7 @@ const Menu: React.FC = () => {
               <IonNote>{usuario.email}</IonNote>
             </IonListHeader>
 
-            {menuLinks.map((appPage, index) => {
+            {menu.map((appPage, index) => {
               return (
                 <IonMenuToggle key={index} autoHide={false}>
                   <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>

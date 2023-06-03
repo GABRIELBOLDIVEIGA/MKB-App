@@ -38,3 +38,21 @@ query GetPedidosByUserIdV2($id: ID!) {
   }
 }
 `
+export const GET_ALL_PEDIDOS = gql`
+query GetPedidos {
+  getPedidos {
+    _id
+    clienteID
+    usuarioID
+    carrinho {
+      cod_prod
+      descr_resumida
+      descr_detalhada
+      preco
+      unidade
+      quantidade
+    }
+    total
+  }
+}
+`

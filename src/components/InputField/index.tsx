@@ -1,17 +1,20 @@
 import { IonItem, IonLabel, IonInput } from '@ionic/react'
 
 interface Props {
+  required?: boolean;
   label?: string;
   placeholder?: string;
+  position?: "fixed" | "stacked" | "floating" | undefined;
   state: string;
   setState: React.Dispatch<React.SetStateAction<string>>
+  type?: "number" | "password" | "text"
 }
 
-export default function InputField({ label = "", placeholder = "", state, setState }: Props) {
+export default function InputField({ type = "text", required = false, label = "", placeholder = "", position = undefined, state, setState }: Props) {
   return (
     <IonItem>
-      <IonLabel position='stacked'>{label}</IonLabel>
-      <IonInput placeholder={placeholder} value={state} onIonChange={(ev) => {
+      <IonLabel position={position}>{label}</IonLabel>
+      <IonInput type={type} required={required} placeholder={placeholder} value={state} onIonChange={(ev) => {
         if (typeof ev.target.value === 'string') {
           setState(ev.target.value)
         }

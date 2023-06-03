@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client"
 import { CRIAR_PEDIDO } from "./mutations"
-import { GET_PEDIDOS_BY_USER_ID, GET_PEDIDOS_BY_USER_ID_V2 } from "./queries"
+import { GET_ALL_PEDIDOS, GET_PEDIDOS_BY_USER_ID, GET_PEDIDOS_BY_USER_ID_V2 } from "./queries"
+import { Pedido } from "interface/Pedido";
 
 export const useCriarPedido = () => {
     const [criarPedido, { data, loading, error }] = useMutation(CRIAR_PEDIDO);
@@ -26,4 +27,10 @@ export const useGetPedidosByUserIdV2 = (id: string) => {
     })
 
     return { data: data?.getPedidosByUserIdV2, loading, error, refetch }
+}
+
+export const useGetAllPedidos = () => { 
+    const { data, loading, error, refetch } = useQuery<{ getPedidos: Pedido[] }>(GET_ALL_PEDIDOS)
+
+    return { data: data?.getPedidos, loading, error, refetch }
 }

@@ -28,36 +28,57 @@ import Home from "pages/Home";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
 import Clientes from "pages/Clientes";
+import FuncionariosADM from "pages/Adm/Funcionarios";
+import ProdutosADM from "pages/Adm/Produtos";
+import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
+import PedidosADM from "pages/Adm/Pedidos";
 
 setupIonicReact();
 
 function App() {
-    const { loginValido } = useUserContext();
+  const { loginValido, usuario } = useUserContext();
 
-    return (
-        <IonApp>
-            <IonReactRouter>
+  return (
+    <IonApp>
+      <IonReactRouter>
 
-                {loginValido ? (
-                    <IonSplitPane contentId="main">
-                        <Menu />
-                        <IonRouterOutlet id="main">
-                            <Redirect to="/home" />
-                            <Route path="/home" exact={true} component={Home} />
-                            <Route path="/empresas" exact={true} component={Clientes} />
-                            <Route path="/produtos" exact={true} component={Produtos}></Route>
-                            <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
-                        </IonRouterOutlet>
-                    </IonSplitPane>
-                ) : (
-                    <Route path="*">
-                        <Redirect to="/login" />
-                        <Route path="/login" component={Login} />
-                    </Route>
-                )}
-            </IonReactRouter>
-        </IonApp>
-    );
+        {loginValido ? (
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Redirect to="/home" />
+              <Route path="/home" exact={true} component={Home} />
+              {usuario.privilegio === 1 ?
+                (
+                  <>
+                    <Route path="/empresas" exact={true} component={Clientes} />
+                    <Route path="/produtos" exact={true} component={Produtos}></Route>
+                    <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
+                  </>
+                ) :
+                (
+                  <>
+                    <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
+                    <Route path="/produto" exact={true} component={ProdutosADM} />
+                    <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
+                    <Route path="/pedidos" exact={true} component={PedidosADM} />
+                  </>
+                )
+              }
+              {/* <Route path="/empresas" exact={true} component={Clientes} />
+              <Route path="/produtos" exact={true} component={Produtos}></Route>
+              <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} /> */}
+            </IonRouterOutlet>
+          </IonSplitPane>
+        ) : (
+          <Route path="*">
+            <Redirect to="/login" />
+            <Route path="/login" component={Login} />
+          </Route>
+        )}
+      </IonReactRouter>
+    </IonApp>
+  );
 }
 
 export default App;

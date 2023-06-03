@@ -7,6 +7,7 @@ mutation LoginUsuario($loginInput: LoginInput) {
       cpf
       email
       nome
+      privilegio
       token
     }
   }
