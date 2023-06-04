@@ -30,7 +30,7 @@ export const useGetPedidosByUserIdV2 = (id: string) => {
 }
 
 export const useGetAllPedidos = () => { 
-    const { data, loading, error, refetch } = useQuery<{ getPedidos: Pedido[] }>(GET_ALL_PEDIDOS)
+    const { data, loading, error, refetch } = useQuery(GET_ALL_PEDIDOS)
 
     return { data: data?.getPedidos, loading, error, refetch }
 }
