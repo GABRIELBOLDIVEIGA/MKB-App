@@ -1,0 +1,98 @@
+{
+  "__typename": "PedidoCompleto",
+  "cliente": {
+    "__typename": "Cliente",
+    "_id": "64583472f68c311f85d25e5f",
+    "cod": "2",
+    "nome": "INFORMAL INFORMATICA",
+    "cnpj": "03093693000100",
+    "endereco": "Av. ITABERABA",
+    "bairro": "FREGUESIA DO O",
+    "cidade": "SAO PAULO",
+    "cep": "02734000",
+    "uf": "SP",
+    "email": "compreaki@compreaki.com.br",
+    "ddd": "11",
+    "fone1": "39922999",
+    "fone2": "39752272",
+    "celular": "",
+    "fax": "",
+    "fantasia": "INFORMAL",
+    "numero": "968"
+  },
+  "usuario": {
+    "__typename": "Usuario",
+    "_id": "646ec69569a0e689a63c4228",
+    "cpf": "000",
+    "email": "krebinho@gmail.com",
+    "senha": "$2b$10$51IW4rHyctDHtZP3KxDU1O9Kv6IT81krMcBG4SLTLfD10.vhle09m",
+    "telefone": null,
+    "celular": null,
+    "privilegio": 1,
+    "nome": "Krebinho",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDZlYzY5NTY5YTBlNjg5YTYzYzQyMjgiLCJlbWFpbCI6ImtyZWJpbmhvQGdtYWlsLmNvbSIsImlhdCI6MTY4NDk4MTM5NywiZXhwIjoxNjg0OTg4NTk3fQ.0Cke_GKy5m9_g18GC-0a5sWyavrTAnd9_N5P5dsaBrs"
+  },
+  "pedido": {
+    "__typename": "Pedido",
+    "_id": "647a989b9cfb5b1ee4d0d22c",
+    "usuarioID": "646ec69569a0e689a63c4228",
+    "carrinho": [
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004FBR1634",
+        "descr_resumida": "FB 102 FE/PU RO",
+        "descr_detalhada": "RODIZIO DE AÇO FIXO FM 102 UFS 10",
+        "preco": 183,
+        "unidade": "PECA",
+        "quantidade": 1
+      },
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004GBR1635",
+        "descr_resumida": "GB 102 FE/PU RO",
+        "descr_detalhada": "RODIZIO DE AÇO GIRATÓRIO GM 102 UFS 10",
+        "preco": 252,
+        "unidade": "PECA",
+        "quantidade": 2
+      },
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004RO1484",
+        "descr_resumida": "KIT 3/8 - L14",
+        "descr_detalhada": "KIT PARAFUSO E PORCA 3/8x67 DA LINHA 14 LEVE",
+        "preco": 1.2,
+        "unidade": "PECA",
+        "quantidade": 3
+      },
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004RO2121",
+        "descr_resumida": "RO 205 BM RO",
+        "descr_detalhada": "RODA 30CM DIAMETRO RL 205 COM ROLAMENTO DE ESFERA",
+        "preco": 103.7,
+        "unidade": "PECA",
+        "quantidade": 4
+      },
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004RO2122",
+        "descr_resumida": "RO 102 FE/PU RO",
+        "descr_detalhada": "RODA 102 Ferro com PU Rolamento",
+        "preco": 203.83,
+        "unidade": "PECA",
+        "quantidade": 5
+      },
+      {
+        "__typename": "Carrinho",
+        "cod_prod": "004RO2147",
+        "descr_resumida": "RO 82 BI B",
+        "descr_detalhada": "RODA BORRACHA INTEGRAL 200X50X56 - 8\" FP-7/8 - RBIN82FP0708",
+        "preco": 15.7,
+        "unidade": "PECA",
+        "quantidade": 6
+      }
+    ],
+    "total": 2218.75,
+    "clienteID": "64583472f68c311f85d25e5f"
+  }
+}

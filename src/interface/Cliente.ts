@@ -16,6 +16,7 @@ export interface Cliente {
     fax?: string;
     fantasia?: string;
     contato?: string;
+    numero?: string;
 }
 
 

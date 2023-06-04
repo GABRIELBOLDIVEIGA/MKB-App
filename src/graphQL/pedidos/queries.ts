@@ -64,3 +64,54 @@ query GetPedidos {
   }
 }
 `
+
+export const GET_PEDIDO_BY_ID = gql`
+query GetPedido($id: ID!) {
+  getPedido(ID: $id) {
+    cliente {
+      _id
+      cod
+      nome
+      cnpj
+      endereco
+      bairro
+      cidade
+      cep
+      uf
+      email
+      ddd
+      fone1
+      fone2
+      celular
+      fax
+      fantasia
+      numero
+    }
+    usuario {
+      _id
+      cpf
+      email
+      senha
+      telefone
+      celular
+      privilegio
+      nome
+      token
+    }
+    pedido {
+      _id
+      usuarioID
+      carrinho {
+        cod_prod
+        descr_resumida
+        descr_detalhada
+        preco
+        unidade
+        quantidade
+      }
+      total
+      clienteID
+    }
+  }
+}
+`
