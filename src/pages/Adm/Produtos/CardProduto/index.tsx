@@ -23,9 +23,6 @@ export default function CardProduto({ _id, cod_prod, descr_resumida, descr_detal
       <IonCardContent>
         <IonGrid>
           <IonRow>
-            <IonText>ID: {_id}</IonText>
-          </IonRow>
-          <IonRow>
             <IonText>COD: {cod_prod}</IonText>
           </IonRow>
           <IonRow>
@@ -38,7 +35,7 @@ export default function CardProduto({ _id, cod_prod, descr_resumida, descr_detal
         <IonItem lines="none">
           <ButtonRouter
             icon={pencilOutline}
-            routerLink={`/produtos/EditarProduto:${_id}`}
+            routerLink={`/produto/${_id}`}
             routerDirection="none"
             colorButton="medium"
             colorIcon="light"

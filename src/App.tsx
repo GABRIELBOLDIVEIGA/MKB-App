@@ -33,6 +33,7 @@ import ProdutosADM from "pages/Adm/Produtos";
 import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
+import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 
 setupIonicReact();
 
@@ -61,9 +62,11 @@ function App() {
                   <>
                     <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
                     <Route path="/produto" exact={true} component={ProdutosADM} />
+                    <Route path="/produto/:id" exact={true} component={EditarProduto} />
                     <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
+                    
                   </>
                 )
               }

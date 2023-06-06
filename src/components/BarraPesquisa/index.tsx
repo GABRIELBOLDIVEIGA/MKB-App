@@ -9,7 +9,7 @@ interface IProps {
     placeholder?: string;
 }
 
-export default function BarraPesquisa({ placeholder = "Digite aqui...", setBusca }: IProps) {
+export default function BarraPesquisa({ placeholder = "Digite aqui...", setBusca, busca }: IProps) {
     const handleChange = (ev: Event) => {
         let query = "";
         const target = ev.target as HTMLIonSearchbarElement;
@@ -18,5 +18,5 @@ export default function BarraPesquisa({ placeholder = "Digite aqui...", setBusca
         setBusca(query);
     };
 
-    return <IonSearchbar className={styles.barraPesquisa} onIonChange={(ev) => handleChange(ev)} color="light" showCancelButton="focus" animated={true} placeholder={placeholder} />
+    return <IonSearchbar className={styles.barraPesquisa} value={busca} onIonChange={(ev) => handleChange(ev)} color="light" showCancelButton="focus" animated={true} placeholder={placeholder} />
 }

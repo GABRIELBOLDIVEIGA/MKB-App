@@ -37,14 +37,11 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
         <IonItem>
           <IonCardTitle>{cliente.nome}</IonCardTitle>
           <ButtonRouter
-            icon={pencilOutline}
             routerLink={`/pedidoDetalhado/${pedido._id}`}
             routerDirection="none"
             colorButton="medium"
-            colorIcon="light"
-            text="Editar"
+            text="Detalhes"
             size="small"
-            slotIcon="end"
             slotButton="end"
           />
         </IonItem>
@@ -72,8 +69,8 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
           }))}
         </IonGrid>
         <IonRow>
-          <IonText color="success">Total: </IonText>
-          <IonText> {formatadorMonetario.format(pedido.total)} </IonText>
+          <IonText color="success"><strong>Total: </strong></IonText>
+          <IonText>{formatadorMonetario.format(pedido.total)} </IonText>
         </IonRow>
       </IonCardContent>
     </IonCard>

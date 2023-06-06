@@ -9,8 +9,8 @@ import InputField from "components/InputField";
 
 const Login: React.FC = () => {
   const { efetuaLogin, data, loading } = useLogin();
-  const [email, setEmail] = useState<string>("");
-  const [senha, setSenha] = useState<string>("");
+  const [email, setEmail] = useState<string | undefined>("");
+  const [senha, setSenha] = useState<string | undefined>("");
   const [presentAlert] = useIonAlert();
   const [showLoading, setShowLoading] = useState(false);
   const { saveUser } = useUserContext();

@@ -5,28 +5,30 @@ import { useCreateProduto } from "graphQL/produtos/hooks";
 import { Produto } from "interface/Produto";
 import { useRef, useState } from "react";
 import CardProduto from "../CardProduto";
+import FormProduto from "../FormProdutos";
 
 export default function CriarProdutoADM() {
   const { createProduto, data, loading, error } = useCreateProduto();
-  const [cod, setCod] = useState("");
-  const [descricaoResumida, setDescricaoResumida] = useState("");
-  const [descricaoDetalhada, setDescricaoDetalhada] = useState("");
-  const [unidade, setUnidade] = useState("PEÇA");
-  const [preco, setPreco] = useState<string | null | undefined>("");
+  const [cod, setCod] = useState<string | undefined>("");
+  const [descricaoResumida, setDescricaoResumida] = useState<string | undefined>("");
+  const [descricaoDetalhada, setDescricaoDetalhada] = useState<string | undefined>("");
+  const [unidade, setUnidade] = useState<string | undefined>("PEÇA");
+  const [preco, setPreco] = useState<number | null | undefined>();
   const [presentAlert] = useIonAlert();
   const [isOpen, setIsOpen] = useState(true);
-  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
     const produto: Produto = {
-      cod_prod: cod,
-      descr_resumida: descricaoResumida,
-      descr_detalhada: descricaoDetalhada,
+      cod_prod: cod ? cod : "",
+      descr_resumida: descricaoResumida ? descricaoResumida : "",
+      descr_detalhada: descricaoDetalhada ? descricaoDetalhada : "",
       preco: preco ? +preco : 0,
-      unidade: unidade
+      unidade: unidade ? unidade : ""
     }
+
+    console.log(`[Submit] - Criar Produto: ${produto}`);
 
     createProduto({
       variables: {
@@ -34,7 +36,11 @@ export default function CriarProdutoADM() {
       },
       onCompleted: () => {
         setIsOpen(true)
-        formRef.current?.reset();
+        setCod("")
+        setDescricaoResumida("")
+        setDescricaoDetalhada("")
+        setUnidade("")
+        setPreco(undefined)
       },
       onError: (error) => {
         presentAlert({
@@ -50,69 +56,19 @@ export default function CriarProdutoADM() {
     <IonPage>
       <Cabecalho texto="Criar Produto" />
       <IonContent >
-        <IonGrid>
-          <IonRow>
-            <IonCol offsetXl="3" sizeXl="6">
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Informações do Produto</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <form ref={formRef} onSubmit={(ev) => handleSubmit(ev)}>
-                    <InputField
-                      required={true}
-                      position="stacked"
-                      label="Código"
-                      placeholder="Código"
-                      state={cod}
-                      setState={setCod}
-                    />
-                    <InputField
-                      required={true}
-                      position="stacked"
-                      label="Descrição Detalhada"
-                      placeholder="Descrição Detalhada"
-                      state={descricaoDetalhada}
-                      setState={setDescricaoDetalhada}
-                    />
-                    <InputField
-                      required={true}
-                      position="stacked"
-                      label="Descrição Resumida"
-                      placeholder="Descrição Resumida"
-                      state={descricaoResumida}
-                      setState={setDescricaoResumida}
-                    />
-                    <InputField
-                      required={true}
-                      position="stacked"
-                      label="Tipo"
-                      placeholder="Tipo"
-                      state={unidade}
-                      setState={setUnidade}
-                    />
-                    <IonItem>
-                      <IonLabel position="stacked">Preço</IonLabel>
-                      <IonInput
-                        type="number"
-                        required
-                        placeholder="Preco"
-                        value={preco}
-                        min="0.01"
-                        step="0.01"
-                        onIonChange={(ev) => { setPreco(ev.detail.value) }}
-                      />
-                    </IonItem>
-                    <IonItem lines="none" style={{ marginTop: "10px" }}>
-                      <IonButton type="reset" color="warning">Limpar</IonButton>
-                      <IonButton type="submit" color="primary" slot="end">Confirmar</IonButton>
-                    </IonItem>
-                  </form>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+        <FormProduto
+          cod={cod}
+          setCod={setCod}
+          descricaoResumida={descricaoResumida}
+          setDescricaoResumida={setDescricaoResumida}
+          descricaoDetalhada={descricaoDetalhada}
+          setDescricaoDetalhada={setDescricaoDetalhada}
+          unidade={unidade}
+          setUnidade={setUnidade}
+          preco={preco}
+          setPreco={setPreco}
+          onSubmit={handleSubmit}
+        />
       </IonContent>
       <IonLoading
         isOpen={loading}

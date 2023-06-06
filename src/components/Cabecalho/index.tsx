@@ -1,4 +1,4 @@
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react'
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonItem } from '@ionic/react'
 import React from 'react'
 
 interface Props {
@@ -13,13 +13,16 @@ export default function Cabecalho({ texto, children }: Props) {
         <IonButtons slot="start">
           <IonMenuButton />
         </IonButtons>
-        <IonTitle>{texto}</IonTitle>
-      </IonToolbar>
-      {children
-        ? <IonToolbar>{children}</IonToolbar>
-        : <></>
-      }
 
-    </IonHeader>
+        <IonItem>
+          <IonTitle>{texto}</IonTitle>
+          {children
+            ? <IonItem>{children}</IonItem>
+            : <></>
+          }
+        </IonItem>
+      </IonToolbar>
+
+    </IonHeader >
   )
 }

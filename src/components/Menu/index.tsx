@@ -67,6 +67,18 @@ const menuADM: menuLink[] = [
     iosIcon: documentTextOutline,
     mdIcon: documentTextOutline,
   },
+  {
+    title: "TesteTabela",
+    url: "/tabela",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
+  },
+  {
+    title: "TesteTabela2",
+    url: "/tabela2",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
+  },
 ];
 
 const Menu: React.FC = () => {

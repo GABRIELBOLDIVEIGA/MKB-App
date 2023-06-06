@@ -12,3 +12,16 @@ mutation CreateProduto($produtoInput: ProdutoInput!) {
   }
 }
 `
+
+export const UPDATE_PRODUTO = gql`
+mutation UpdateProduto($id: ID!, $produtoInput: ProdutoInput) {
+  updateProduto(ID: $id, produtoInput: $produtoInput) {
+    descr_resumida
+    descr_detalhada
+    preco
+    unidade
+    cod_prod
+    _id
+  }
+}
+`
