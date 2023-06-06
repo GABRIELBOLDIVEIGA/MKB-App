@@ -34,6 +34,8 @@ import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
+import ClientesADM from "pages/Adm/Clientes";
+import EditarCliente from "pages/Clientes/EditarCliente";
 
 setupIonicReact();
 
@@ -50,29 +52,27 @@ function App() {
             <IonRouterOutlet id="main">
               <Redirect to="/home" />
               <Route path="/home" exact={true} component={Home} />
+              <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
               {usuario.privilegio === 1 ?
                 (
                   <>
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
-                    <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                   </>
                 ) :
                 (
                   <>
                     <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
+                    <Route path="/clientes" exact={true} component={ClientesADM} />
+                    <Route path="/cliente/:id" exact={true} component={EditarCliente} />
                     <Route path="/produto" exact={true} component={ProdutosADM} />
                     <Route path="/produto/:id" exact={true} component={EditarProduto} />
                     <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
-                    
                   </>
                 )
               }
-              {/* <Route path="/empresas" exact={true} component={Clientes} />
-              <Route path="/produtos" exact={true} component={Produtos}></Route>
-              <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} /> */}
             </IonRouterOutlet>
           </IonSplitPane>
         ) : (

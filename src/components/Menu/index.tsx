@@ -44,8 +44,8 @@ const menuADM: menuLink[] = [
     mdIcon: homeOutline,
   },
   {
-    title: "Cliente",
-    url: "/cliente",
+    title: "Clientes",
+    url: "/clientes",
     iosIcon: businessOutline,
     mdIcon: businessOutline,
   },
@@ -64,18 +64,6 @@ const menuADM: menuLink[] = [
   {
     title: "Pedidos",
     url: "/pedidos",
-    iosIcon: documentTextOutline,
-    mdIcon: documentTextOutline,
-  },
-  {
-    title: "TesteTabela",
-    url: "/tabela",
-    iosIcon: documentTextOutline,
-    mdIcon: documentTextOutline,
-  },
-  {
-    title: "TesteTabela2",
-    url: "/tabela2",
     iosIcon: documentTextOutline,
     mdIcon: documentTextOutline,
   },

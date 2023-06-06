@@ -1,4 +1,4 @@
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonLabel, IonInput, IonItem, IonButton, useIonAlert, useIonLoading } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonInput, IonItem, IonButton, useIonAlert, useIonLoading } from "@ionic/react";
 import InputField from "components/InputField";
 import uuid from 'react-uuid';
 import { useState } from "react";

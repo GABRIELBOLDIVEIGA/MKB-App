@@ -3,7 +3,7 @@ import { Produto } from "interface/Produto";
 import { Carrinho } from "interface/Carrinho";
 import { Cliente } from "interface/Cliente";
 import { OBTER_CLIENTE } from "graphQL/clientes/queries";
-import { useCliente } from "graphQL/clientes/hooks";
+import { useGetClienteById } from "graphQL/clientes/hooks";
 
 type CurrentCarrinhoContextType = {
     cliente: Cliente;
@@ -106,7 +106,7 @@ export const useCarrinhoContext = () => {
 
     const { carrinho, setCarrinho, quantidadeDoItem, setQuantidadeDoItem, quantidadeDeProdutos, setQuantidadeDeProdutos, valorTotalCarrinho, setValorTotalCarrinho, cliente, setCliente } = carrinhoContext;
 
-    const queryCliente = useCliente("");
+    const queryCliente = useGetClienteById("");
 
     useEffect(() => {
         let soma = 0;

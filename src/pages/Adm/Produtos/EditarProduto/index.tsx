@@ -19,6 +19,7 @@ export default function EditarProduto() {
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
+    console.log("[UseEffect] - {EditarProduto} Params:", params.id)
     setCod(data?.cod_prod)
     setDescricaoResumida(data?.descr_resumida)
     setDescricaoDetalhada(data?.descr_detalhada)
