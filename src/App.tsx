@@ -21,8 +21,10 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Login from "pages/Login";
 
+import "./styles/global.css";
+
+import Login from "pages/Login";
 import { useUserContext } from "context/UsuarioContext";
 import Home from "pages/Home";
 import Produtos from "pages/Produtos";
@@ -36,6 +38,7 @@ import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 import ClientesADM from "pages/Adm/Clientes";
 import EditarCliente from "pages/Clientes/EditarCliente";
+import FormCliente from "components/FormCliente";
 
 setupIonicReact();
 
@@ -70,6 +73,8 @@ function App() {
                     <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
+
+                    <Route path="/FormCliente" exact={true} component={FormCliente} />
                   </>
                 )
               }

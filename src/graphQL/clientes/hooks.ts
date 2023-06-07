@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Cliente } from "interface/Cliente";
 import { OBTER_CLIENTES, OBTER_CLIENTE, OBTER_ALL_CLIENTES } from "./queries";
-import { CRIAR_CLIENTE } from "./mudations";
+import { CRIAR_CLIENTE, UPDATE_CLIENTE } from "./mudations";
 
 export const useClientes = () => {
   const { data, loading, error } = useQuery<{ getClientes: Cliente[] }>(OBTER_CLIENTES);
@@ -31,4 +31,10 @@ export const useCriarCliente = () => {
   // return criarCliente
 
   return useMutation<Cliente>(CRIAR_CLIENTE)
+}
+
+export const useUpdateCliente = () => { 
+  const [updateCliente, { data, loading, error }] = useMutation<Cliente>(UPDATE_CLIENTE)
+  
+  return {updateCliente, data, loading, error }
 }

@@ -50,29 +50,35 @@ export default function CadastrarCliente() {
       numero,
     }
 
-    // criarCliente({
-    //   variables: {
-    //     clienteInput: cliente
-    //   }
-    // })
-
-    present({
-      message: 'Loading...',
-      duration: 2000,
-      spinner: 'circles',
+    criarCliente({
+      variables: {
+        clienteInput: cliente
+      },
+      onCompleted: () => {
+        console.log("[onCompleted] - ", data)
+      },
+      onError: (error) => {
+        alert(`[onError] - ${error}`)
+      }
     })
 
-    setTimeout(() => {
-      presentAlert({
-        header: 'Cadastro realizado',
-        message: 'Voltar para Home',
-        buttons: ['OK'],
-        onDidDismiss() {
-          reset();
-          history.push("/home");
-        },
-      })
-    }, 2300)
+    // present({
+    //   message: 'Loading...',
+    //   duration: 2000,
+    //   spinner: 'circles',
+    // })
+
+    // setTimeout(() => {
+    //   presentAlert({
+    //     header: 'Cadastro realizado',
+    //     message: 'Voltar para Home',
+    //     buttons: ['OK'],
+    //     onDidDismiss() {
+    //       reset();
+    //       history.push("/home");
+    //     },
+    //   })
+    // }, 2300)
   }
 
   function reset() {

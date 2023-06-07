@@ -67,6 +67,12 @@ const menuADM: menuLink[] = [
     iosIcon: documentTextOutline,
     mdIcon: documentTextOutline,
   },
+  {
+    title: "FormCliente",
+    url: "/FormCliente",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
+  },
 ];
 
 const Menu: React.FC = () => {
