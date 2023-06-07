@@ -55,29 +55,33 @@ function App() {
             <IonRouterOutlet id="main">
               <Redirect to="/home" />
               <Route path="/home" exact={true} component={Home} />
-              <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
-              {usuario.privilegio === 1 ?
-                (
-                  <>
-                    <Route path="/empresas" exact={true} component={Clientes} />
-                    <Route path="/produtos" exact={true} component={Produtos}></Route>
-                  </>
-                ) :
-                (
-                  <>
-                    <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
-                    <Route path="/clientes" exact={true} component={ClientesADM} />
-                    <Route path="/cliente/:id" exact={true} component={EditarCliente} />
-                    <Route path="/produto" exact={true} component={ProdutosADM} />
-                    <Route path="/produto/:id" exact={true} component={EditarProduto} />
-                    <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
-                    <Route path="/pedidos" exact={true} component={PedidosADM} />
-                    <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
 
-                    <Route path="/FormCliente" exact={true} component={FormCliente} />
-                  </>
-                )
-              }
+              
+                {usuario.privilegio === 1 ?
+                  (
+                    <>
+                      <Route path="/empresas" exact={true} component={Clientes} />
+                      <Route path="/produtos" exact={true} component={Produtos}></Route>
+                    </>
+                  ) :
+                  (
+                    <>
+                      <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
+                      <Route path="/clientes" exact={true} component={ClientesADM} />
+                      <Route path="/cliente/:id" exact={true} component={EditarCliente} />
+                      <Route path="/produto" exact={true} component={ProdutosADM} />
+                      <Route path="/produto/:id" exact={true} component={EditarProduto} />
+                      <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
+                      <Route path="/pedidos" exact={true} component={PedidosADM} />
+                      <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
+
+                      <Route path="/FormCliente" exact={true} component={FormCliente} />
+                      <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
+                    </>
+                  )
+                }
+                
+              
             </IonRouterOutlet>
           </IonSplitPane>
         ) : (

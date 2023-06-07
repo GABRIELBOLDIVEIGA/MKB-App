@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import CardFuncionario from "./CardFuncionario";
 import { useGetUsuarios } from "graphQL/usuario/hook";
 import { Usuario } from 'interface/Usuario';
+import ButtonRouter from "components/ButtonRouter";
+import { addCircleOutline } from "ionicons/icons";
+import { styled } from '@mui/material/styles';
 
 export default function FuncionariosADM() {
   const [busca, setBusca] = useState("");
@@ -21,11 +24,22 @@ export default function FuncionariosADM() {
       <Cabecalho texto="Funcionarios">
         <IonGrid>
           <IonRow>
-            <IonCol sizeXs="12" sizeSm="12" sizeMd="8" sizeLg="8" sizeXl="8">
+            <IonCol sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="4">
               <BarraPesquisa busca={busca} setBusca={setBusca} placeholder="Funcionario" />
             </IonCol>
-            <IonCol sizeXs="12" sizeSm="12" sizeMd="2" sizeLg="2" offsetXl="2">
-              <IonButton>Adicionar Funionario</IonButton>
+            <IonCol sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6" offsetXl="2">
+              <IonItem>
+                <ButtonRouter
+                  icon={addCircleOutline}
+                  routerLink="/cadastrarFuncionario"
+                  routerDirection="none"
+                  colorButton="primary"
+                  text="Cadastrar Funcionario"
+                  size="default"
+                  slotIcon="start"
+                  slotButton="end"
+                />
+              </IonItem>
             </IonCol>
           </IonRow>
         </IonGrid>

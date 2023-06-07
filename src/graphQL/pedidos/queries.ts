@@ -13,6 +13,7 @@ query GetPedidosByUserId($id: ID!) {
       descr_detalhada
       unidade
     }
+    date
     usuarioID
     total
   }
@@ -28,6 +29,7 @@ query GetPedidosByUserIdV2($id: ID!) {
         preco
         quantidade
       }
+      date
       total
     }
     cliente {
@@ -52,6 +54,7 @@ query GetPedidos {
     pedido {
       _id
       total
+      date
       carrinho {
         cod_prod
         descr_resumida

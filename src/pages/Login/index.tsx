@@ -5,6 +5,7 @@ import { useLogin } from "graphQL/usuario/hook";
 import { useUserContext } from "context/UsuarioContext";
 import logo from "assets/kbm.png"
 import InputField from "components/InputField";
+import { useHistory } from "react-router";
 
 
 const Login: React.FC = () => {
@@ -30,7 +31,7 @@ const Login: React.FC = () => {
         loginInput: {
           email: email,
           senha: senha
-        }
+        },
       },
       onError: (err) => {
         presentAlert({

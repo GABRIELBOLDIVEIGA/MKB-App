@@ -12,3 +12,17 @@ mutation LoginUsuario($loginInput: LoginInput) {
     }
   }
 `
+
+export const CRIAR_FUNCIONARIO = gql`
+mutation CreateUsuario($usuarioInput: UsuarioInput) {
+  createUsuario(usuarioInput: $usuarioInput) {
+    celular
+    cpf
+    email
+    nome
+    privilegio
+    senha
+    telefone
+  }
+}
+`
