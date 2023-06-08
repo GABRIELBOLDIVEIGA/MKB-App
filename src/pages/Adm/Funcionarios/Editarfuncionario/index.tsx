@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonPage } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
-import { useGetUsuarioById } from "graphQL/usuario/hook";
+import { useGetUsuarioById, useUpdateUsuario } from "graphQL/usuario/hook";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -17,11 +17,11 @@ const Section = styled.section`
 export default function EditarFuncionario() {
   const params = useParams<{ id: string }>();
   const { data, error, loading, refetch } = useGetUsuarioById(params.id);
+  const { updateUsuario, data: updateData, error: updateError, loading: updateLoading } = useUpdateUsuario()
 
   const [nome, setNome] = useState<string | undefined>();
   const [email, setEmail] = useState<string | undefined>();
   const [cpf, setCpf] = useState<string | undefined>();
-  const [senha, setSenha] = useState<string | undefined>();
   const [telefone, setTelefone] = useState<string | undefined>();
   const [celular, setCelular] = useState<string | undefined>();
 
@@ -40,16 +40,22 @@ export default function EditarFuncionario() {
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
-    const usuario = {
-      nome,
-      email,
-      cpf,
-      senha: data?.senha,
-      telefone,
-      celular,
-      privilegio: data?.privilegio,
-      token: data?.token
-    }
+    updateUsuario({
+      variables: {
+        usuarioInput: {
+          nome,
+          cpf,
+          email,
+          senha: data?.senha,
+          telefone,
+          celular,
+          privilegio: data?.privilegio ? data.privilegio : 1
+        },
+        id: data?._id
+      },
+      onCompleted: (updateData) => { console.log(updateData) },
+      onError: (errorUpdate) => {console.log(errorUpdate) }
+    })
 
   }
 

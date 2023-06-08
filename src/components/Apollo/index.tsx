@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ReactElement } from "react";
+
 const client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: "http://localhost:4000/", // API local

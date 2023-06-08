@@ -19,8 +19,8 @@ export default function FuncionariosADM() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Cadastro Novo Cliente">
-        <IonItem>
+      <Cabecalho texto="Funcionários">
+        <IonItem lines="none">
           <BarraPesquisa busca={busca} setBusca={setBusca} />
           <ButtonRouter
             icon={addCircleOutline}

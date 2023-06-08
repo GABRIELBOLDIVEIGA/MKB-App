@@ -26,3 +26,9 @@ mutation CreateUsuario($usuarioInput: UsuarioInput) {
   }
 }
 `
+
+export const UPDATE_USUARIO = gql`
+  mutation UpdateUsuario($id: ID!, $usuarioInput: UsuarioInput) {
+  updateUsuario(ID: $id, usuarioInput: $usuarioInput)
+}
+`

@@ -1,8 +1,8 @@
-import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonProgressBar, IonRow, IonText, IonTitle } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
 import Cabecalho from "components/Cabecalho";
 import { useGetAllPedidos } from "graphQL/pedidos/hooks";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import CardPedido from "./CardPedido";
 import ButtonRouter from "components/ButtonRouter";
 import { addCircleOutline } from "ionicons/icons";
@@ -28,25 +28,39 @@ interface IPedido {
         quantidade: number
       }
     ],
+    date: string,
     total: number
   }
 }
 
 export default function PedidosADM() {
+  const { data, loading, refetch } = useGetAllPedidos();
   const [busca, setBusca] = useState("");
-  const [pedidos, setPedidos] = useState<IPedido[]>([]);
-  const { data, error, loading, refetch } = useGetAllPedidos();
+  const [pedidos, setPedidos] = useState<IPedido[] | undefined>(data);
+  const [filtro, setFiltro] = useState<IPedido[] | undefined>(data?.slice(0, 50));
 
   useEffect(() => {
-    setPedidos(data?.slice(0, 50))
+    setFiltro(data);
+    console.log(data)
   }, [loading])
+
+  useEffect(() => {
+    if (busca.length === 0) {
+      setFiltro(pedidos)
+    } else {
+      const result = pedidos?.filter(pedido => {
+        if (pedido.cliente.nome.toLowerCase().includes(busca) || pedido.usuario.nome.toLowerCase().includes(busca))
+          return true
+      })
+      setFiltro(result)
+    }
+  }, [busca])
 
   return (
     <IonPage>
-
       <Cabecalho texto="Pedidos">
-        <IonItem>
-          <BarraPesquisa placeholder="Nome Empresa, Nome Funcionario" busca={busca} setBusca={setBusca} />
+        <IonItem lines="none">
+          <BarraPesquisa placeholder="Pesquisar..." busca={busca} setBusca={setBusca} />
           <ButtonRouter
             icon={addCircleOutline}
             slotIcon="start"
@@ -57,17 +71,19 @@ export default function PedidosADM() {
         </IonItem>
       </Cabecalho>
 
-
       <IonContent>
         <IonGrid>
           <IonRow>
-            {pedidos?.map((pedido, index) => {
+            { filtro ? filtro.map((pedido, index) => {
               return (
                 <IonCol key={index} sizeLg="12" sizeXl="6">
                   <CardPedido {...pedido} />
                 </IonCol>
               )
-            })}
+            })
+              :
+              <></>
+            }
           </IonRow>
         </IonGrid>
       </IonContent>

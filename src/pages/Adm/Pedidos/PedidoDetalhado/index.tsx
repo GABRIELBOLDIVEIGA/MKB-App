@@ -1,24 +1,12 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonItem, IonPage, IonRow, IonText } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById } from "graphQL/pedidos/hooks"
-import { Cliente } from "interface/Cliente";
-import { useEffect } from "react";
 import { useParams } from "react-router";
-import { Usuario } from 'interface/Usuario';
-import { Pedido } from "interface/Pedido";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import { GrDocumentCsv } from "react-icons/gr";
-
-import dataMock from "./data.json"
 import CampoTexto from "./CampoTexto";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
-
-interface Params {
-  id: string;
-}
-
 export default function PedidoDetalhado() {
-  const params = useParams<Params>();
+  const params = useParams<{id: string}>();
   const { data, loading, error, refetch } = useGetPedidoById(params.id);
   const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0)
 

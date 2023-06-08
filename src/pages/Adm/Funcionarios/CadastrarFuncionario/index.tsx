@@ -38,7 +38,6 @@ export default function CadastrarFuncionario() {
       })
     } else {
       alert("senhas diferentes!")
-
     }
   }
 
