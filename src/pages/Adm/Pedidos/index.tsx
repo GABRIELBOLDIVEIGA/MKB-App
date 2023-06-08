@@ -1,9 +1,11 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
 import Cabecalho from "components/Cabecalho";
 import { useGetAllPedidos } from "graphQL/pedidos/hooks";
 import { useEffect, useState } from "react";
 import CardPedido from "./CardPedido";
+import ButtonRouter from "components/ButtonRouter";
+import { addCircleOutline } from "ionicons/icons";
 
 interface IPedido {
   cliente: {
@@ -36,15 +38,25 @@ export default function PedidosADM() {
   const { data, error, loading, refetch } = useGetAllPedidos();
 
   useEffect(() => {
-    console.log(data)
     setPedidos(data?.slice(0, 50))
   }, [loading])
 
   return (
     <IonPage>
+
       <Cabecalho texto="Pedidos">
-        <BarraPesquisa busca={busca} setBusca={setBusca} placeholder="Encontrar Pedidos..." />
+        <IonItem>
+          <BarraPesquisa placeholder="Nome Empresa, Nome Funcionario" busca={busca} setBusca={setBusca} />
+          <ButtonRouter
+            icon={addCircleOutline}
+            slotIcon="start"
+            slotButton="end"
+            text="Realizar Novo Pedido"
+            routerLink="/empresas"
+          />
+        </IonItem>
       </Cabecalho>
+
 
       <IonContent>
         <IonGrid>

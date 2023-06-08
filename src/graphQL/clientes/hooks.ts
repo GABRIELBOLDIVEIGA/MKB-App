@@ -25,12 +25,10 @@ export const useGetClienteById = (id: string) => {
   return { data: data?.getCliente, loading, error, refetch }
 };
 
-export const useCriarCliente = () => {
-  // const criarCliente = useMutation<Cliente>(CRIAR_CLIENTE)
+export const useCreateCliente = () => {
+  const [createCliente, { data, loading, error }] = useMutation<Cliente>(CRIAR_CLIENTE)
 
-  // return criarCliente
-
-  return useMutation<Cliente>(CRIAR_CLIENTE)
+  return { createCliente, data, loading, error }
 }
 
 export const useUpdateCliente = () => { 

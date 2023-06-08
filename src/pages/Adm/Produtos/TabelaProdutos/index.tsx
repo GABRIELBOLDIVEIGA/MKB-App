@@ -110,7 +110,7 @@ export default function TabelaProdutos() {
   return (
     <section>
       <IonItem>
-        <IonSearchbar onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
+        <IonSearchbar placeholder='Codigo ou Descrição' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
       </IonItem>
       <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>

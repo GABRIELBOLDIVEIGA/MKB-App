@@ -14,10 +14,10 @@ export default function Cabecalho({ texto, children }: Props) {
           <IonMenuButton />
         </IonButtons>
 
-        <IonItem>
-          <IonTitle>{texto}</IonTitle>
+        <IonItem >
+          {texto && <IonTitle>{texto}</IonTitle>}
           {children
-            ? <IonItem>{children}</IonItem>
+            ? <IonItem >{children}</IonItem>
             : <></>
           }
         </IonItem>

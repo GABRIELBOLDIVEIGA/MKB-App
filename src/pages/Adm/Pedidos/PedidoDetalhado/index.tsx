@@ -17,22 +17,10 @@ interface Params {
   id: string;
 }
 
-interface IPedido {
-  cliente: Cliente;
-  usuario: Usuario;
-  pedido: Pedido;
-}
-
 export default function PedidoDetalhado() {
   const params = useParams<Params>();
   const { data, loading, error, refetch } = useGetPedidoById(params.id);
   const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0)
-
-  useEffect(() => {
-    console.log(data)
-    console.log(params)
-
-  }, [loading])
 
   return (
     <IonPage>

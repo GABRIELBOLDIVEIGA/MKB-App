@@ -27,13 +27,18 @@ export default function CadastrarFuncionario() {
     }
 
     if (senha != confirmarSenha) {
-      console.log("senhas diferentes!")
-    } else {
       createUsuario({
-        variables: {usuarioInput: { ...funcionario} },
-        onCompleted: (data) => { console.log(data) },
-        onError: (error) => { console.log(error) }
+        variables: { usuarioInput: { ...funcionario } },
+        onCompleted: (data) => {
+          console.log(data)
+        },
+        onError: (error) => {
+          console.log(error)
+        }
       })
+    } else {
+      alert("senhas diferentes!")
+
     }
   }
 

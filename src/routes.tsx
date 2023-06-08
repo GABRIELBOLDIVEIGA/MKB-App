@@ -33,11 +33,13 @@ import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
-import FormCliente from "components/FormCliente";
+import FormClienteTeste from "components/testeUseForn";
 import Clientes from "pages/Clientes";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
 import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
+import ClienteForm from "components/ClienteForm";
+import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 
 setupIonicReact();
 
@@ -45,7 +47,6 @@ export default function Routes() {
   const { loginValido, usuario } = useUserContext();
 
   if (loginValido) {
-    console.log("[LoginValido] - TRUE: ", loginValido);
     return (
       <IonApp>
         <Suspense fallback={<IonProgressBar type="indeterminate" />}></Suspense>
@@ -71,6 +72,7 @@ export default function Routes() {
                       <Redirect to="/pedidos" />
                     </Route>
                     <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
+                    <Route path="/funcionarios/EditarFuncionario/:id" exact={true} component={EditarFuncionario} />
                     <Route path="/clientes" exact={true} component={ClientesADM} />
                     <Route path="/cliente/:id" exact={true} component={EditarCliente} />
                     <Route path="/produto" exact={true} component={ProdutosADM} />
@@ -78,9 +80,10 @@ export default function Routes() {
                     <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
-                    <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                     <Route path="/cadastrarFuncionario" exact={true} component={CadastrarFuncionario} />
-                    <Route path="/FormCliente" exact={true} component={FormCliente} />
+                    <Route path="/cadastrarCliente" exact={true} component={ClienteForm} />
+                    <Route path="/empresas" exact={true} component={Clientes} />
+                    <Route path="/produtos" exact={true} component={Produtos}></Route>
                   </>
                 )
               }
@@ -91,7 +94,6 @@ export default function Routes() {
       </IonApp>
     )
   } else {
-    console.log("[LoginValido] - FALSE: ", loginValido);
     return (
       <IonApp>
         <Suspense fallback={<IonProgressBar type="indeterminate" />}>

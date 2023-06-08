@@ -15,3 +15,19 @@ query GetUsuarios {
     }
   }
 ` 
+
+export const GET_USUARIO_BY_ID = gql`
+  query GetUsuario($id: ID!) {
+  getUsuario(ID: $id) {
+    _id
+    cpf
+    email
+    senha
+    telefone
+    celular
+    privilegio
+    nome
+    token
+  }
+}
+`

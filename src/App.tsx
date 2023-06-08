@@ -38,7 +38,7 @@ import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 import ClientesADM from "pages/Adm/Clientes";
 import EditarCliente from "pages/Clientes/EditarCliente";
-import FormCliente from "components/FormCliente";
+import FormClienteTeste from "components/testeUseForn";
 
 setupIonicReact();
 
@@ -75,7 +75,7 @@ function App() {
                       <Route path="/pedidos" exact={true} component={PedidosADM} />
                       <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
 
-                      <Route path="/FormCliente" exact={true} component={FormCliente} />
+                      <Route path="/FormCliente" exact={true} component={FormClienteTeste} />
                       <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                     </>
                   )

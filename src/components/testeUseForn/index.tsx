@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonPage } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonContent, IonInput, IonItem, IonPage } from "@ionic/react";
 import { useForm, useFieldArray } from "react-hook-form"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -28,7 +28,7 @@ const createUserFormSchema = z.object({
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>
 
-export default function FormCliente() {
+export default function FormClienteTeste() {
   const {
     register,
     handleSubmit,
@@ -78,7 +78,6 @@ export default function FormCliente() {
                 />
               </IonItem>
               {errors.password && <span>{errors.password.message}</span>}
-
 
               <div>
                 <label>Tecnologias

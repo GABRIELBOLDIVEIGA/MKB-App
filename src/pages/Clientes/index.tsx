@@ -1,20 +1,18 @@
-import { IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonItem, IonLoading, IonMenuButton, IonPage, IonRadioGroup, IonTitle, IonToolbar } from "@ionic/react";
-import BarraPesquisa from "components/BarraPesquisa";
+import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonLoading, IonMenuButton, IonPage, IonRadioGroup, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
-
 import ListaDeClientes from "./ListaDeClientes";
-import { Link } from "react-router-dom";
-import styles from "./Empresa.module.scss";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
 import { useClientes } from "graphQL/clientes/hooks";
 import { Cliente } from "interface/Cliente";
+import ButtonRouter from "components/ButtonRouter";
+import { arrowForwardOutline } from "ionicons/icons";
 
 const Clientes = () => {
-  const [busca, setBusca] = useState("");
+  const [busca, setBusca] = useState<string | null | undefined>("");
   const [btnAvancar, setBtnAvancar] = useState(false);
   const [filtro, setFiltro] = useState<Cliente[]>([]);
   const { selecionaCliente } = useCarrinhoContext();
-  const { data, loading, error } = useClientes();
+  const { data, loading } = useClientes();
   const [showLoading, setShowLoading] = useState(false);
 
   useEffect(() => {
@@ -31,12 +29,11 @@ const Clientes = () => {
     setShowLoading(loading)
   }, [loading])
 
-  const aplicarFiltro = () => {
+  useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result = data?.filter((prod) => prod.nome.toLowerCase().includes(b));
+    const result = data?.filter((cliente) => cliente.nome.toLowerCase().includes(b!));
 
-    console.log(result);
     if (result) {
       if (result.length >= 50) {
         setFiltro(result.slice(0, 100));
@@ -44,22 +41,25 @@ const Clientes = () => {
         setFiltro(result);
       }
     }
-  };
+  }, [busca])
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton></IonMenuButton>
-          </IonButtons>
-          <IonTitle>Empresas</IonTitle>
+          <IonItem>
+            <IonMenuButton />
+            <IonTitle>Selecione um Cliente</IonTitle>
+          </IonItem>
         </IonToolbar>
         <IonToolbar>
-          <BarraPesquisa placeholder="Selecione uma Empresa" busca={busca} setBusca={setBusca} />
-          <IonButton onClick={aplicarFiltro} slot="end">
-            Filtrar
-          </IonButton>
+          <IonSearchbar
+            placeholder="Filtro..."
+            color="light"
+            showCancelButton="focus"
+            animated={true}
+            onIonChange={(ev) => setBusca(ev.target.value)}
+          />
         </IonToolbar>
       </IonHeader>
 
@@ -76,19 +76,30 @@ const Clientes = () => {
           })}
         </IonRadioGroup>
       </IonContent>
+
       <IonFooter>
         <IonToolbar>
-          <IonItem>
-            <div className={styles.ionButtonContainer}>
-              <Link to="produtos">
-                <IonButton slot="end" color="primary" disabled={!btnAvancar} size="default">
-                  Avançar
-                </IonButton>
-              </Link>
-            </div>
-          </IonItem>
+          {btnAvancar ?
+            <IonItem>
+              <ButtonRouter
+                icon={arrowForwardOutline}
+                slotIcon="end"
+                slotButton="end"
+                text="Avançar"
+                routerLink="/produtos"
+              />
+            </IonItem>
+            :
+            <IonItem>
+              <IonButton slot="end" size="default" color="primary" disabled >
+                Avançar
+                <IonIcon slot="end" icon={arrowForwardOutline} />
+              </IonButton>
+            </IonItem>
+          }
         </IonToolbar>
       </IonFooter>
+
       <IonLoading
         isOpen={showLoading}
         message={'Carregando lista de clientes...'}

@@ -3,6 +3,8 @@ export interface Usuario {
     nome?: string;
     cpf?: string;
     email?: string;
+    telefone?: string;
+    celular?: string;
     senha?: string;
     privilegio?: number;
     token?: string;

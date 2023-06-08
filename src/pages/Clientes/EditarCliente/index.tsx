@@ -1,7 +1,7 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar, useIonAlert, useIonLoading } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
-import { useCriarCliente, useGetClienteById, useUpdateCliente } from "graphQL/clientes/hooks";
+import { useGetClienteById, useUpdateCliente } from "graphQL/clientes/hooks";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import uuid from "react-uuid";
