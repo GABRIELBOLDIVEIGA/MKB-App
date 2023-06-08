@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { Cliente } from 'interface/Cliente';
 import { addCircleOutline } from "ionicons/icons";
 import { formatadorMonetario } from 'common/function/formatadorMonetario';
-import { formataData } from 'common/function/formataDataDMAparaAMD';
+import { dateFormatter } from 'common/function/formatadorDataPT-BR';
 
 interface IPedido {
   pedido: {
@@ -17,7 +17,7 @@ interface IPedido {
         quantidade: number,
       }
     ],
-    date: string,
+    date: Date,
     total: number
   },
   cliente: Cliente
@@ -57,7 +57,7 @@ export default function ListaDePedidos() {
                         <IonCardHeader>
                           <IonCardTitle>{pedido.cliente.nome}</IonCardTitle>
                           <IonCardSubtitle>{pedido.cliente.email}</IonCardSubtitle>
-                          <IonCardSubtitle>{formataData(pedido.pedido.date)}</IonCardSubtitle>
+                          <IonCardSubtitle>{dateFormatter(pedido.pedido.date)}</IonCardSubtitle>
                         </IonCardHeader>
 
                         <IonCardContent>
