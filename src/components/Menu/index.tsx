@@ -61,6 +61,12 @@ const menuADM: menuLink[] = [
     iosIcon: peopleOutline,
     mdIcon: peopleOutline,
   },
+  {
+    title: "TesteCSV",
+    url: "/TesteCSV",
+    iosIcon: peopleOutline,
+    mdIcon: peopleOutline,
+  },
 ];
 
 const Menu: React.FC = () => {

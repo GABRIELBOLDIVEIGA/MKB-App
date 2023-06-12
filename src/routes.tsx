@@ -40,6 +40,7 @@ import CadastrarCliente from "pages/CadastrarCliente";
 import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
 import ClienteForm from "components/ClienteForm";
 import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
+import TesteCSV from "pages/Testes/TesteCSV";
 
 setupIonicReact();
 
@@ -84,6 +85,7 @@ export default function Routes() {
                     <Route path="/cadastrarCliente" exact={true} component={ClienteForm} />
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
+                    <Route path="/TesteCSV" exact={true} component={TesteCSV}></Route>
                   </>
                 )
               }
