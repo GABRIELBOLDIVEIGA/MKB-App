@@ -1,12 +1,39 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import CampoTexto from "./CampoTexto";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
+import styled from "styled-components";
+
+const Container = styled.section`
+  height: 100%;
+  display: grid;
+  place-items: center;
+`
+const Section = styled.section`
+  border: 3px solid var(--ion-color-medium-tint);
+  border-radius: 10px;
+  width: 70%;
+  background-color: var(--ion-color-light);
+`
+const Div = styled.div`
+  border: 1px solid var(--ion-color-light-contrast);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+`
+const Strong = styled.strong`
+  font-size: 1rem;
+`
+const P = styled.p`
+  padding: .3rem;
+  border-bottom: 1px solid var(--ion-color-light-contrast);
+`
+
 export default function PedidoDetalhado() {
-  const params = useParams<{id: string}>();
+  const params = useParams<{ id: string }>();
   const { data, loading, error, refetch } = useGetPedidoById(params.id);
   const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0)
 
@@ -22,74 +49,96 @@ export default function PedidoDetalhado() {
       </Cabecalho>
 
       <IonContent>
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>{data?.cliente.nome}</IonCardTitle>
-            <IonCardSubtitle>{`Email: ${data?.cliente.email}`}</IonCardSubtitle>
-            <IonCardSubtitle>{`CNPJ: ${data?.cliente.cnpj}`}</IonCardSubtitle>
-          </IonCardHeader>
+        <Container>
+          <Section>
+            <Div>
+              <IonRow>
+                <IonCol size="2"><P>LOGO</P></IonCol>
 
-          <IonCardContent>
-            <IonGrid>
-              <IonRow>
-                <CampoTexto size={1.5} label="Info Compra" lines="full" />
+                <IonCol size="8">
+                  <IonRow class="ion-justify-content-center">
+                    <p>Rua Professor Walter Wey, 237 - CEP : 03257-150 - São Paulo / SP</p>
+                  </IonRow>
+                  <IonRow class="ion-justify-content-center">
+                    <p>TEL. : (11) 2703-5745 - FAX: (11) 2143-0452</p>
+                  </IonRow>
+                  <IonRow class="ion-justify-content-center">
+                    <p>site: www.kmbrodizios.com.br e-mail kmb@kmbrodizios.com.br</p>
+                  </IonRow>
+                </IonCol>
+
+                <IonCol size="2"><P style={{ width: "max-content" }}>{data?.pedido.date}00/00/000</P></IonCol>
               </IonRow>
-              <IonRow>
-                <CampoTexto size={1.5} label="Total:" dados={`${valorTotalDoPedido}`} lines="full" />
-              </IonRow>
-              <IonRow>
+            </Div>
+            <Div>
+              <IonText><Strong>Dados do Cliente</Strong></IonText>
+              <IonGrid>
+                <IonRow>
+                  <IonCol><P><Strong>Nome: </Strong>{data?.cliente.nome.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>CNPJ: </Strong>{data?.cliente.cnpj}</P></IonCol>
+                </IonRow>
+
+                <IonRow>
+                  <IonCol><P><Strong>End: </Strong>{data?.cliente.endereco?.toUpperCase()}</P></IonCol>
+                </IonRow>
+
+                <IonRow>
+                  <IonCol><P><Strong>Bairro: </Strong>{data?.cliente.bairro?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>Cidade: </Strong>{data?.cliente.cidade?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>CEP: </Strong>{data?.cliente.cep}</P></IonCol>
+                  <IonCol><P><Strong>UF: </Strong>{data?.cliente?.uf?.toUpperCase()}</P></IonCol>
+                </IonRow>
+
+                <IonRow>
+                  <IonCol><P><Strong>DDD: </Strong>{data?.cliente.ddd}</P></IonCol>
+                  <IonCol><P><Strong>Fone1: </Strong>{data?.cliente.fone1}</P></IonCol>
+                  <IonCol><P><Strong>Fone2: </Strong>{data?.cliente.fone2}</P></IonCol>
+                  <IonCol><P><Strong>Celular: </Strong>{data?.cliente.celular}</P></IonCol>
+                  <IonCol><P><Strong>Fax: </Strong>{data?.cliente.fax}</P></IonCol>
+                </IonRow>
+
+                <IonRow>
+                  <IonCol><P><Strong>Email: </Strong>{data?.cliente.email?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>Vendedor: </Strong>{data?.usuario.nome?.toUpperCase()}</P></IonCol>
+                </IonRow>
+              </IonGrid>
+            </Div>
+
+            <Div>
+              <IonText><Strong>Relação de Produtos Vendidos</Strong></IonText>
+              <IonGrid>
+                <IonRow style={{ borderBottom: "1px solid var(--ion-color-light-contrast)", margin: "1rem 0" }}>
+                  <IonCol size="2"><IonText><Strong>Cód Prod</Strong></IonText></IonCol>
+                  <IonCol size="4"><IonText><Strong>Descriminação dos Produtos</Strong></IonText></IonCol>
+                  <IonCol size="1"><IonText><Strong>Unid</Strong></IonText></IonCol>
+                  <IonCol size="1"><IonText><Strong>Qtde</Strong></IonText></IonCol>
+                  <IonCol size="2"><IonText><Strong>Val. Uni </Strong></IonText></IonCol>
+                  <IonCol size="2"><IonText><Strong>Valor Total</Strong></IonText></IonCol>
+                </IonRow>
+
                 {data?.pedido.carrinho.map(item => {
                   return (
-                    <IonCol key={item.cod_prod} sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="4">
-                      <div style={{ border: "1px solid #86888f", borderRadius: "10px", padding: "5px" }}>
-                        <CampoTexto label="Cod:" dados={item.cod_prod} />
-                        <CampoTexto label="Descrição Detalhada:" dados={item.descr_detalhada} />
-                        <CampoTexto label="Descrição Resumida:" dados={item.descr_resumida} />
-                        <CampoTexto label="Tipo:" dados={item.unidade} />
-                        <CampoTexto label="Quantidade:" dados={`${item.quantidade}`} />
-                        <CampoTexto label="Preço:" dados={`${formatadorMonetario.format(item.preco)}`} />
-                      </div>
-                    </IonCol>
+                    <IonRow key={item.cod_prod} >
+                      <IonCol size="2">{item.cod_prod}</IonCol>
+                      <IonCol size="4">{item.descr_resumida}</IonCol>
+                      <IonCol size="1">{item.unidade}</IonCol>
+                      <IonCol size="1">{item.quantidade}</IonCol>
+                      <IonCol size="2">{formatadorMonetario.format(item.preco)}</IonCol>
+                      <IonCol size="2">{formatadorMonetario.format(item.preco)}</IonCol>
+                    </IonRow>
                   )
                 })}
-              </IonRow>
+              </IonGrid>
+            </Div>
 
-
+            <Div>
               <IonRow>
-                <IonCol>
-                  <CampoTexto size={1.5} label="Info Cliente" lines="full" />
-                </IonCol>
-                <IonCol>
-                  <CampoTexto size={1.5} label="Info Funcionário" lines="full" />
-                </IonCol>
+                <IonCol offset="10"><P><Strong>Total: </Strong>{valorTotalDoPedido}</P></IonCol>
               </IonRow>
+            </Div>
 
-              <IonRow>
-                <IonCol>
-                  <CampoTexto label="UF:" dados={data?.cliente.uf} />
-                  <CampoTexto label="Cidade:" dados={data?.cliente.cidade} />
-                  <CampoTexto label="Bairro:" dados={data?.cliente.bairro} />
-                  <CampoTexto label="Endereço:" dados={data?.cliente.endereco} />
-                  <CampoTexto label="Número:" dados={data?.cliente.numero} />
-                  <CampoTexto label="CEP:" dados={data?.cliente.cep} />
-                  <CampoTexto label="Fone 1:" dados={`(${data?.cliente.ddd}) ${data?.cliente.fone1}`} />
-                  <CampoTexto label="Fone 2:" dados={`(${data?.cliente.ddd}) ${data?.cliente.fone2}`} />
-                  <CampoTexto label="Celular:" dados={`(${data?.cliente.ddd}) ${data?.cliente.celular}`} />
-                  <CampoTexto label="Fax:" dados={data?.cliente.fax} />
-                  <CampoTexto label="Fax:" dados={data?.cliente.fax} />
-                </IonCol>
-
-                <IonCol>
-                  <CampoTexto label="Nome" dados={data?.usuario.nome} />
-                  <CampoTexto label="Email" dados={data?.usuario.email} />
-                  <CampoTexto label="CPF" dados={data?.usuario.cpf} />
-                </IonCol>
-              </IonRow>
-
-            </IonGrid>
-          </IonCardContent>
-        </IonCard>
-
+          </Section>
+        </Container>
       </IonContent>
     </IonPage>
   )

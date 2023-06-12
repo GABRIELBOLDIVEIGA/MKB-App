@@ -36,23 +36,25 @@ interface IPedido {
 export default function PedidosADM() {
   const { data, loading, refetch } = useGetAllPedidos();
   const [busca, setBusca] = useState("");
-  const [pedidos, setPedidos] = useState<IPedido[] | undefined>(data);
-  const [filtro, setFiltro] = useState<IPedido[] | undefined>(data?.slice(0, 50));
+  const [pedidos, setPedidos] = useState<IPedido[]>([]);
+  const [filtro, setFiltro] = useState<IPedido[]>([]);
 
   useEffect(() => {
-    setFiltro(data);
-    console.log(data)
+    refetch();
+    setFiltro(data?.slice(0, 50));
+    setPedidos(data)
   }, [loading])
 
   useEffect(() => {
     if (busca.length === 0) {
-      setFiltro(pedidos)
+      console.log("[PEDIDOS] - ", pedidos)
+      setFiltro(pedidos);
     } else {
       const result = pedidos?.filter(pedido => {
         if (pedido.cliente.nome.toLowerCase().includes(busca) || pedido.usuario.nome.toLowerCase().includes(busca))
-          return true
+          return true;
       })
-      setFiltro(result)
+      setFiltro(result);
     }
   }, [busca])
 
@@ -74,16 +76,13 @@ export default function PedidosADM() {
       <IonContent>
         <IonGrid>
           <IonRow>
-            { filtro ? filtro.map((pedido, index) => {
+            {filtro?.map((pedido, index) => {
               return (
                 <IonCol key={index} sizeLg="12" sizeXl="6">
                   <CardPedido {...pedido} />
                 </IonCol>
               )
-            })
-              :
-              <></>
-            }
+            })}
           </IonRow>
         </IonGrid>
       </IonContent>

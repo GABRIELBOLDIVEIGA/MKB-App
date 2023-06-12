@@ -80,6 +80,7 @@
     "iOS >=13"
   ],
   "devDependencies": {
+    "@types/pdfmake": "^0.2.2",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
