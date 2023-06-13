@@ -1,13 +1,13 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById, useGetPedidoById2Csv } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
-import CampoTexto from "./CampoTexto";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { pedidos2csv } from "utils/gerarCSVpedidos";
+import { CSVLink } from "react-csv";
 
 const Container = styled.section`
   height: 100%;
@@ -18,6 +18,7 @@ const Section = styled.section`
   border: 3px solid var(--ion-color-medium-tint);
   border-radius: 10px;
   width: 70%;
+  margin-top: 1.5rem;
   background-color: var(--ion-color-light);
 `
 const Div = styled.div`
@@ -39,10 +40,12 @@ export default function PedidoDetalhado() {
   const { data, loading, error, refetch } = useGetPedidoById(params.id);
   const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0);
   const { data: dataCSV, loading: loadingCSV, error: errorCSV, refetch: refetchCSV } = useGetPedidoById2Csv(params.id);
+  const [csvData, setCsvData] = useState("")
 
   useEffect(() => {
     if (dataCSV) {
       console.log("[CSV] - ", pedidos2csv(dataCSV));
+      setCsvData(pedidos2csv(dataCSV))
     }
   }, [loadingCSV])
 
@@ -50,9 +53,11 @@ export default function PedidoDetalhado() {
   return (
     <IonPage>
       <Cabecalho texto="Pedido Detalhado">
-        <IonButton size="small" fill="default">
-          <BsFiletypeCsv size={24} color="#FFF" />
-        </IonButton>
+        <CSVLink filename={"pedido.csv"} target="_blank" data={csvData}>
+          <IonButton size="small" fill="default" >
+            <BsFiletypeCsv size={24} color="#FFF" />
+          </IonButton>
+        </CSVLink>
         <IonButton size="small" fill="default">
           <BsFiletypePdf size={24} color="#FFF" />
         </IonButton>
