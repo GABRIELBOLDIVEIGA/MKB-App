@@ -118,3 +118,35 @@ query GetPedido($id: ID!) {
   }
 }
 `
+
+export const GET_PEDIDOS_BY_ID_2_CSV = gql`
+query GetPedido($id: ID!) {
+  getPedido(ID: $id) {
+    cliente {
+      cod
+      nome
+      cnpj
+      email
+      fantasia
+    }
+    usuario {
+      cpf
+      email
+      nome
+    }
+    pedido {
+      carrinho {
+        cod_prod
+        descr_resumida
+        preco
+        quantidade
+        unidade
+        descr_detalhada
+      }
+      date
+      total
+      _id
+    }
+  }
+}
+`

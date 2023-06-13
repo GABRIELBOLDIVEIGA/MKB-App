@@ -1,11 +1,13 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
-import { useGetPedidoById } from "graphQL/pedidos/hooks"
+import { useGetPedidoById, useGetPedidoById2Csv } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
 import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import CampoTexto from "./CampoTexto";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { pedidos2csv } from "utils/gerarCSVpedidos";
 
 const Container = styled.section`
   height: 100%;
@@ -35,7 +37,15 @@ const P = styled.p`
 export default function PedidoDetalhado() {
   const params = useParams<{ id: string }>();
   const { data, loading, error, refetch } = useGetPedidoById(params.id);
-  const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0)
+  const valorTotalDoPedido = formatadorMonetario.format(data?.pedido.total ? +data?.pedido.total : 0);
+  const { data: dataCSV, loading: loadingCSV, error: errorCSV, refetch: refetchCSV } = useGetPedidoById2Csv(params.id);
+
+  useEffect(() => {
+    if (dataCSV) {
+      console.log("[CSV] - ", pedidos2csv(dataCSV));
+    }
+  }, [loadingCSV])
+
 
   return (
     <IonPage>
