@@ -5,6 +5,8 @@ import { useGetPedidosByUserIdV2 } from 'graphQL/pedidos/hooks';
 import { useEffect } from 'react';
 import { Cliente } from 'interface/Cliente';
 import { addCircleOutline } from "ionicons/icons";
+import { formatadorMonetario } from 'common/function/formatadorMonetario';
+import { dateFormatter } from 'common/function/formatadorDataPT-BR';
 
 interface IPedido {
   pedido: {
@@ -15,6 +17,7 @@ interface IPedido {
         quantidade: number,
       }
     ],
+    date: Date,
     total: number
   },
   cliente: Cliente
@@ -54,6 +57,7 @@ export default function ListaDePedidos() {
                         <IonCardHeader>
                           <IonCardTitle>{pedido.cliente.nome}</IonCardTitle>
                           <IonCardSubtitle>{pedido.cliente.email}</IonCardSubtitle>
+                          <IonCardSubtitle>{dateFormatter(pedido.pedido.date)}</IonCardSubtitle>
                         </IonCardHeader>
 
                         <IonCardContent>
@@ -78,7 +82,7 @@ export default function ListaDePedidos() {
                           })}
 
                           <IonItem style={{ fontSize: "1rem", color: "#949494" }} key={index}>
-                            {`Total: R$ ${pedido.pedido.total}`}
+                            {`Total: ${formatadorMonetario.format(pedido.pedido.total)}`}
                           </IonItem>
                         </IonCardContent>
                       </IonCard>

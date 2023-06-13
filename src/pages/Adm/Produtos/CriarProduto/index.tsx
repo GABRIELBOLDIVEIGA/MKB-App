@@ -1,9 +1,8 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonLoading, IonModal, IonPage, IonRow, IonText, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
-import InputField from "components/InputField";
 import { useCreateProduto } from "graphQL/produtos/hooks";
 import { Produto } from "interface/Produto";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import CardProduto from "../CardProduto";
 import FormProduto from "../FormProdutos";
 

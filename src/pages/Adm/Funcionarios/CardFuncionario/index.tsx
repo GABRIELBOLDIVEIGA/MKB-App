@@ -26,7 +26,7 @@ export default function CardFuncionario({ _id, cpf, email, nome, telefone, celul
   return (
     <IonCard >
       <IonCardHeader>
-        <IonCardTitle> {nome} da silva sou dos santos de oliveira 4</IonCardTitle>
+        <IonCardTitle> {nome} </IonCardTitle>
         <IonCardSubtitle>{email}</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
@@ -50,7 +50,7 @@ export default function CardFuncionario({ _id, cpf, email, nome, telefone, celul
         <IonItem lines="none">
           <ButtonRouter
             icon={pencilOutline}
-            routerLink={`/funcionarios/EditarFuncionario:${_id}`}
+            routerLink={`/funcionarios/EditarFuncionario/${_id}`}
             routerDirection="none"
             colorButton="medium"
             colorIcon="light"

@@ -8,7 +8,7 @@ interface Props {
   state: string | undefined;
   // setState: React.Dispatch<React.SetStateAction<string | undefined>>;
   setState: React.Dispatch<React.SetStateAction<string | undefined>> | undefined
-  type?: "number" | "password" | "text"
+  type?: "number" | "password" | "text" | "email"
 }
 
 export default function InputField({ type = "text", required = false, label = "", placeholder = "", position = undefined, state, setState }: Props) {

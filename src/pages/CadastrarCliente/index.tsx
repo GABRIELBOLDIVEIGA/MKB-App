@@ -2,7 +2,7 @@ import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, Io
 import InputField from "components/InputField";
 import uuid from 'react-uuid';
 import { useState } from "react";
-import { useCriarCliente } from "graphQL/clientes/hooks";
+import { useCreateCliente } from "graphQL/clientes/hooks";
 import { useHistory } from "react-router";
 
 export default function CadastrarCliente() {
@@ -22,7 +22,7 @@ export default function CadastrarCliente() {
   const [bairro, setBairro] = useState<string | undefined>("");
   const [endereco, setEndereco] = useState<string | undefined>("");
   const [numero, setNumero] = useState<string | undefined>("");
-  const [criarCliente, { data, loading, error }] = useCriarCliente();
+  const { createCliente: criarCliente, data, loading, error } = useCreateCliente();
   const [presentAlert] = useIonAlert();
   const [present, dismiss] = useIonLoading();
   const history = useHistory()
@@ -50,29 +50,35 @@ export default function CadastrarCliente() {
       numero,
     }
 
-    // criarCliente({
-    //   variables: {
-    //     clienteInput: cliente
-    //   }
-    // })
-
-    present({
-      message: 'Loading...',
-      duration: 2000,
-      spinner: 'circles',
+    criarCliente({
+      variables: {
+        clienteInput: cliente
+      },
+      onCompleted: () => {
+        console.log("[onCompleted] - ", data)
+      },
+      onError: (error) => {
+        alert(`[onError] - ${error}`)
+      }
     })
 
-    setTimeout(() => {
-      presentAlert({
-        header: 'Cadastro realizado',
-        message: 'Voltar para Home',
-        buttons: ['OK'],
-        onDidDismiss() {
-          reset();
-          history.push("/home");
-        },
-      })
-    }, 2300)
+    // present({
+    //   message: 'Loading...',
+    //   duration: 2000,
+    //   spinner: 'circles',
+    // })
+
+    // setTimeout(() => {
+    //   presentAlert({
+    //     header: 'Cadastro realizado',
+    //     message: 'Voltar para Home',
+    //     buttons: ['OK'],
+    //     onDidDismiss() {
+    //       reset();
+    //       history.push("/home");
+    //     },
+    //   })
+    // }, 2300)
   }
 
   function reset() {

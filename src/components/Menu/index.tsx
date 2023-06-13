@@ -38,10 +38,10 @@ const menuFuncionario: menuLink[] = [
 
 const menuADM: menuLink[] = [
   {
-    title: "Home",
-    url: "/home",
-    iosIcon: homeOutline,
-    mdIcon: homeOutline,
+    title: "Pedidos",
+    url: "/pedidos",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
   },
   {
     title: "Clientes",
@@ -62,10 +62,10 @@ const menuADM: menuLink[] = [
     mdIcon: peopleOutline,
   },
   {
-    title: "Pedidos",
-    url: "/pedidos",
-    iosIcon: documentTextOutline,
-    mdIcon: documentTextOutline,
+    title: "TesteCSV",
+    url: "/TesteCSV",
+    iosIcon: peopleOutline,
+    mdIcon: peopleOutline,
   },
 ];
 

@@ -12,5 +12,6 @@ export interface Pedido {
       quantidade: number
     }
   ],
+  date: string,
   total: number
 }

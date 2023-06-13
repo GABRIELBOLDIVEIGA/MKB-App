@@ -1,9 +1,11 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonProgressBar, IonRow, IonText, IonTitle } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
 import Cabecalho from "components/Cabecalho";
 import { useGetAllPedidos } from "graphQL/pedidos/hooks";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import CardPedido from "./CardPedido";
+import ButtonRouter from "components/ButtonRouter";
+import { addCircleOutline } from "ionicons/icons";
 
 interface IPedido {
   cliente: {
@@ -26,36 +28,55 @@ interface IPedido {
         quantidade: number
       }
     ],
+    date: string,
     total: number
   }
 }
 
 export default function PedidosADM() {
+  const { data, loading, refetch } = useGetAllPedidos();
   const [busca, setBusca] = useState("");
   const [pedidos, setPedidos] = useState<IPedido[]>([]);
-  const { data, error, loading, refetch } = useGetAllPedidos();
+  const [filtro, setFiltro] = useState<IPedido[]>([]);
 
   useEffect(() => {
-    console.log(data)
-    setPedidos(data?.slice(0, 50))
+    refetch();
+    setFiltro(data?.slice(0, 50));
+    setPedidos(data)
   }, [loading])
+
+  useEffect(() => {
+    if (busca.length === 0) {
+      console.log("[PEDIDOS] - ", pedidos)
+      setFiltro(pedidos);
+    } else {
+      const result = pedidos?.filter(pedido => {
+        if (pedido.cliente.nome.toLowerCase().includes(busca) || pedido.usuario.nome.toLowerCase().includes(busca))
+          return true;
+      })
+      setFiltro(result);
+    }
+  }, [busca])
 
   return (
     <IonPage>
       <Cabecalho texto="Pedidos">
-        <IonGrid>
-          <IonRow>
-            <IonCol sizeXs="12" sizeSm="12" sizeMd="8" sizeLg="8" sizeXl="8">
-              <BarraPesquisa busca={busca} setBusca={setBusca} placeholder="Encontrar Pedidos..." />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+        <IonItem lines="none">
+          <BarraPesquisa placeholder="Pesquisar..." busca={busca} setBusca={setBusca} />
+          <ButtonRouter
+            icon={addCircleOutline}
+            slotIcon="start"
+            slotButton="end"
+            text="Realizar Novo Pedido"
+            routerLink="/empresas"
+          />
+        </IonItem>
       </Cabecalho>
 
       <IonContent>
         <IonGrid>
           <IonRow>
-            {pedidos?.map((pedido, index) => {
+            {filtro?.map((pedido, index) => {
               return (
                 <IonCol key={index} sizeLg="12" sizeXl="6">
                   <CardPedido {...pedido} />

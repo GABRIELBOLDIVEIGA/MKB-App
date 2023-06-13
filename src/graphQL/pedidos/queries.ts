@@ -13,6 +13,7 @@ query GetPedidosByUserId($id: ID!) {
       descr_detalhada
       unidade
     }
+    date
     usuarioID
     total
   }
@@ -28,6 +29,7 @@ query GetPedidosByUserIdV2($id: ID!) {
         preco
         quantidade
       }
+      date
       total
     }
     cliente {
@@ -52,6 +54,7 @@ query GetPedidos {
     pedido {
       _id
       total
+      date
       carrinho {
         cod_prod
         descr_resumida
@@ -111,6 +114,38 @@ query GetPedido($id: ID!) {
       }
       total
       clienteID
+    }
+  }
+}
+`
+
+export const GET_PEDIDOS_BY_ID_2_CSV = gql`
+query GetPedido($id: ID!) {
+  getPedido(ID: $id) {
+    cliente {
+      cod
+      nome
+      cnpj
+      email
+      fantasia
+    }
+    usuario {
+      cpf
+      email
+      nome
+    }
+    pedido {
+      carrinho {
+        cod_prod
+        descr_resumida
+        preco
+        quantidade
+        unidade
+        descr_detalhada
+      }
+      date
+      total
+      _id
     }
   }
 }

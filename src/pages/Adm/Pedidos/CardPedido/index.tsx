@@ -1,8 +1,7 @@
 import { IonCol, IonCard, IonCardHeader, IonItem, IonCardTitle, IonCardSubtitle, IonCardContent, IonGrid, IonRow, IonText } from "@ionic/react"
 import ButtonRouter from "components/ButtonRouter"
-import { pencilOutline } from "ionicons/icons"
-import { useEffect } from "react";
 import { formatadorMonetario } from 'common/function/formatadorMonetario';
+import { dateFormatter } from "common/function/formatadorDataPT-BR";
 
 interface Props {
   cliente: {
@@ -25,6 +24,7 @@ interface Props {
         quantidade: number
       }
     ],
+    date: string,
     total: number
   }
 }
@@ -46,6 +46,7 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
           />
         </IonItem>
         <IonCardSubtitle>{cliente.email}</IonCardSubtitle>
+        <IonCardSubtitle><strong>data: </strong>{dateFormatter(pedido.date)}</IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
         <IonGrid>
@@ -69,8 +70,7 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
           }))}
         </IonGrid>
         <IonRow>
-          <IonText color="success"><strong>Total: </strong></IonText>
-          <IonText>{formatadorMonetario.format(pedido.total)} </IonText>
+          <IonText>{`Total: ${formatadorMonetario.format(pedido.total)}`} </IonText>
         </IonRow>
       </IonCardContent>
     </IonCard>
