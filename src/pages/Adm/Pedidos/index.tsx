@@ -46,6 +46,12 @@ export default function PedidosADM() {
   }, [loading])
 
   useEffect(() => {
+    refetch();
+    setFiltro(data?.slice(0, 50));
+    setPedidos(data)
+  },[])
+
+  useEffect(() => {
     if (busca.length === 0) {
       console.log("[PEDIDOS] - ", pedidos)
       setFiltro(pedidos);

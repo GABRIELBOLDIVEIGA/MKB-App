@@ -7,6 +7,7 @@ import { useGetUsuarios } from "graphQL/usuario/hook";
 import { Usuario } from 'interface/Usuario';
 import ButtonRouter from "components/ButtonRouter";
 import { addCircleOutline } from "ionicons/icons";
+import TabelaFuncionarios from "./TabelaFuncionarios";
 
 export default function FuncionariosADM() {
   const [busca, setBusca] = useState("");
@@ -14,35 +15,26 @@ export default function FuncionariosADM() {
   const { data, error, loading, refetch } = useGetUsuarios();
 
   useEffect(() => {
-    setUsuarios(data)
+    setUsuarios(data);
   }, [loading])
+
+  useEffect(() => {
+    refetch();
+  }, [])
 
   return (
     <IonPage>
       <Cabecalho texto="Funcionários">
-        <IonItem lines="none">
-          <BarraPesquisa busca={busca} setBusca={setBusca} />
-          <ButtonRouter
-            icon={addCircleOutline}
-            slotButton="end"
-            text="Cadastrar Funcionario"
-            routerLink="/cadastrarFuncionario"
-          />
-        </IonItem>
+        <ButtonRouter
+          icon={addCircleOutline}
+          slotButton="end"
+          text="Cadastrar Funcionario"
+          routerLink="/cadastrarFuncionario"
+        />
       </Cabecalho>
 
       <IonContent>
-        <IonGrid>
-          <IonRow>
-            {usuarios?.map((usuario) => {
-              return (
-                <IonCol key={usuario._id} sizeSm="12" sizeMd="6" sizeLg="4" sizeXl="4">
-                  <CardFuncionario {...usuario} />
-                </IonCol>
-              )
-            })}
-          </IonRow>
-        </IonGrid>
+        <TabelaFuncionarios />
       </IonContent>
     </IonPage>
   )

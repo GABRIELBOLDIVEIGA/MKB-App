@@ -33,14 +33,13 @@ import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
-import FormClienteTeste from "components/testeUseForn";
 import Clientes from "pages/Clientes";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
 import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
 import ClienteForm from "components/ClienteForm";
 import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
-import TesteCSV from "pages/Testes/TesteCSV";
+import EsqueciSenha from "pages/EsqueciSenha";
 
 setupIonicReact();
 
@@ -85,7 +84,6 @@ export default function Routes() {
                     <Route path="/cadastrarCliente" exact={true} component={ClienteForm} />
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
-                    <Route path="/TesteCSV" exact={true} component={TesteCSV}></Route>
                   </>
                 )
               }
@@ -103,6 +101,7 @@ export default function Routes() {
             <Route path="/">
               <Redirect to="/login" />
               <Route path="/login" exact={true} component={Login} />
+              <Route path="/esqueciSenha" exact={true} component={EsqueciSenha} />
 
             </Route>
           </IonReactRouter>

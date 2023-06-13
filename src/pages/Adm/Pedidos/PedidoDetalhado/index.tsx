@@ -53,12 +53,12 @@ export default function PedidoDetalhado() {
   return (
     <IonPage>
       <Cabecalho texto="Pedido Detalhado">
-        <CSVLink filename={"pedido.csv"} target="_blank" data={csvData}>
+        <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
           <IonButton size="small" fill="default" >
             <BsFiletypeCsv size={24} color="#FFF" />
           </IonButton>
         </CSVLink>
-        <IonButton size="small" fill="default">
+        <IonButton title="Baixar pedido em PDF" size="small" fill="default">
           <BsFiletypePdf size={24} color="#FFF" />
         </IonButton>
       </Cabecalho>

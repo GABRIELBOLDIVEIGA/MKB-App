@@ -6,17 +6,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { useProduto } from 'graphQL/produtos/hooks';
 import { useEffect, useState } from 'react';
-import { Produto } from 'interface/Produto';
 import { styled } from '@mui/material/styles';
 import { IonItem, IonSearchbar } from '@ionic/react';
 import { useHistory } from 'react-router';
 import DarkBlobLoader from 'components/DarkBlobLoader';
+import { Usuario } from 'interface/Usuario';
+import { useGetUsuarios } from 'graphQL/usuario/hook';
 
 
 interface Column {
-  id: 'cod_prod' | 'descr_resumida' | 'descr_detalhada' | 'preco' | 'unidade';
+  id: 'cpf' | 'nome' | 'email' | 'celular' | 'telefone';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -25,28 +25,28 @@ interface Column {
 
 const columns: readonly Column[] = [
   {
-    id: 'cod_prod',
-    label: 'Codigo',
+    id: 'cpf',
+    label: 'CPF',
     minWidth: 120,
   },
   {
-    id: 'descr_resumida',
-    label: 'Descrição Resumida',
+    id: 'nome',
+    label: 'Nome',
     minWidth: 120
   },
   {
-    id: 'descr_detalhada',
-    label: 'Descrição Detalhada',
+    id: 'email',
+    label: 'Email',
     minWidth: 200,
   },
   {
-    id: 'preco',
-    label: 'Preço',
+    id: 'celular',
+    label: 'Celular',
     minWidth: 120,
   },
   {
-    id: 'unidade',
-    label: 'Unidade',
+    id: 'telefone',
+    label: 'Telefone',
     minWidth: 100,
   },
 ];
@@ -66,12 +66,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function TabelaProdutos() {
+export default function TabelaFuncionarios() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [rows, setRows] = useState<Produto[] | undefined>();
-  const { data, error, loading } = useProduto();
+  const [rows, setRows] = useState<Usuario[] | undefined>();
+  const { data, error, loading } = useGetUsuarios();
   const history = useHistory();
 
   useEffect(() => {
@@ -95,11 +95,11 @@ export default function TabelaProdutos() {
     const target = ev.target as HTMLIonSearchbarElement;
     if (target) query = target.value!.toLowerCase();
 
-    const result: Produto[] | undefined = data?.filter((prod) => {
+    const result: Usuario[] | undefined = data?.filter((usuario) => {
       if (
-        prod.cod_prod.toLowerCase().includes(query) ||
-        prod.descr_resumida.toLowerCase().includes(query) ||
-        prod.descr_detalhada.toLowerCase().includes(query)
+        usuario.nome?.toLowerCase().includes(query) ||
+        usuario.email?.toLowerCase().includes(query) ||
+        usuario.cpf?.toLowerCase().includes(query)
       )
         return true;
     });
@@ -111,7 +111,7 @@ export default function TabelaProdutos() {
   return (
     <section>
       <IonItem>
-        <IonSearchbar placeholder='Codigo ou Descrição' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
+        <IonSearchbar placeholder='Nome, Email ou CPF' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
       </IonItem>
       <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
         {!data ?
@@ -138,13 +138,13 @@ export default function TabelaProdutos() {
                       .map((row) => {
                         return (
                           <StyledTableRow
-                            key={row.cod_prod}
+                            key={row.cpf}
                             hover
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
                             onDoubleClick={() => {
-                              history.push(`/produto/${row._id}`)
+                              history.push(`/funcionarios/EditarFuncionario/${row._id}`)
                             }}
                           >
                             {columns.map((column) => {

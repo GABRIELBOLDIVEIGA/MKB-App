@@ -12,6 +12,7 @@ import { IonItem, IonSearchbar } from '@ionic/react';
 import { useHistory } from 'react-router';
 import { useGetAllClientes } from 'graphQL/clientes/hooks';
 import { Cliente } from 'interface/Cliente';
+import DarkBlobLoader from "components/DarkBlobLoader"
 
 interface Column {
   id: "cod" | "nome" | "cnpj" | "endereco" | "bairro" | "cidade" | "cep" | "uf" | "email" | "ddd" | "fone1" | "fone2" | "celular" | "fax" | "fantasia" | "numero";
@@ -112,64 +113,70 @@ export default function TabelaClientes() {
       <IonItem>
         <IonSearchbar placeholder='Nome, E-mail ou CNPJ' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
       </IonItem>
+
       <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ height: "90%", }} >
-            <Table stickyHeader aria-label="sticky table" >
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth, backgroundColor: "#383a3e", color: "#d7d8da" }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <StyledTableRow
-                        key={row._id}
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        style={{ cursor: "pointer" }}
-                        onDoubleClick={() => {
-                          history.push(`/cliente/${row._id}`)
-                        }}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number'
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </StyledTableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            style={{ backgroundColor: "#383a3e", color: "#d7d8da" }}
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows?.length ? rows.length : 0}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
+        {!data ?
+          <DarkBlobLoader /> :
+          (
+            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+              <TableContainer sx={{ height: "90%", }} >
+                <Table stickyHeader aria-label="sticky table" >
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{ minWidth: column.minWidth, backgroundColor: "#383a3e", color: "#d7d8da" }}
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((row) => {
+                        return (
+                          <StyledTableRow
+                            title='Dois clicks para ver mais detalhes...'
+                            key={row._id}
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            style={{ cursor: "pointer" }}
+                            onDoubleClick={() => {
+                              history.push(`/cliente/${row._id}`)
+                            }}
+                          >
+                            {columns.map((column) => {
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === 'number'
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            })}
+                          </StyledTableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                style={{ backgroundColor: "#383a3e", color: "#d7d8da" }}
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows?.length ? rows.length : 0}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          )}
       </ div>
     </section>
   )

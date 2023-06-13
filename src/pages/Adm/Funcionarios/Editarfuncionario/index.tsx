@@ -1,9 +1,9 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonPage } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonLoading, IonPage, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
 import { useGetUsuarioById, useUpdateUsuario } from "graphQL/usuario/hook";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Usuario } from 'interface/Usuario';
 
@@ -17,7 +17,10 @@ const Section = styled.section`
 export default function EditarFuncionario() {
   const params = useParams<{ id: string }>();
   const { data, error, loading, refetch } = useGetUsuarioById(params.id);
-  const { updateUsuario, data: updateData, error: updateError, loading: updateLoading } = useUpdateUsuario()
+  const { updateUsuario, data: updateData, error: updateError, loading: updateLoading } = useUpdateUsuario();
+  const [presentAlert] = useIonAlert();
+  const [showLoading, setShowLoading] = useState(false);
+  const history = useHistory();
 
   const [nome, setNome] = useState<string | undefined>();
   const [email, setEmail] = useState<string | undefined>();
@@ -27,34 +30,52 @@ export default function EditarFuncionario() {
 
   useEffect(() => {
     refetch()
-    console.log(params)
-    console.log(data)
 
-    setNome(data?.nome)
-    setEmail(data?.email)
-    setCpf(data?.cpf)
-    setTelefone(data?.telefone)
-    setCelular(data?.celular)
-  }, [data])
+    if (data) {
+      setNome(data.nome);
+      setEmail(data.email);
+      setCpf(data.cpf);
+      setTelefone(data.telefone);
+      setCelular(data.celular);
+    }
+  }, [loading])
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
+    setShowLoading(true);
     updateUsuario({
       variables: {
-        usuarioInput: {
+        usuarioUpdateInput: {
           nome,
           cpf,
           email,
-          senha: data?.senha,
           telefone,
           celular,
           privilegio: data?.privilegio ? data.privilegio : 1
         },
         id: data?._id
       },
-      onCompleted: (updateData) => { console.log(updateData) },
-      onError: (errorUpdate) => {console.log(errorUpdate) }
+      onCompleted: () => {
+        setShowLoading(false);
+        presentAlert({
+          header: 'Sucesso',
+          subHeader: "Dados alterados com sucesso",
+          buttons: ['OK'],
+          onDidDismiss: () => {
+            history.push("/funcionarios")
+          }
+        })
+      },
+      onError: (errorUpdate) => {
+        setShowLoading(false);
+        presentAlert({
+          header: 'Atenção',
+          subHeader: "Email ou CPF duplicados",
+          message: 'Verifique email e cpf e tente novamente.',
+          buttons: ['OK'],
+        })
+      }
     })
 
   }
@@ -83,6 +104,10 @@ export default function EditarFuncionario() {
           </IonCard>
         </Section>
 
+        <IonLoading
+          isOpen={showLoading}
+          message={'Verificando...'}
+        />
 
       </IonContent>
     </IonPage>

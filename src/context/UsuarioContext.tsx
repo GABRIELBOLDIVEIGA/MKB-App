@@ -72,6 +72,7 @@ export const useUserContext = () => {
 
   const removeUser = () => {
     localStorage.removeItem("user")
+    localStorage.removeItem("KMB_token")
     setLoginValido(false)
   }
 
