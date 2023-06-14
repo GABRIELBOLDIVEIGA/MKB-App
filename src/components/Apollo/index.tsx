@@ -6,9 +6,10 @@ const client = new ApolloClient({
   headers: {
     authorization: localStorage.getItem('KMB_token') || '',
   },
-  uri: "http://localhost:4000/", // API local
+  // uri: "http://localhost:4000/", // API local
   // uri: "http://192.168.100.106:4000/", // API mobile
   // uri: "https://api-mkb.herokuapp.com/", // API heroku
+  uri: `${process.env.URIGQL}` || "http://localhost:4000/", // API railway
 });
 type Props = {
   children: ReactElement;
