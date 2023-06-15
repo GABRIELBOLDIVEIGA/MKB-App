@@ -113,6 +113,7 @@ query GetPedido($id: ID!) {
         quantidade
       }
       total
+      date
       clienteID
     }
   }
