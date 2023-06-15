@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styled from "styled-components";
 import { useCreateCliente } from "graphQL/clientes/hooks";
 import { useHistory } from "react-router";
+import Cabecalho from "components/Cabecalho";
 
 const Span = styled.span`
   color: #ff5b71;
@@ -85,10 +86,11 @@ export default function ClienteForm() {
           history.push("/pedidos")
         }}
       />
+      <Cabecalho texto="Cadastrar Cliente"/>
 
       <IonContent>
         <Section>
-          <IonCard style={{ width: "75%" }}>
+          <IonCard style={{ width: "100%", maxWidth: "1200px" }}>
             <IonCardContent>
               <form onSubmit={handleSubmit(createClienteZod)}>
                 <IonGrid>
@@ -290,8 +292,8 @@ export default function ClienteForm() {
                   </IonRow>
 
                   <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                    <IonButton onClick={() => clearErrors()} type="reset" color="warning" size="default">Limpar</IonButton>
-                    <IonButton type="submit" size="default" slot="end">Cadastrar</IonButton>
+                    <IonButton onClick={() => clearErrors()} type="reset" color="warning" size="small">Limpar</IonButton>
+                    <IonButton type="submit" size="small" slot="end">Cadastrar</IonButton>
                   </IonItem>
                 </IonGrid>
               </form>
