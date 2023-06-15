@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useLogin } from "graphQL/usuario/hook";
 import { useUserContext } from "context/UsuarioContext";
 import InputField from "components/InputField";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Section = styled.section`
+  padding-top: 6rem;
+`
 
 const Login: React.FC = () => {
   const { efetuaLogin, data, loading } = useLogin();
@@ -50,7 +55,7 @@ const Login: React.FC = () => {
   return (
     <IonPage >
       <IonContent>
-
+        <Section>
 
         <IonGrid>
           <IonRow>
@@ -68,7 +73,7 @@ const Login: React.FC = () => {
                       label="E-mail"
                       position="stacked"
                       placeholder="Email@gmail.com"
-                    />
+                      />
                     <InputField
                       required
                       type="password"
@@ -77,7 +82,7 @@ const Login: React.FC = () => {
                       label="Senha"
                       position="stacked"
                       placeholder="***********"
-                    />
+                      />
                     <IonItem lines="none" style={{ marginTop: "10px" }}>
                       {/* <IonButton type="reset" color="danger" size="default">Limpar</IonButton> */}
                       <IonButton style={{ width: "100%" }} size="default" type="submit" >
@@ -86,7 +91,7 @@ const Login: React.FC = () => {
                     </IonItem>
                   </form>
 
-                  <IonItem>
+                  <IonItem lines="none">
                     <Link to="/esqueciSenha">
                       <p>esqueci minha senha</p>
                     </Link>
@@ -96,13 +101,13 @@ const Login: React.FC = () => {
               </IonCard>
             </IonCol>
           </IonRow>
-
         </IonGrid>
+        </Section>
 
         <IonLoading
           isOpen={showLoading}
           message={'Verificando...'}
-        />
+          />
 
       </IonContent>
     </IonPage>

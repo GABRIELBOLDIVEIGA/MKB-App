@@ -1,8 +1,12 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonPage } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
 import { useCriarFuncionario } from "graphQL/usuario/hook";
+import CardProduto from "pages/Adm/Produtos/CardProduto";
 import { useState } from "react";
+import CardFuncionario from "../CardFuncionario";
+import { closeOutline } from 'ionicons/icons'
+import { useHistory } from "react-router";
 
 export default function CadastrarFuncionario() {
   const [nome, setNome] = useState<string | undefined>("");
@@ -13,6 +17,10 @@ export default function CadastrarFuncionario() {
   const [celular, setCelular] = useState<string | undefined>("");
   const [telefone, setTelefone] = useState<string | undefined>("");
   const { createUsuario, data, error, loading } = useCriarFuncionario();
+  const [isOpen, setIsOpen] = useState(true);
+  const [presentAlert] = useIonAlert();
+  const [showLoading, setShowLoading] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
@@ -26,19 +34,45 @@ export default function CadastrarFuncionario() {
       privilegio: 1
     }
 
-    if (senha != confirmarSenha) {
+    console.log("[Senha] - ", senha);
+    console.log("[Confirmar Senha] - ", confirmarSenha);
+
+    if (senha === confirmarSenha) {
+      console.log("[Funcionario] - ", funcionario);
+
+      setShowLoading(true);
       createUsuario({
         variables: { usuarioInput: { ...funcionario } },
         onCompleted: (data) => {
-          console.log(data)
+          setShowLoading(false);
+          setIsOpen(true);
         },
         onError: (error) => {
           console.log(error)
+          setShowLoading(false);
+          presentAlert({
+            header: 'Atenção',
+            subHeader: "Email ou CPF duplicados",
+            message: `${error.message}`,
+            buttons: ['OK'],
+          })
         }
       })
     } else {
       alert("senhas diferentes!")
     }
+  }
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+    setNome("");
+    setEmail("");
+    setSenha("");
+    setConfirmarSenha("");
+    setCpf("");
+    setCelular("");
+    setTelefone("");
+    history.push('/funcionarios');
   }
 
   return (
@@ -64,6 +98,28 @@ export default function CadastrarFuncionario() {
               </form>
             </IonCardContent>
           </IonCard>
+
+          {data &&
+            <IonModal isOpen={isOpen} onDidDismiss={() => handleModalClose()}>
+              <IonHeader>
+                <IonToolbar>
+                  <IonTitle>Funcionario Cadastrado com sucesso</IonTitle>
+                  <IonButtons slot="end">
+                    <IonButton onClick={() => handleModalClose()}><IonIcon icon={closeOutline} /></IonButton>
+                  </IonButtons>
+                </IonToolbar>
+              </IonHeader>
+              <IonContent className="ion-padding">
+                <CardFuncionario {...data} />
+              </IonContent>
+            </IonModal>
+          }
+
+          <IonLoading
+            isOpen={showLoading}
+            message={'Verificando...'}
+          />
+
         </section>
       </IonContent>
     </IonPage>

@@ -51,7 +51,7 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
       <IonCardContent>
         <IonGrid>
           <IonRow>
-            <IonText><strong>Funcionario: </strong>{usuario.nome}</IonText>
+            <IonText><strong>Funcionario: </strong>{usuario?.nome}</IonText>
           </IonRow>
           {pedido.carrinho.map(((item) => {
             return (

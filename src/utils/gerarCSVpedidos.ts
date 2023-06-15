@@ -1,22 +1,53 @@
 export const pedidos2csv = (data: any) => {
 
-  if (
-    data.cliente === null ||
-    data.usuario === null ||
-    data.pedido === null ||
-    data.pedido.carrinho === null
-  ) { 
-    throw new Error("Deu ruim aqui... [pedidos2csv]")
+  // if (
+  //   data.cliente === null ||
+  //   data.usuario === null ||
+  //   data.pedido === null ||
+  //   data.pedido.carrinho === null
+  // ) { 
+  //   return "Dados vindos da API estão incompletos..."
+  //   throw new Error("Deu ruim aqui... [pedidos2csv]");
+  // }
+
+  var array = [];
+  
+  var cliente = {};
+  if (data.cliente != null) { 
+    cliente = data.cliente;
+    array.push(cliente);
   }
 
-  const cliente = data.cliente;
-  const funcionario = data.usuario;
-  const pedido = {
-    date: data.pedido.date,
-    _id: data.pedido._id,
-  };
-  const carrinho = data.pedido.carrinho;
-  const array = [cliente, funcionario, pedido, carrinho];
+  var funcionario = {};
+  if (data.usuario != null) { 
+    funcionario = data.usuario;
+    array.push(funcionario);
+  }
+
+  var pedido = {};
+  if (data.pedido != null) { 
+    pedido = {
+      date: data.pedido.date,
+      _id: data.pedido._id,
+    };
+    array.push(pedido);
+  }
+  
+  var carrinho = [];
+  if (data.pedido.carrinho != null) { 
+    carrinho = data.pedido.carrinho;
+    array.push(carrinho);
+  }
+
+
+  // const cliente = data.cliente;
+  // const funcionario = data.usuario;
+  // const pedido = {
+  //   date: data.pedido.date,
+  //   _id: data.pedido._id,
+  // };
+  // const carrinho = data.pedido.carrinho;
+  // const array = [cliente, funcionario, pedido, carrinho];
 
   var keysHeaders: Array<string[]> = [];
   array.forEach((itemDoArray, index) => {

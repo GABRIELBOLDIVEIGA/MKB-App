@@ -31,9 +31,11 @@ export default function CardFuncionario({ _id, cpf, email, nome, telefone, celul
       </IonCardHeader>
       <IonCardContent>
         <IonGrid>
-          <IonRow>
-            <IonText>ID: {_id}</IonText>
-          </IonRow>
+          {_id &&
+            <IonRow>
+              <IonText>ID: {_id}</IonText>
+            </IonRow>
+          }
           <IonRow>
             <IonText>CPF: {cpf}</IonText>
           </IonRow>
@@ -47,19 +49,21 @@ export default function CardFuncionario({ _id, cpf, email, nome, telefone, celul
             <IonText>Privilegio: {privilegio}</IonText>
           </IonRow>
         </IonGrid>
-        <IonItem lines="none">
-          <ButtonRouter
-            icon={pencilOutline}
-            routerLink={`/funcionarios/EditarFuncionario/${_id}`}
-            routerDirection="none"
-            colorButton="medium"
-            colorIcon="light"
-            text="Editar"
-            size="small"
-            slotIcon="end"
-            slotButton="end"
-          />
-        </IonItem>
+        {_id &&
+          <IonItem lines="none">
+            <ButtonRouter
+              icon={pencilOutline}
+              routerLink={`/funcionarios/EditarFuncionario/${_id}`}
+              routerDirection="none"
+              colorButton="medium"
+              colorIcon="light"
+              text="Editar"
+              size="small"
+              slotIcon="end"
+              slotButton="end"
+            />
+          </IonItem>
+        }
       </IonCardContent>
     </IonCard>
   )

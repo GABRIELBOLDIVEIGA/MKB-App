@@ -11,9 +11,9 @@ export default function EditarProduto() {
   const { data, error, loading, refetch } = useGetProdutoById(params.id);
   const { updateProduto, data: dataUpDate, error: errorUpdate, loading: loadingUpdate } = useUpdateProduto();
 
-  const [cod, setCod] = useState<string | undefined>("");
-  const [descricaoResumida, setDescricaoResumida] = useState<string | undefined>("");
-  const [descricaoDetalhada, setDescricaoDetalhada] = useState<string | undefined>("");
+  const [cod_prod, setCod] = useState<string | undefined>();
+  const [descr_resumida, setDescricaoResumida] = useState<string | undefined>();
+  const [descr_detalhada, setDescricaoDetalhada] = useState<string | undefined>();
   const [unidade, setUnidade] = useState<string | undefined>("PEÇA");
   const [preco, setPreco] = useState<number | null | undefined>();
   const [isOpen, setIsOpen] = useState(true);
@@ -35,11 +35,11 @@ export default function EditarProduto() {
     updateProduto({
       variables: {
         produtoInput: {
-          descr_resumida: descricaoResumida,
-          descr_detalhada: descricaoDetalhada,
-          preco: preco,
-          unidade: unidade,
-          cod_prod: cod,
+          descr_resumida,
+          descr_detalhada,
+          preco,
+          unidade,
+          cod_prod,
         },
         id: params.id,
       },
@@ -59,11 +59,11 @@ export default function EditarProduto() {
       <IonContent>
         <FormProduto
           onSubmit={handleSubmit}
-          cod={cod}
+          cod={cod_prod}
           setCod={setCod}
-          descricaoResumida={descricaoResumida}
+          descricaoResumida={descr_resumida}
           setDescricaoResumida={setDescricaoResumida}
-          descricaoDetalhada={descricaoDetalhada}
+          descricaoDetalhada={descr_detalhada}
           setDescricaoDetalhada={setDescricaoDetalhada}
           unidade={unidade}
           setUnidade={setUnidade}

@@ -107,11 +107,11 @@ const Menu: React.FC = () => {
           </IonList>
 
           <IonList id="labels-list" className="listaBotoes">
-            <IonButton fill="outline">
-              <IonIcon slot="start" src={settingsOutline} />
-              <IonText>Config.</IonText>
-            </IonButton>
-            <LogOut />
+            <IonButton routerLink="/config" fill="solid">
+                <IonIcon slot="start" src={settingsOutline} />
+                <IonText>Config.</IonText>
+              </IonButton>
+              <LogOut />
           </IonList>
         </div>
       </IonContent>

@@ -49,7 +49,7 @@ export default function PedidosADM() {
     refetch();
     setFiltro(data?.slice(0, 50));
     setPedidos(data)
-  },[])
+  }, [])
 
   useEffect(() => {
     if (busca.length === 0) {
@@ -80,6 +80,11 @@ export default function PedidosADM() {
       </Cabecalho>
 
       <IonContent>
+        {pedidos?.length === 0 && (
+          <div style={{ display: "grid", placeItems: "center", marginTop: "1rem" }}>
+            <IonText>Parece que não existe nem um pedido...</IonText>
+          </div>
+        )}
         <IonGrid>
           <IonRow>
             {filtro?.map((pedido, index) => {
