@@ -54,7 +54,9 @@ export default function EditarProduto() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Editar Produto" />
+      <Cabecalho>
+        <IonTitle>Editar Produto</IonTitle>
+      </Cabecalho>
 
       <IonContent>
         <FormProduto

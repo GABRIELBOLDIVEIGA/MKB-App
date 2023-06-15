@@ -1,4 +1,4 @@
-import { IonAlert, IonButton, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonInput, IonItem, IonLabel, IonPage, IonRow } from "@ionic/react";
+import { IonAlert, IonButton, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonInput, IonItem, IonLabel, IonPage, IonRow, IonTitle } from "@ionic/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -86,7 +86,9 @@ export default function ClienteForm() {
           history.push("/pedidos")
         }}
       />
-      <Cabecalho texto="Cadastrar Cliente"/>
+      <Cabecalho>
+        <IonTitle>Cadastrar Cliente</IonTitle>
+      </Cabecalho>
 
       <IonContent>
         <Section>

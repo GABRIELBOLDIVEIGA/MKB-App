@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonLoading, IonPage, useIonAlert } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
 import { useGetUsuarioById, useUpdateUsuario } from "graphQL/usuario/hook";
@@ -82,7 +82,7 @@ export default function EditarFuncionario() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Editar funcionario" />
+      <Cabecalho><IonTitle>Editar funcionario</IonTitle></Cabecalho>
 
       <IonContent>
         <Section >

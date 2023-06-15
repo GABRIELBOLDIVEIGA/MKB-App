@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow, IonTitle } from "@ionic/react";
 import BarraPesquisa from "components/BarraPesquisa";
 import Cabecalho from "components/Cabecalho";
 import { useEffect, useState } from "react";
@@ -24,7 +24,8 @@ export default function FuncionariosADM() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Funcionários">
+      <Cabecalho>
+        <IonTitle>Funcionários</IonTitle>
         <ButtonRouter
           icon={addCircleOutline}
           slotButton="end"

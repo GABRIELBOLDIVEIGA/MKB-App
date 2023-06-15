@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonContent, IonInput, IonItem, IonLabel, IonLoading, IonPage, useIonAlert } from '@ionic/react'
+import { IonCard, IonCardContent, IonContent, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonTitle, useIonAlert } from '@ionic/react'
 import Cabecalho from 'components/Cabecalho'
 import styled from 'styled-components'
 import { IonButton } from '@ionic/react';
@@ -69,7 +69,9 @@ export default function AlterarSenha() {
 
   return (
     <IonPage>
-      <Cabecalho texto='Alterar Senha' />
+      <Cabecalho>
+        <IonTitle>Alterar Senha</IonTitle>
+      </Cabecalho>
       <IonContent>
 
         <Section>

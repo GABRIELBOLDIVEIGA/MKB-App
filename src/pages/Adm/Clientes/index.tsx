@@ -1,4 +1,4 @@
-import { IonContent, IonItem, IonPage } from '@ionic/react'
+import { IonContent, IonItem, IonPage, IonTitle } from '@ionic/react'
 import ButtonRouter from 'components/ButtonRouter'
 import Cabecalho from 'components/Cabecalho'
 import { addCircleOutline } from 'ionicons/icons'
@@ -7,7 +7,8 @@ import TabelaClientes from './TabelaClientes'
 export default function ClientesADM() {
   return (
     <IonPage>
-      <Cabecalho texto="Clientes">
+      <Cabecalho>
+        <IonTitle>Clientes</IonTitle>
         <ButtonRouter
           icon={addCircleOutline}
           routerLink="/cadastrarCliente"

@@ -1,12 +1,9 @@
-import { IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonItem, IonText, IonButton } from '@ionic/react'
-import BarraPesquisa from 'components/BarraPesquisa';
-import ButtonRouter from 'components/ButtonRouter';
-import { addCircleOutline } from 'ionicons/icons';
-import React, { useState } from 'react'
+import { IonHeader, IonToolbar, IonButtons, IonMenuButton } from '@ionic/react'
+import React from 'react'
 import styled from 'styled-components';
 
 interface Props {
-  texto?: string
+  // texto?: string
   children?: React.ReactNode;
 }
 

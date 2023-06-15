@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonItem, IonButton, IonAlert, IonLoading } from "@ionic/react";
+import { IonPage, IonContent, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonItem, IonButton, IonAlert, IonLoading, IonTitle } from "@ionic/react";
 import InputField  from "components/InputField";
 import uuid from 'react-uuid';
 import { useState } from "react";
@@ -85,7 +85,9 @@ export default function CadastrarCliente() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Cadastrar Cliente"/>
+      <Cabecalho>
+        <IonTitle>Cadastrar Cliente</IonTitle>
+      </Cabecalho>
 
       <IonContent>
         <IonCard>
