@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonFooter, IonHeader, IonIcon, IonItem, IonLoading, IonMenuButton, IonPage, IonRadioGroup, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
+import { IonContent, IonFooter, IonHeader, IonItem, IonLoading, IonMenuButton, IonPage, IonRadioGroup, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
 import ListaDeClientes from "./ListaDeClientes";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
@@ -79,24 +79,13 @@ const Clientes = () => {
 
       <IonFooter>
         <IonToolbar>
-          {btnAvancar ?
-            <IonItem>
-              <ButtonRouter
-                icon={arrowForwardOutline}
-                slotIcon="end"
-                slotButton="end"
-                text="Avançar"
-                routerLink="/produtos"
-              />
-            </IonItem>
-            :
-            <IonItem>
-              <IonButton slot="end" size="default" color="primary" disabled >
-                Avançar
-                <IonIcon slot="end" icon={arrowForwardOutline} />
-              </IonButton>
-            </IonItem>
-          }
+          <ButtonRouter
+            icon={arrowForwardOutline}
+            slotIcon="end"
+            text="Avançar"
+            routerLink="/produtos"
+            disabled={!btnAvancar}
+          />
         </IonToolbar>
       </IonFooter>
 

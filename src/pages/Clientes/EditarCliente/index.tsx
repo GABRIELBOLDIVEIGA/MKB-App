@@ -29,14 +29,7 @@ export default function EditarCliente() {
   const [endereco, setEndereco] = useState<string | undefined>("");
   const [numero, setNumero] = useState<string | undefined>("");
 
-  const [presentAlert] = useIonAlert();
-  const [present, dismiss] = useIonLoading();
-  const history = useHistory();
-
-
   useEffect(() => {
-    console.log("[UseEffect] - EditarCliente: ", data);
-
     setNome(data?.nome)
     setEmail(data?.email)
     setFantasia(data?.fantasia)
@@ -118,7 +111,9 @@ export default function EditarCliente() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Editar Cliente" />
+      <Cabecalho>
+        <IonTitle>Editar Cliente</IonTitle>
+      </Cabecalho>
 
       <IonContent>
         <IonCard>

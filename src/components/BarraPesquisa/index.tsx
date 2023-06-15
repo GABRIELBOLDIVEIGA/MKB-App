@@ -1,7 +1,11 @@
-import { IonSearchbar } from "@ionic/react";
+import { IonItem, IonSearchbar } from "@ionic/react";
 import React from "react";
-import styles from "./BarraPessquisa.module.scss" ;
+import styled from "styled-components";
 
+const BarraPesquisaestilizada = styled(IonSearchbar)`
+    width: 100%;
+    max-width: 450px;
+`
 
 interface IProps {
     busca: string;
@@ -18,5 +22,7 @@ export default function BarraPesquisa({ placeholder = "Digite aqui...", setBusca
         setBusca(query);
     };
 
-    return <IonSearchbar className={styles.barraPesquisa} value={busca} onIonChange={(ev) => handleChange(ev)} color="light" showCancelButton="focus" animated={true} placeholder={placeholder} />
+    return <IonItem lines="none">
+        <BarraPesquisaestilizada value={busca} onIonChange={(ev) => handleChange(ev)} color="light" showCancelButton="focus" animated={true} placeholder={placeholder} />
+    </IonItem>
 }

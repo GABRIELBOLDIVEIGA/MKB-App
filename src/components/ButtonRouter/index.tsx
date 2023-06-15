@@ -1,4 +1,4 @@
-import { IonButton, IonIcon } from '@ionic/react'
+import { IonButton, IonIcon, IonItem } from '@ionic/react'
 
 interface Props {
   routerLink: string;
@@ -10,20 +10,23 @@ interface Props {
   slotButton?: string;
   icon?: string;
   text?: string;
+  disabled?: boolean;
 }
 
-export default function ButtonRouter({ slotButton, routerLink, routerDirection = "none", size = "default", colorButton = "primary", colorIcon = "dark", slotIcon = "start", icon, text }: Props) {
+export default function ButtonRouter({disabled = false, slotButton = "", routerLink, routerDirection = "none", size = "default", colorButton = "primary", colorIcon = "dark", slotIcon = "start", icon, text }: Props) {
   return (
-    <IonButton slot={slotButton} routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton}>
-      {icon ?
-        (
-          <IonIcon color={colorIcon} slot={slotIcon} icon={icon} />
-        ) :
-        ( 
-          <></>
-        )
-      }
-      {text}
-    </IonButton>
+    <IonItem lines="none">
+      <IonButton disabled={disabled} style={{ width: "100%" }} slot={slotButton}  routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton}>
+        {icon ?
+          (
+            <IonIcon color={colorIcon} slot={slotIcon} icon={icon} />
+          ) :
+          (
+            <></>
+          )
+        }
+        {text}
+      </IonButton>
+    </IonItem>
   )
 }

@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById, useGetPedidoById2Csv } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
@@ -52,7 +52,8 @@ export default function PedidoDetalhado() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Pedido Detalhado">
+      <Cabecalho>
+        <IonTitle>Pedido Detalhado</IonTitle>
         <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
           <IonButton size="small" fill="default" >
             <BsFiletypeCsv size={24} color="#FFF" />

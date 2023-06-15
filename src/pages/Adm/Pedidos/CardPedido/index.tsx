@@ -2,6 +2,8 @@ import { IonCol, IonCard, IonCardHeader, IonItem, IonCardTitle, IonCardSubtitle,
 import ButtonRouter from "components/ButtonRouter"
 import { formatadorMonetario } from 'common/function/formatadorMonetario';
 import { dateFormatter } from "common/function/formatadorDataPT-BR";
+import styled from "styled-components";
+
 
 interface Props {
   cliente: {
@@ -29,12 +31,21 @@ interface Props {
   }
 }
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
+`
+
 export default function CardPedido({ cliente, usuario, pedido }: Props) {
 
   return (
     <IonCard>
       <IonCardHeader>
-        <IonItem>
+        <Container>
           <IonCardTitle>{cliente.nome}</IonCardTitle>
           <ButtonRouter
             routerLink={`/pedidoDetalhado/${pedido._id}`}
@@ -42,9 +53,9 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
             colorButton="medium"
             text="Detalhes"
             size="small"
-            slotButton="end"
+            
           />
-        </IonItem>
+        </Container>
         <IonCardSubtitle>{cliente.email}</IonCardSubtitle>
         <IonCardSubtitle><strong>data: </strong>{dateFormatter(pedido.date)}</IonCardSubtitle>
       </IonCardHeader>

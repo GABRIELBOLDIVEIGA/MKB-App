@@ -77,7 +77,7 @@ export default function CadastrarFuncionario() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Cadastrar Funcionario" />
+      <Cabecalho><IonTitle>Cadastrar Funcionario</IonTitle></Cabecalho>
       <IonContent >
         <section style={{ display: "flex", justifyContent: "center", width: "100%", height: "100%" }}>
           <IonCard style={{ width: "50%", height: "max-content", marginTop: "6rem" }}>

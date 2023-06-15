@@ -66,17 +66,16 @@ export default function PedidosADM() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Pedidos">
-        <IonItem lines="none">
-          <BarraPesquisa placeholder="Pesquisar..." busca={busca} setBusca={setBusca} />
-          <ButtonRouter
-            icon={addCircleOutline}
-            slotIcon="start"
-            slotButton="end"
-            text="Realizar Novo Pedido"
-            routerLink="/empresas"
-          />
-        </IonItem>
+      <Cabecalho >
+        <IonTitle>Pedidos</IonTitle>
+        <BarraPesquisa placeholder="Pesquisar..." busca={busca} setBusca={setBusca} />
+        <ButtonRouter
+          icon={addCircleOutline}
+          slotIcon="start"
+          
+          text="Realizar Novo Pedido"
+          routerLink="/empresas"
+        />
       </Cabecalho>
 
       <IonContent>

@@ -53,7 +53,9 @@ export default function CriarProdutoADM() {
 
   return (
     <IonPage>
-      <Cabecalho texto="Criar Produto" />
+      <Cabecalho>
+        <IonTitle>Criar Produto</IonTitle>
+      </Cabecalho>
       <IonContent >
         <FormProduto
           cod={cod}
