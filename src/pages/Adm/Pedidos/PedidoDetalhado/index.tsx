@@ -89,32 +89,32 @@ export default function PedidoDetalhado() {
               <IonText><Strong>Dados do Cliente</Strong></IonText>
               <IonGrid>
                 <IonRow>
-                  <IonCol><P><Strong>Nome: </Strong>{data?.cliente.nome.toUpperCase()}</P></IonCol>
-                  <IonCol><P><Strong>CNPJ: </Strong>{data?.cliente.cnpj}</P></IonCol>
+                  <IonCol><P><Strong>Nome: </Strong>{data?.cliente?.nome.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>CNPJ: </Strong>{data?.cliente?.cnpj}</P></IonCol>
                 </IonRow>
 
                 <IonRow>
-                  <IonCol><P><Strong>End: </Strong>{data?.cliente.endereco?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>End: </Strong>{data?.cliente?.endereco?.toUpperCase()}</P></IonCol>
                 </IonRow>
 
                 <IonRow>
-                  <IonCol><P><Strong>Bairro: </Strong>{data?.cliente.bairro?.toUpperCase()}</P></IonCol>
-                  <IonCol><P><Strong>Cidade: </Strong>{data?.cliente.cidade?.toUpperCase()}</P></IonCol>
-                  <IonCol><P><Strong>CEP: </Strong>{data?.cliente.cep}</P></IonCol>
+                  <IonCol><P><Strong>Bairro: </Strong>{data?.cliente?.bairro?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>Cidade: </Strong>{data?.cliente?.cidade?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>CEP: </Strong>{data?.cliente?.cep}</P></IonCol>
                   <IonCol><P><Strong>UF: </Strong>{data?.cliente?.uf?.toUpperCase()}</P></IonCol>
                 </IonRow>
 
                 <IonRow>
-                  <IonCol><P><Strong>DDD: </Strong>{data?.cliente.ddd}</P></IonCol>
-                  <IonCol><P><Strong>Fone1: </Strong>{data?.cliente.fone1}</P></IonCol>
-                  <IonCol><P><Strong>Fone2: </Strong>{data?.cliente.fone2}</P></IonCol>
-                  <IonCol><P><Strong>Celular: </Strong>{data?.cliente.celular}</P></IonCol>
-                  <IonCol><P><Strong>Fax: </Strong>{data?.cliente.fax}</P></IonCol>
+                  <IonCol><P><Strong>DDD: </Strong>{data?.cliente?.ddd}</P></IonCol>
+                  <IonCol><P><Strong>Fone1: </Strong>{data?.cliente?.fone1}</P></IonCol>
+                  <IonCol><P><Strong>Fone2: </Strong>{data?.cliente?.fone2}</P></IonCol>
+                  <IonCol><P><Strong>Celular: </Strong>{data?.cliente?.celular}</P></IonCol>
+                  <IonCol><P><Strong>Fax: </Strong>{data?.cliente?.fax}</P></IonCol>
                 </IonRow>
 
                 <IonRow>
-                  <IonCol><P><Strong>Email: </Strong>{data?.cliente.email?.toUpperCase()}</P></IonCol>
-                  <IonCol><P><Strong>Vendedor: </Strong>{data?.usuario.nome?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>Email: </Strong>{data?.cliente?.email?.toUpperCase()}</P></IonCol>
+                  <IonCol><P><Strong>Vendedor: </Strong>{data?.usuario?.nome?.toUpperCase()}</P></IonCol>
                 </IonRow>
               </IonGrid>
             </Div>

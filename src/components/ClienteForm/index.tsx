@@ -73,7 +73,7 @@ export default function ClienteForm() {
         isOpen={alertErrorIsOpen}
         subHeader="Erro !"
         message={`${error?.graphQLErrors?.[0].message
-        }`}
+          }`}
         buttons={['OK']}
       />
       <IonAlert
@@ -81,11 +81,11 @@ export default function ClienteForm() {
         subHeader="Sucesso"
         message="Cliente cadastrado com sucesso!"
         buttons={['OK']}
-        onDidDismiss={() => { 
+        onDidDismiss={() => {
           history.push("/pedidos")
         }}
       />
-      
+
       <IonContent>
         <Section>
           <IonCard style={{ width: "75%" }}>

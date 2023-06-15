@@ -1,4 +1,4 @@
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonInput, IonItem, IonButton, useIonAlert, useIonLoading } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonInput, IonItem, IonButton, useIonAlert, useIonLoading, IonAlert } from "@ionic/react";
 import InputField from "components/InputField";
 import uuid from 'react-uuid';
 import { useState } from "react";
@@ -22,10 +22,12 @@ export default function CadastrarCliente() {
   const [bairro, setBairro] = useState<string | undefined>("");
   const [endereco, setEndereco] = useState<string | undefined>("");
   const [numero, setNumero] = useState<string | undefined>("");
-  const { createCliente: criarCliente, data, loading, error } = useCreateCliente();
+  const { createCliente, data, loading, error } = useCreateCliente();
   const [presentAlert] = useIonAlert();
   const [present, dismiss] = useIonLoading();
-  const history = useHistory()
+  const history = useHistory();
+  const [alertErrorIsOpen, setAlertErrorIsOpen] = useState<boolean>(false);
+  const [alertSuccessIsOpen, setAlertSuccessIsOpen] = useState<boolean>(false);
 
 
   function submit(ev: React.FormEvent<HTMLFormElement>) {
@@ -50,7 +52,7 @@ export default function CadastrarCliente() {
       numero,
     }
 
-    criarCliente({
+    createCliente({
       variables: {
         clienteInput: cliente
       },
@@ -58,7 +60,7 @@ export default function CadastrarCliente() {
         console.log("[onCompleted] - ", data)
       },
       onError: (error) => {
-        alert(`[onError] - ${error}`)
+        setAlertErrorIsOpen(true);
       }
     })
 
@@ -218,6 +220,23 @@ export default function CadastrarCliente() {
             </form>
           </IonCardContent>
         </IonCard>
+
+        <IonAlert
+          isOpen={alertSuccessIsOpen}
+          subHeader="Sucesso"
+          message="Cliente cadastrado com sucesso!"
+          buttons={['OK']}
+          onDidDismiss={() => {
+            history.push("/pedidos")
+          }}
+        />
+        <IonAlert
+        isOpen={alertErrorIsOpen}
+        subHeader="Erro !"
+        message={`${error?.graphQLErrors?.[0].message
+        }`}
+        buttons={['OK']}
+      />
 
       </IonContent>
     </IonPage>
