@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client"
-import { CRIAR_FUNCIONARIO, LOGIN, UPDATE_USUARIO } from "./mutations"
+import { CRIAR_FUNCIONARIO, LOGIN, UPDATE_SENHA, UPDATE_USUARIO } from "./mutations"
 import { GET_USUARIOS, GET_USUARIO_BY_ID } from "./queries"
 import { Usuario } from "interface/Usuario"
 
@@ -16,7 +16,6 @@ export const useLogin = () => {
 
   return { efetuaLogin, loading, data: data?.loginUsuario, error };
 }
-
 
 export const useGetUsuarioById = (id: string) => {
   const { data, loading, error, refetch } = useQuery<{ getUsuario: Usuario }>(GET_USUARIO_BY_ID, {
@@ -44,4 +43,10 @@ export const useUpdateUsuario = () => {
   const [updateUsuario, { data, loading, error }] = useMutation(UPDATE_USUARIO)
 
   return { updateUsuario, data, loading, error }
+}
+
+export const useUpdateSenha = () => { 
+  const [updateSenha, { data, loading, error }] = useMutation(UPDATE_SENHA);
+  
+  return { updateSenha, data, loading, error };
 }

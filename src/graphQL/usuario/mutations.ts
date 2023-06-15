@@ -32,3 +32,9 @@ mutation UpdateUsuario($id: ID!, $usuarioUpdateInput: UsuarioUpdateInput) {
   updateUsuario(ID: $id, usuarioUpdateInput: $usuarioUpdateInput)
 }
 `
+
+export const UPDATE_SENHA = gql`
+  mutation UpdateSenha($novaSenhaInput: NovaSenhaInput) {
+  updateSenha(novaSenhaInput: $novaSenhaInput)
+}
+`
