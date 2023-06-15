@@ -40,6 +40,8 @@ import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
 import ClienteForm from "components/ClienteForm";
 import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 import EsqueciSenha from "pages/EsqueciSenha";
+import Config from "pages/Config";
+import AlterarSenha from "pages/Config/AlterarSenha";
 
 setupIonicReact();
 
@@ -87,7 +89,8 @@ export default function Routes() {
                   </>
                 )
               }
-              
+              <Route path="/config" exact={true} component={Config}></Route>
+              <Route path="/alterarSenha" exact={true} component={AlterarSenha}></Route>
             </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>
