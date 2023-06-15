@@ -1,9 +1,10 @@
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonFooter, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonInput, IonItem, IonButton, useIonAlert, useIonLoading, IonAlert } from "@ionic/react";
-import InputField from "components/InputField";
+import { IonPage, IonContent, IonCard, IonCardContent, IonGrid, IonCol, IonRow, IonItem, IonButton, IonAlert, IonLoading } from "@ionic/react";
+import InputField  from "components/InputField";
 import uuid from 'react-uuid';
 import { useState } from "react";
 import { useCreateCliente } from "graphQL/clientes/hooks";
 import { useHistory } from "react-router";
+import Cabecalho from "components/Cabecalho";
 
 export default function CadastrarCliente() {
   const [nome, setNome] = useState<string | undefined>("");
@@ -23,8 +24,6 @@ export default function CadastrarCliente() {
   const [endereco, setEndereco] = useState<string | undefined>("");
   const [numero, setNumero] = useState<string | undefined>("");
   const { createCliente, data, loading, error } = useCreateCliente();
-  const [presentAlert] = useIonAlert();
-  const [present, dismiss] = useIonLoading();
   const history = useHistory();
   const [alertErrorIsOpen, setAlertErrorIsOpen] = useState<boolean>(false);
   const [alertSuccessIsOpen, setAlertSuccessIsOpen] = useState<boolean>(false);
@@ -57,30 +56,12 @@ export default function CadastrarCliente() {
         clienteInput: cliente
       },
       onCompleted: () => {
-        console.log("[onCompleted] - ", data)
+        setAlertSuccessIsOpen(true);
       },
-      onError: (error) => {
+      onError: () => {
         setAlertErrorIsOpen(true);
       }
     })
-
-    // present({
-    //   message: 'Loading...',
-    //   duration: 2000,
-    //   spinner: 'circles',
-    // })
-
-    // setTimeout(() => {
-    //   presentAlert({
-    //     header: 'Cadastro realizado',
-    //     message: 'Voltar para Home',
-    //     buttons: ['OK'],
-    //     onDidDismiss() {
-    //       reset();
-    //       history.push("/home");
-    //     },
-    //   })
-    // }, 2300)
   }
 
   function reset() {
@@ -104,14 +85,7 @@ export default function CadastrarCliente() {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton></IonMenuButton>
-          </IonButtons>
-          <IonTitle>Cadastrar Cliente</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Cabecalho texto="Cadastrar Cliente"/>
 
       <IonContent>
         <IonCard>
@@ -120,99 +94,99 @@ export default function CadastrarCliente() {
               <IonGrid>
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Nome" placeholder="Digite o nome da empresa" state={nome} setState={setNome} />
+                    <InputField position="stacked" label="Nome" placeholder="Digite o nome da empresa" state={nome} setState={setNome} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="E-mail" placeholder="Digite o E-mail da empresa" state={email} setState={setEmail} />
+                    <InputField position="stacked" label="E-mail" placeholder="Digite o E-mail da empresa" state={email} setState={setEmail} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Nome Fantasia" placeholder="Nome Fantasia" state={fantasia} setState={setFantasia} />
+                    <InputField position="stacked" label="Nome Fantasia" placeholder="Nome Fantasia" state={fantasia} setState={setFantasia} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="CNPJ" placeholder="Digite o CNPJ" state={cnpj} setState={setCnpj} />
+                    <InputField position="stacked" label="CNPJ" placeholder="Digite o CNPJ" state={cnpj} setState={setCnpj} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Celular" placeholder="Digite o Numero de celular" state={celular} setState={setCelular} />
+                    <InputField position="stacked" label="Celular" placeholder="Digite o Numero de celular" state={celular} setState={setCelular} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Telefone 1" placeholder="Telefone 1" state={fone1} setState={setFone1} />
+                    <InputField position="stacked" label="Telefone 1" placeholder="Telefone 1" state={fone1} setState={setFone1} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Telefone 2" placeholder="Telefone 2" state={fone2} setState={setFone2} />
+                    <InputField position="stacked" label="Telefone 2" placeholder="Telefone 2" state={fone2} setState={setFone2} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Fax" placeholder="Fax" state={fax} setState={setFax} />
+                    <InputField position="stacked" label="Fax" placeholder="Fax" state={fax} setState={setFax} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="DDD" placeholder="DDD" state={ddd} setState={setDDD} />
+                    <InputField position="stacked" label="DDD" placeholder="DDD" state={ddd} setState={setDDD} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="CEP" placeholder="CEP" state={cep} setState={setCep} />
+                    <InputField position="stacked" label="CEP" placeholder="CEP" state={cep} setState={setCep} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="UF" placeholder="UF" state={uf} setState={setUf} />
+                    <InputField position="stacked" label="UF" placeholder="UF" state={uf} setState={setUf} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Cidade" placeholder="Cidade" state={cidade} setState={setCidade} />
+                    <InputField position="stacked" label="Cidade" placeholder="Cidade" state={cidade} setState={setCidade} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Bairro" placeholder="Bairro" state={bairro} setState={setBairro} />
+                    <InputField position="stacked" label="Bairro" placeholder="Bairro" state={bairro} setState={setBairro} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Endereço" placeholder="Endereço" state={endereco} setState={setEndereco} />
+                    <InputField position="stacked" label="Endereço" placeholder="Endereço" state={endereco} setState={setEndereco} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol size-xs="12" size-md="12" size-lg="6">
-                    <InputField label="Número" placeholder="Número" state={numero} setState={setNumero} />
+                    <InputField position="stacked" label="Número" placeholder="Número" state={numero} setState={setNumero} />
                   </IonCol>
                 </IonRow>
 
                 <IonRow>
                   <IonCol>
-                    <IonItem>
-                      <IonButton type="reset" color="danger" size="default">Apagar</IonButton>
-                      <IonButton type="submit" color="primary" size="default" slot="end" >Cadastrar</IonButton>
+                    <IonItem lines="none">
+                      <IonButton type="reset" color="warning" size="small">Apagar</IonButton>
+                      <IonButton type="submit" color="primary" size="small" slot="end" >Cadastrar</IonButton>
                     </IonItem>
                   </IonCol>
                 </IonRow>
@@ -223,20 +197,22 @@ export default function CadastrarCliente() {
 
         <IonAlert
           isOpen={alertSuccessIsOpen}
-          subHeader="Sucesso"
+          subHeader="Sucesso!"
           message="Cliente cadastrado com sucesso!"
           buttons={['OK']}
           onDidDismiss={() => {
-            history.push("/pedidos")
+            history.push("/home")
           }}
         />
         <IonAlert
-        isOpen={alertErrorIsOpen}
-        subHeader="Erro !"
-        message={`${error?.graphQLErrors?.[0].message
-        }`}
-        buttons={['OK']}
-      />
+          isOpen={alertErrorIsOpen}
+          subHeader="Erro !"
+          message={`${error?.graphQLErrors?.[0].message
+            }`}
+          buttons={['OK']}
+        />
+
+        <IonLoading isOpen={loading} message={'Cadastrando...'} />
 
       </IonContent>
     </IonPage>
