@@ -12,7 +12,7 @@ const LogOut: React.FC = () => {
     <React.Fragment>
       <IonButton
         color="danger"
-        fill="outline"
+        fill="solid"
         onClick={() => {
           setIsOpen(!isOpen);
           removeUser();
