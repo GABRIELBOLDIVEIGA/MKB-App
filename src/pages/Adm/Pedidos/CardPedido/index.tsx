@@ -35,6 +35,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   @media (max-width: 450px) {
     flex-direction: column;
   }
@@ -46,16 +47,24 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
     <IonCard>
       <IonCardHeader>
         <Container>
-          <IonCardTitle>{cliente.nome}</IonCardTitle>
-          <ButtonRouter
-            routerLink={`/pedidoDetalhado/${pedido._id}`}
-            routerDirection="none"
-            colorButton="medium"
-            text="Detalhes"
-            size="small"
-            
-          />
+          <IonGrid>
+            <IonRow>
+              <IonCol sizeSm="6">
+                <IonCardTitle>{cliente.nome}</IonCardTitle>
+              </IonCol>
+              <IonCol offsetXl="3">
+                <ButtonRouter
+                  routerLink={`/pedidoDetalhado/${pedido._id}`}
+                  routerDirection="none"
+                  colorButton="medium"
+                  text="Detalhes"
+                  size="small"
+                />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </Container>
+        
         <IonCardSubtitle>{cliente.email}</IonCardSubtitle>
         <IonCardSubtitle><strong>data: </strong>{dateFormatter(pedido.date)}</IonCardSubtitle>
       </IonCardHeader>

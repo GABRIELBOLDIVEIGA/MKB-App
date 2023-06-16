@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById, useGetPedidoById2Csv, useGetPedidosByUserIdV2 } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
@@ -23,6 +23,7 @@ const Section = styled.section`
   border-radius: 10px;
   width: 100%;
   max-width: 900px;
+  min-width: 412px;
   margin-top: 1.5rem;
   background-color: var(--ion-color-light);
 `
@@ -63,14 +64,17 @@ export default function PedidoDetalhado() {
     <IonPage>
       <Cabecalho>
         <IonTitle>Pedido Detalhado</IonTitle>
-        <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
-          <IonButton size="small" fill="default" >
-            <BsFiletypeCsv size={24} color="#FFF" />
+        <IonItem>
+
+          <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
+            <IonButton size="small" fill="default" >
+              <BsFiletypeCsv size={24} color="#FFF" />
+            </IonButton>
+          </CSVLink>
+          <IonButton title="Baixar pedido em PDF" size="small" fill="default">
+            <BsFiletypePdf size={24} color="#FFF" />
           </IonButton>
-        </CSVLink>
-        <IonButton title="Baixar pedido em PDF" size="small" fill="default">
-          <BsFiletypePdf size={24} color="#FFF" />
-        </IonButton>
+        </IonItem>
       </Cabecalho>
 
       <IonContent>
@@ -79,7 +83,7 @@ export default function PedidoDetalhado() {
             <Div>
               <IonRow class=" ion-align-items-center">
                 {/* <IonCol size="1"> */}
-                  {/* <Img src={iconLogo} /> */}
+                {/* <Img src={iconLogo} /> */}
                 {/* </IonCol> */}
 
                 <IonCol size="8">

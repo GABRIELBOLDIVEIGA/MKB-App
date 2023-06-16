@@ -16,7 +16,7 @@ interface Props {
 export default function ButtonRouter({disabled = false, slotButton = "", routerLink, routerDirection = "none", size = "default", colorButton = "primary", colorIcon = "dark", slotIcon = "start", icon, text }: Props) {
   return (
     <IonItem lines="none">
-      <IonButton disabled={disabled} style={{ width: "100%" }} slot={slotButton}  routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton}>
+      <IonButton disabled={disabled} slot={slotButton}  routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton} >
         {icon ?
           (
             <IonIcon color={colorIcon} slot={slotIcon} icon={icon} />

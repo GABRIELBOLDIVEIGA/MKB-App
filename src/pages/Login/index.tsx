@@ -5,7 +5,7 @@ import { useUserContext } from "context/UsuarioContext";
 import InputField from "components/InputField";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "./logo.png";
+import logo from "assets/logo5.png";
 
 const Section = styled.section`
   padding-top: 6rem;
@@ -13,6 +13,10 @@ const Section = styled.section`
 const ContainerImg = styled.div`
   display: grid;
   place-items: center;
+`
+
+const Img = styled.img`
+width: 50%;
 `
 
 const Login: React.FC = () => {
@@ -68,7 +72,7 @@ const Login: React.FC = () => {
                 <IonCard>
                   <IonCardHeader>
                     <ContainerImg>
-                      <img src={logo} />
+                      <Img src={logo} />
                     </ContainerImg>
                     {/* <IonCardTitle>LOGIN</IonCardTitle> */}
                   </IonCardHeader>

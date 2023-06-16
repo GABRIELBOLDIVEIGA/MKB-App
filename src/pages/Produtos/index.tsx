@@ -8,32 +8,29 @@ import { Produto } from "interface/Produto";
 import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { useProduto } from "graphQL/produtos/hooks";
+import { useProdutosContext } from "context/ProdutosContext";
 
 export default function Produtos() {
   const [busca, setBusca] = useState<string | null | undefined>("");
   const [filtro, setFiltro] = useState<Produto[]>([]);
-  const { carrinho, cliente, valorTotalCarrinho } = useCarrinhoContext();
-  const { data, loading, error } = useProduto();
-  const [showLoading, setShowLoading] = useState(false);
+  const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
+  const { produtos, loading } = useProdutosContext();
 
   useEffect(() => {
-    if (data) {
-      if (data.length >= 50) {
-        setFiltro(data.slice(0, 100));
+    if (produtos) {
+      if (produtos.length >= 50) {
+        setFiltro(produtos.slice(0, 100));
       } else {
-        setFiltro(data);
+        setFiltro(produtos);
       }
     }
-  }, [data]);
-
-  useEffect(() => {
-    setShowLoading(loading)
-  }, [loading])
+    console.log("[Produtos]- ", produtos)
+  }, [produtos]);
 
   useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result = data?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
+    const result = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
 
     if (result) {
       if (result.length >= 50) {
@@ -52,8 +49,8 @@ export default function Produtos() {
             <IonMenuButton />
             <IonTitle>Lista de Produtos </IonTitle>
             <IonButton color="primary">
-              <IonIcon  src={cartOutline} slot="start" />
-              {carrinho.length }
+              <IonIcon src={cartOutline} slot="start" />
+              {carrinho.length}
             </IonButton>
           </IonItem>
         </IonToolbar>
@@ -85,20 +82,6 @@ export default function Produtos() {
             <IonButton
               id="open-modal"
               expand="block"
-              onClick={() => {
-                // console.log(JSON.stringify(carrinho), valorTotalCarrinho);
-                // console.table(carrinho);
-
-                // console.log("Carrinho: ", carrinho);
-                // console.log(JSON.stringify(cliente));
-                // const x = {
-                //     cliente,
-                //     carrinho,
-                //     total: valorTotalCarrinho
-                // };
-                // console.log(JSON.stringify(x));
-                // console.log(x);
-              }}
             >
               Conferir
             </IonButton>
@@ -106,7 +89,7 @@ export default function Produtos() {
         </IonToolbar>
       </IonFooter>
       <IonLoading
-        isOpen={showLoading}
+        isOpen={loading}
         message={'Carregando lista de produtos...'}
       />
     </IonPage>

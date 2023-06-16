@@ -3,6 +3,8 @@ import { UsuarioProvider } from "context/UsuarioContext";
 import ApolloClient from "components/Apollo";
 import Routes from "routes";
 import { ErrorBoundary } from "react-error-boundary";
+import { ClientesProvider } from "context/ClientesContext";
+import { ProdutosProvider } from "context/ProdutosContext";
 
 export default function AppProvider() {
   return (
@@ -13,7 +15,11 @@ export default function AppProvider() {
             <ErrorBoundary fallback={<div>Algo deu errado no Carrinho</div>}>
               <CarrinhoProvider>
                 <ErrorBoundary fallback={<div>Algo deu errado nas Rotas</div>}>
-                  <Routes />
+                  <ClientesProvider>
+                    <ProdutosProvider>
+                      <Routes />
+                    </ProdutosProvider>
+                  </ClientesProvider>
                 </ErrorBoundary>
               </CarrinhoProvider>
             </ErrorBoundary>

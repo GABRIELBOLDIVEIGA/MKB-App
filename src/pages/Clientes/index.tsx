@@ -6,33 +6,29 @@ import { useClientes } from "graphQL/clientes/hooks";
 import { Cliente } from "interface/Cliente";
 import ButtonRouter from "components/ButtonRouter";
 import { arrowForwardOutline } from "ionicons/icons";
+import { useClientesContext } from "context/ClientesContext";
 
 const Clientes = () => {
   const [busca, setBusca] = useState<string | null | undefined>("");
   const [btnAvancar, setBtnAvancar] = useState(false);
   const [filtro, setFiltro] = useState<Cliente[]>([]);
   const { selecionaCliente } = useCarrinhoContext();
-  const { data, loading } = useClientes();
-  const [showLoading, setShowLoading] = useState(false);
+  const { clientes, loading } = useClientesContext();
 
   useEffect(() => {
-    if (data) {
-      if (data.length >= 50) {
-        setFiltro(data.slice(0, 100));
+    if (clientes) {
+      if (clientes.length >= 50) {
+        setFiltro(clientes.slice(0, 100));
       } else {
-        setFiltro(data);
+        setFiltro(clientes);
       }
     }
-  }, [data]);
-
-  useEffect(() => {
-    setShowLoading(loading)
-  }, [loading])
+  }, [clientes]);
 
   useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result = data?.filter((cliente) => cliente.nome.toLowerCase().includes(b!));
+    const result = clientes?.filter((cliente) => cliente.nome.toLowerCase().includes(b!));
 
     if (result) {
       if (result.length >= 50) {
@@ -90,7 +86,7 @@ const Clientes = () => {
       </IonFooter>
 
       <IonLoading
-        isOpen={showLoading}
+        isOpen={loading}
         message={'Carregando lista de clientes...'}
       />
     </IonPage>

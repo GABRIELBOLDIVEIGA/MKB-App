@@ -1,5 +1,5 @@
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, IonText, useIonAlert, useIonLoading, IonLoading } from "@ionic/react";
-import { useEffect, useRef, useState } from "react";
+import { IonModal, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonList, IonItem, IonCard, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonFooter, useIonAlert, IonLoading } from "@ionic/react";
+import { useRef } from "react";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { Carrinho } from "interface/Carrinho";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
@@ -15,16 +15,10 @@ interface IProps {
 export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
   const { usuario } = useUserContext();
   const modal = useRef<HTMLIonModalElement>(null);
-  const { criarPedido, loading, data, error } = useCriarPedido();
+  const { criarPedido, loading } = useCriarPedido();
   const { carrinho, setCarrinho, cliente, valorTotalCarrinho } = useCarrinhoContext();
   const [presentAlert] = useIonAlert();
-  const [present] = useIonLoading();
   const history = useHistory();
-  const [showLoading, setShowLoading] = useState(false);
-
-  useEffect(() => {
-    setShowLoading(loading)
-  }, [loading])
 
   function dismiss() {
     modal.current?.dismiss();
@@ -45,20 +39,8 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
           carrinho: carrinhoFormatado,
           total: valorTotalCarrinho
         }
-      }
-    })
-
-    if (error) {
-      presentAlert({
-        header: "Erro",
-        message: "Algo estranho aconteceu, tente novamente...",
-        buttons: ["OK"],
-        onDidDismiss() {
-          dismiss();
-        }
-      })
-    } else {
-      if (loading === false) {
+      },
+      onCompleted: () => {
         presentAlert({
           header: "Sucesso",
           message: "Pedido cadastrado com sucesso!",
@@ -69,8 +51,20 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
             setCarrinho([])
           }
         })
+      },
+      onError: () => {
+        presentAlert({
+          header: "Erro",
+          message: "Algo estranho aconteceu, tente novamente...",
+          buttons: ["OK"],
+          onDidDismiss() {
+            dismiss();
+          }
+        })
       }
-    }
+    })
+
+
   }
 
   return (
@@ -118,7 +112,7 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
         </IonToolbar>
       </IonFooter>
       <IonLoading
-        isOpen={showLoading}
+        isOpen={loading}
         message={'Verificando...'}
       />
     </IonModal>
