@@ -30,15 +30,13 @@ export default function Produtos() {
     const b = busca && busca.toLowerCase();
 
     const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
-    console.log('[Result] - ', result)
-    console.log('[Carrinho] - ', carrinho)
 
     var lista: Produto[] = [...carrinho]
 
     if (result) {
       const novaLista = result.filter((resultProd) => {
         var existe = true;
-        
+
         carrinho.forEach((carrinhoProd) => {
           if (carrinhoProd.cod_prod === resultProd.cod_prod) {
             existe = false
@@ -47,12 +45,9 @@ export default function Produtos() {
         })
         return existe
       })
-      console.log('[NovaLista] - ', novaLista);
 
       lista = [...lista, ...novaLista]
     }
-
-    console.log('[Lista] - ', lista)
 
     if (!busca && produtos) {
       lista = [...lista, ...produtos]
