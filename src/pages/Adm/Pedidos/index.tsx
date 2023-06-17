@@ -6,6 +6,8 @@ import { Suspense, useEffect, useState } from "react";
 import CardPedido from "./CardPedido";
 import ButtonRouter from "components/ButtonRouter";
 import { addCircleOutline } from "ionicons/icons";
+import { useClientesContext } from "context/ClientesContext";
+import { useProdutosContext } from "context/ProdutosContext";
 
 interface IPedido {
   cliente: {
@@ -34,6 +36,8 @@ interface IPedido {
 }
 
 export default function PedidosADM() {
+  useClientesContext();
+  useProdutosContext();
   const { data, loading, refetch } = useGetAllPedidos();
   const [busca, setBusca] = useState("");
   const [pedidos, setPedidos] = useState<IPedido[]>([]);

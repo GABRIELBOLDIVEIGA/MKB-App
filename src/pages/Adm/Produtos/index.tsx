@@ -9,7 +9,6 @@ export default function ProdutosADM() {
     <IonPage>
       <Cabecalho>
         <IonTitle>Produtos</IonTitle>
-
         <ButtonRouter
           icon={addCircleOutline}
           routerLink="/AdicionarProduto"
@@ -18,7 +17,6 @@ export default function ProdutosADM() {
           text="Adicionar Produto"
           size="default"
           slotIcon="start"
-          slotButton="end"
         />
       </Cabecalho>
 

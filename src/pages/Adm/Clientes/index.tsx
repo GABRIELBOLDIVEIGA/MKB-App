@@ -17,7 +17,6 @@ export default function ClientesADM() {
           text="Adicionar Cliente"
           size="default"
           slotIcon="start"
-          slotButton="end"
         />
       </Cabecalho>
       <IonContent>

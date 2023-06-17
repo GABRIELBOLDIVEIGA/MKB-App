@@ -74,7 +74,6 @@ const Login: React.FC = () => {
                     <ContainerImg>
                       <Img src={logo} />
                     </ContainerImg>
-                    {/* <IonCardTitle>LOGIN</IonCardTitle> */}
                   </IonCardHeader>
                   <IonCardContent>
                     <form onSubmit={(ev) => handleLogin(ev)}>
@@ -93,10 +92,9 @@ const Login: React.FC = () => {
                         setState={setSenha}
                         label="Senha"
                         position="stacked"
-                        placeholder="***********"
+                        placeholder="Senha"
                       />
                       <IonItem lines="none" style={{ marginTop: "10px" }}>
-                        {/* <IonButton type="reset" color="danger" size="default">Limpar</IonButton> */}
                         <IonButton style={{ width: "100%" }} size="default" type="submit" >
                           Login
                         </IonButton>

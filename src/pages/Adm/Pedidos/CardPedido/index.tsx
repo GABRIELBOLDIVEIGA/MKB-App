@@ -59,6 +59,7 @@ export default function CardPedido({ cliente, usuario, pedido }: Props) {
                   colorButton="medium"
                   text="Detalhes"
                   size="small"
+                  slotButton="end"
                 />
               </IonCol>
             </IonRow>

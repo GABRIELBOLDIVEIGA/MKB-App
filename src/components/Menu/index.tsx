@@ -97,7 +97,12 @@ const Menu: React.FC = () => {
             {menu.map((appPage, index) => {
               return (
                 <IonMenuToggle key={index} autoHide={false}>
-                  <IonItem className={location.pathname === appPage.url ? "selected" : ""} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                  <IonItem className={location.pathname === appPage.url ? "selected" : ""}
+                    routerLink={appPage.url}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
                     <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                     <IonLabel>{appPage.title}</IonLabel>
                   </IonItem>
@@ -107,11 +112,17 @@ const Menu: React.FC = () => {
           </IonList>
 
           <IonList id="labels-list" className="listaBotoes">
-            <IonButton  routerLink="/config" fill="solid">
+            <IonMenuToggle>
+
+              <IonButton routerLink="/config" fill="solid">
                 <IonIcon slot="start" src={settingsOutline} />
                 <IonText>Config.</IonText>
               </IonButton>
+            </IonMenuToggle>
+            <IonMenuToggle>
+
               <LogOut />
+            </IonMenuToggle>
           </IonList>
         </div>
       </IonContent>

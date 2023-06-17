@@ -28,7 +28,6 @@ export default function FuncionariosADM() {
         <IonTitle>Funcionários</IonTitle>
         <ButtonRouter
           icon={addCircleOutline}
-          slotButton="end"
           text="Cadastrar Funcionario"
           routerLink="/cadastrarFuncionario"
         />

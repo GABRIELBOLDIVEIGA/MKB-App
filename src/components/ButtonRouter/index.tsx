@@ -1,4 +1,5 @@
 import { IonButton, IonIcon, IonItem } from '@ionic/react'
+import styled from 'styled-components';
 
 interface Props {
   routerLink: string;
@@ -13,10 +14,14 @@ interface Props {
   disabled?: boolean;
 }
 
+const BotaoEstilizado = styled(IonButton)`
+  width: 100%;
+`
+
 export default function ButtonRouter({disabled = false, slotButton = "", routerLink, routerDirection = "none", size = "default", colorButton = "primary", colorIcon = "dark", slotIcon = "start", icon, text }: Props) {
   return (
     <IonItem lines="none">
-      <IonButton disabled={disabled} slot={slotButton}  routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton} >
+      <BotaoEstilizado disabled={disabled} slot={slotButton} routerLink={routerLink} routerDirection={routerDirection} size={size} color={colorButton} >
         {icon ?
           (
             <IonIcon color={colorIcon} slot={slotIcon} icon={icon} />
@@ -26,7 +31,7 @@ export default function ButtonRouter({disabled = false, slotButton = "", routerL
           )
         }
         {text}
-      </IonButton>
+      </BotaoEstilizado>
     </IonItem>
   )
 }
