@@ -51,7 +51,7 @@ export default function ListaDePedidos() {
               <IonCardSubtitle>Você pode fazer seu primeiro pedido na aba
                 <strong style={{ fontSize: "1rem", color: "#ffffff" }}>
                   <LinkEstilizado to='/empresas'>
-                    {" "}<IonIcon icon={addCircleOutline} color='dark' /> Novo Pedido {" "} 
+                    {" "}<IonIcon icon={addCircleOutline} color='dark' /> Novo Pedido {" "}
                   </LinkEstilizado>
                 </strong>
                 no menu acima.

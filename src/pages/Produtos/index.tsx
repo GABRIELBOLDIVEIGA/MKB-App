@@ -24,19 +24,45 @@ export default function Produtos() {
         setFiltro(produtos);
       }
     }
-    console.log("[Produtos]- ", produtos)
   }, [produtos]);
 
   useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
+    const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
+    console.log('[Result] - ', result)
+    console.log('[Carrinho] - ', carrinho)
+
+    var lista: Produto[] = [...carrinho]
 
     if (result) {
-      if (result.length >= 50) {
-        setFiltro(result.slice(0, 100));
+      const novaLista = result.filter((resultProd) => {
+        var existe = true;
+        
+        carrinho.forEach((carrinhoProd) => {
+          if (carrinhoProd.cod_prod === resultProd.cod_prod) {
+            existe = false
+            return existe
+          }
+        })
+        return existe
+      })
+      console.log('[NovaLista] - ', novaLista);
+
+      lista = [...lista, ...novaLista]
+    }
+
+    console.log('[Lista] - ', lista)
+
+    if (!busca && produtos) {
+      lista = [...lista, ...produtos]
+    }
+
+    if (result) {
+      if (lista.length >= 50) {
+        setFiltro(lista.slice(0, 100));
       } else {
-        setFiltro(result);
+        setFiltro(lista);
       }
     }
   }, [busca])

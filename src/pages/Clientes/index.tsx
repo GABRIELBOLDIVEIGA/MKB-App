@@ -8,6 +8,7 @@ import ButtonRouter from "components/ButtonRouter";
 import { arrowForwardOutline } from "ionicons/icons";
 import { useClientesContext } from "context/ClientesContext";
 
+
 const Clientes = () => {
   const [busca, setBusca] = useState<string | null | undefined>("");
   const [btnAvancar, setBtnAvancar] = useState(false);
