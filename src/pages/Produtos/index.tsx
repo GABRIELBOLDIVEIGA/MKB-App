@@ -7,7 +7,6 @@ import { useCarrinhoContext } from "context/CarrrinhoContext";
 import { Produto } from "interface/Produto";
 import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
-import { useProduto } from "graphQL/produtos/hooks";
 import { useProdutosContext } from "context/ProdutosContext";
 
 export default function Produtos() {
@@ -15,6 +14,8 @@ export default function Produtos() {
   const [filtro, setFiltro] = useState<Produto[]>([]);
   const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
   const { produtos, loading } = useProdutosContext();
+
+  const [existe, setExiste] = useState<boolean>(false);
 
   useEffect(() => {
     if (produtos) {
@@ -31,33 +32,11 @@ export default function Produtos() {
 
     const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
 
-    var lista: Produto[] = [...carrinho]
-
     if (result) {
-      const novaLista = result.filter((resultProd) => {
-        var existe = true;
-
-        carrinho.forEach((carrinhoProd) => {
-          if (carrinhoProd.cod_prod === resultProd.cod_prod) {
-            existe = false
-            return existe
-          }
-        })
-        return existe
-      })
-
-      lista = [...lista, ...novaLista]
-    }
-
-    if (!busca && produtos) {
-      lista = [...lista, ...produtos]
-    }
-
-    if (result) {
-      if (lista.length >= 50) {
-        setFiltro(lista.slice(0, 100));
+      if (result.length >= 50) {
+        setFiltro(result.slice(0, 100));
       } else {
-        setFiltro(lista);
+        setFiltro(result);
       }
     }
   }, [busca])

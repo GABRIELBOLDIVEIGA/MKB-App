@@ -9,15 +9,16 @@ interface IProps {
 }
 
 const ItemProduto = ({ produto }: IProps) => {
-  const [inputQuantidade, setInputQuantidade] = useState<number>(0);
+  const [inputQuantidade, setInputQuantidade] = useState<number | undefined>(0);
   const [checkBoxDisabled, setCheckBoxDisabled] = useState(true);
   const [checked, setChecked] = useState(false);
   const { adicionaProduto, removerProduto, carrinho } = useCarrinhoContext();
 
   useEffect(() => {
     const temProduto = carrinho.some((itensNoCarrinho) => itensNoCarrinho.cod_prod === produto.cod_prod);
+
     if (temProduto) {
-      const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho.cod_prod === produto.cod_prod)
+      const prod = carrinho.filter((itensNoCarrinho) => itensNoCarrinho._id === produto._id)
       setInputQuantidade(prod[0].quantidade);
       setChecked(true);
     }
@@ -48,9 +49,9 @@ const ItemProduto = ({ produto }: IProps) => {
               onIonChange={(ev) => {
                 setChecked(!checked);
                 if (ev.target.checked) {
-                  adicionaProduto(produto, inputQuantidade);
+                  adicionaProduto(produto, inputQuantidade ? inputQuantidade : 0);
                 } else {
-                  setInputQuantidade(0);
+                  // setInputQuantidade(0);
                   removerProduto(produto.cod_prod);
                 }
               }}
