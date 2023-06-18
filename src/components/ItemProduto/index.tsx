@@ -27,7 +27,7 @@ const ItemProduto = ({ produto }: IProps) => {
   return (
     <IonItem>
       <div className={styles.item}>
-        <p>{produto.descr_detalhada}</p>
+        <p>{produto.descr_detalhada.toUpperCase()}</p>
         <div className={styles.container}>
           <IonInput
             type="number"
@@ -45,7 +45,7 @@ const ItemProduto = ({ produto }: IProps) => {
             <IonCheckbox
               checked={checked}
               value={produto.cod_prod}
-              disabled={checkBoxDisabled}
+              // disabled={checkBoxDisabled}
               onIonChange={(ev) => {
                 setChecked(!checked);
                 if (ev.target.checked) {

@@ -63,8 +63,6 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
         })
       }
     })
-
-
   }
 
   return (
@@ -72,14 +70,10 @@ export default function ModalCarrinho({ carrinho: itemNoCarrinho }: IProps) {
       <IonHeader>
         <IonToolbar>
           <IonItem>
-            <IonButton onClick={() => dismiss()}>Voltar</IonButton>
+            <IonButton color='warning' onClick={() => dismiss()}>Voltar</IonButton>
             <IonTitle>Confira seu pedido</IonTitle>
 
-            <IonButton
-              onClick={() => {
-                submit()
-              }}
-            >Finalizar</IonButton>
+            <IonButton color='success' onClick={() => submit()}>Finalizar</IonButton>
           </IonItem>
         </IonToolbar>
       </IonHeader>

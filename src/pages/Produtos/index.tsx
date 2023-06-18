@@ -5,26 +5,22 @@ import styles from "./Produtos.module.scss";
 import { cartOutline } from "ionicons/icons";
 import { useCarrinhoContext } from "context/CarrrinhoContext";
 import { Produto } from "interface/Produto";
-import ModalCarrinho from "components/ModalCarrinho";
+// import ModalCarrinho from "components/ModalCarrinho";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import { useProdutosContext } from "context/ProdutosContext";
+import ModalCarrinho from "./ModalCarrinho";
+import InfiniteScroll from "./InfiniteScroll";
 
 export default function Produtos() {
-  const [busca, setBusca] = useState<string | null | undefined>("");
+  const [busca, setBusca] = useState<string>("");
   const [filtro, setFiltro] = useState<Produto[]>([]);
+
   const { carrinho, valorTotalCarrinho } = useCarrinhoContext();
   const { produtos, loading } = useProdutosContext();
-
-  const [existe, setExiste] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (produtos) {
-      if (produtos.length >= 50) {
-        setFiltro(produtos.slice(0, 100));
-      } else {
-        setFiltro(produtos);
-      }
-    }
+    produtos ? setFiltro(produtos) : setFiltro([]);
   }, [produtos]);
 
   useEffect(() => {
@@ -32,13 +28,8 @@ export default function Produtos() {
 
     const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
 
-    if (result) {
-      if (result.length >= 50) {
-        setFiltro(result.slice(0, 100));
-      } else {
-        setFiltro(result);
-      }
-    }
+    result ? setFiltro(result) : setFiltro([]);
+
   }, [busca])
 
   return (
@@ -48,7 +39,7 @@ export default function Produtos() {
           <IonItem>
             <IonMenuButton />
             <IonTitle>Lista de Produtos </IonTitle>
-            <IonButton color="primary">
+            <IonButton color="primary" onClick={() => setIsOpen(!isOpen)}>
               <IonIcon src={cartOutline} slot="start" />
               {carrinho.length}
             </IonButton>
@@ -60,38 +51,28 @@ export default function Produtos() {
             color="light"
             showCancelButton="focus"
             animated={true}
-            onIonChange={(ev) => setBusca(ev.target.value)}
+            onIonChange={(ev) => setBusca(ev.target.value!)}
           />
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
-        <IonList>
-          {filtro?.map((produto, index) => {
-            return <ItemProduto key={index} produto={produto} />;
-          })}
-        </IonList>
 
-        {carrinho.length > 0 && <ModalCarrinho carrinho={carrinho} />}
+        {produtos && <InfiniteScroll produtos={produtos} filtro={filtro} />}
+        {isOpen && <ModalCarrinho carrinho={carrinho} isOpen={isOpen} setIsOpen={setIsOpen}></ModalCarrinho>}
+
       </IonContent>
 
       <IonFooter>
         <IonToolbar>
-          <div className={styles.rodape}>
-            <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
-            <IonButton
-              id="open-modal"
-              expand="block"
-            >
-              Conferir
-            </IonButton>
-          </div>
+          <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
         </IonToolbar>
       </IonFooter>
       <IonLoading
         isOpen={loading}
         message={'Carregando lista de produtos...'}
       />
+
     </IonPage>
   );
 }

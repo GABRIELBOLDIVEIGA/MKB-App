@@ -64,16 +64,35 @@ const menuADM: menuLink[] = [
   },
 ];
 
-const ContainerButtons = styled.div`
-  display:  flex;
-  justify-content: space-between;
+const ListHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #4b4b4b;
+  padding-bottom: 20px;
 `
-
-const ContainerMenu = styled.div`
-  height: 75vh;
+const Note = styled(IonNote)`
+  padding: 0 !important;
+  margin: 0 !important;
+`
+const DivBlue = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* border: 3px solid blue; */
+`
+const DivGreen = styled.div`
+  /* border: 3px dashed green; */
+`
+const DivRed = styled.div`
+/* border: 3px dashed red; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+const Img = styled.img`
 `
 
 const Menu: React.FC = () => {
@@ -95,53 +114,55 @@ const Menu: React.FC = () => {
   }, [])
 
   return (
-    <IonMenu contentId="main" type="overlay">
+    <IonMenu contentId="main" type="overlay" >
       <IonContent>
-       
-          <IonList id="inbox-list">
-            <IonListHeader>
-              <IonAvatar className="avatar">
-                <img alt="Img de um minecraft" src={avatar} />
-              </IonAvatar>
-              <IonNote>{usuario.nome}</IonNote>
-              <IonNote>{usuario.email}</IonNote>
-            </IonListHeader>
-            <ContainerMenu>
 
-              <div>
-                {menu.map((appPage, index) => {
-                  return (
-                    <IonMenuToggle key={index} autoHide={false}>
-                      <IonItem className={location.pathname === appPage.url ? "selected" : ""}
-                        routerLink={appPage.url}
-                        routerDirection="none"
-                        lines="none"
-                        detail={false}
-                      >
-                        <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                        <IonLabel>{appPage.title}</IonLabel>
-                      </IonItem>
-                    </IonMenuToggle>
-                  );
-                })}
-              </div>
+        <DivBlue>
+          <DivGreen>
 
-              <ContainerButtons>
-                <IonMenuToggle autoHide={false}>
-                  <IonButton routerLink="/config" fill="solid">
-                    <IonIcon slot="start" src={settingsOutline} />
-                    <IonText>Config.</IonText>
-                  </IonButton>
+            <IonList id="inbox-list">
+              <ListHeader>
+                <IonAvatar >
+                  <Img alt="Img de um minecraft" src={avatar} />
+                </IonAvatar>
+                <Note>{usuario.nome}</Note>
+                <Note>{usuario.email}</Note>
+              </ListHeader>
+            </IonList>
+
+
+            {menu.map((appPage, index) => {
+              return (
+                <IonMenuToggle key={index} autoHide={false}>
+                  <IonItem className={location.pathname === appPage.url ? "selected" : ""}
+                    routerLink={appPage.url}
+                    routerDirection="none"
+                    lines="none"
+                    detail={false}
+                  >
+                    <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                    <IonLabel>{appPage.title}</IonLabel>
+                  </IonItem>
                 </IonMenuToggle>
+              );
+            })}
+          </DivGreen>
 
-                <IonMenuToggle autoHide={false}>
-                  <LogOut />
-                </IonMenuToggle>
-              </ContainerButtons>
+          <DivRed>
+            <IonMenuToggle autoHide={false}>
+              <IonButton routerLink="/config" fill="solid">
+                <IonIcon slot="start" src={settingsOutline} />
+                <IonText>Config.</IonText>
+              </IonButton>
+            </IonMenuToggle>
 
-            </ContainerMenu>
-          </IonList>
-        
+            <IonMenuToggle autoHide={false}>
+              <LogOut />
+            </IonMenuToggle>
+          </DivRed>
+
+        </DivBlue>
+      
       </IonContent>
     </IonMenu>
   );
