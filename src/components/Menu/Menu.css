@@ -3,13 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.listaBotoes {
-    border-top: 1px solid var(--ion-color-step-150, #d7d8da);
-    padding-bottom: 0 !important;
-    display: flex;
-    justify-content: space-between;
+    border: 1px solid palevioletred;
 }
 
 ion-menu ion-content {

@@ -31,10 +31,12 @@ export const ProdutosProvider = ({children}:IProps) => {
 
 export const useProdutosContext = () => {
     const produtosContext = useContext(ProdutosContext);
-    const { produtos, setProdutos } = produtosContext;
+    // const { produtos, setProdutos } = produtosContext;
     const { data, loading, error } = useProduto();
 
-    setProdutos(data);
+    // setProdutos(data);
+
+    const produtos = data
 
     return {produtos, loading, error}
 }

@@ -1,4 +1,4 @@
-import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonText } from "@ionic/react";
+import { IonAvatar, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonText, IonToggle } from "@ionic/react";
 import { useLocation } from "react-router-dom";
 import { pricetagOutline, peopleOutline, documentTextOutline, homeOutline, addCircleOutline, fileTrayStackedOutline, settingsOutline, businessOutline } from "ionicons/icons";
 import "./Menu.css";
@@ -6,6 +6,7 @@ import avatar from "assets/profile.png";
 import LogOut from "./LogOut";
 import { useUserContext } from "context/UsuarioContext";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 
 interface menuLink {
@@ -63,6 +64,18 @@ const menuADM: menuLink[] = [
   },
 ];
 
+const ContainerButtons = styled.div`
+  display:  flex;
+  justify-content: space-between;
+`
+
+const ContainerMenu = styled.div`
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
 const Menu: React.FC = () => {
   const location = useLocation();
   const { usuario } = useUserContext();
@@ -84,7 +97,7 @@ const Menu: React.FC = () => {
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
-        <div className="menu">
+       
           <IonList id="inbox-list">
             <IonListHeader>
               <IonAvatar className="avatar">
@@ -93,38 +106,42 @@ const Menu: React.FC = () => {
               <IonNote>{usuario.nome}</IonNote>
               <IonNote>{usuario.email}</IonNote>
             </IonListHeader>
+            <ContainerMenu>
 
-            {menu.map((appPage, index) => {
-              return (
-                <IonMenuToggle key={index} autoHide={false}>
-                  <IonItem className={location.pathname === appPage.url ? "selected" : ""}
-                    routerLink={appPage.url}
-                    routerDirection="none"
-                    lines="none"
-                    detail={false}
-                  >
-                    <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                    <IonLabel>{appPage.title}</IonLabel>
-                  </IonItem>
+              <div>
+                {menu.map((appPage, index) => {
+                  return (
+                    <IonMenuToggle key={index} autoHide={false}>
+                      <IonItem className={location.pathname === appPage.url ? "selected" : ""}
+                        routerLink={appPage.url}
+                        routerDirection="none"
+                        lines="none"
+                        detail={false}
+                      >
+                        <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                        <IonLabel>{appPage.title}</IonLabel>
+                      </IonItem>
+                    </IonMenuToggle>
+                  );
+                })}
+              </div>
+
+              <ContainerButtons>
+                <IonMenuToggle autoHide={false}>
+                  <IonButton routerLink="/config" fill="solid">
+                    <IonIcon slot="start" src={settingsOutline} />
+                    <IonText>Config.</IonText>
+                  </IonButton>
                 </IonMenuToggle>
-              );
-            })}
+
+                <IonMenuToggle autoHide={false}>
+                  <LogOut />
+                </IonMenuToggle>
+              </ContainerButtons>
+
+            </ContainerMenu>
           </IonList>
-
-          <IonList id="labels-list" className="listaBotoes">
-            <IonMenuToggle>
-
-              <IonButton routerLink="/config" fill="solid">
-                <IonIcon slot="start" src={settingsOutline} />
-                <IonText>Config.</IonText>
-              </IonButton>
-            </IonMenuToggle>
-            <IonMenuToggle>
-
-              <LogOut />
-            </IonMenuToggle>
-          </IonList>
-        </div>
+        
       </IonContent>
     </IonMenu>
   );
