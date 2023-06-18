@@ -114,7 +114,7 @@ const Menu: React.FC = () => {
   }, [])
 
   return (
-    <IonMenu contentId="main" type="overlay" >
+    <IonMenu contentId="main" type="overlay">
       <IonContent>
 
         <DivBlue>

@@ -134,9 +134,9 @@ ion-list-header {
 }
 
 @media screen and (min-width: 1000px) {
-    /* ion-menu {
+    ion-menu {
         width: 15%;
-    } */
+    }
 
     /* ion-list-header {
     display: flex;
