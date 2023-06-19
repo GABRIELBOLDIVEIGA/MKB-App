@@ -8,7 +8,7 @@ const client = new ApolloClient({
   },
   // uri: "http://localhost:4000/", // API local
   //  uri: 'https://mkb-api-production.up.railway.app/' // API railway
-   uri: process.env.API_URI || 'http://localhost:4000/' // API railway
+   uri: process.env.API_URI // API railway
 });
 type Props = {
   children: ReactElement;
