@@ -52,7 +52,7 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
           message: "Pedido cadastrado com sucesso!",
           buttons: ["OK"],
           onDidDismiss() {
-            history.push('/pedidos');
+            history.push('/home');
             setCarrinho([])
           }
         })
