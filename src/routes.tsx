@@ -73,6 +73,9 @@ export default function Routes() {
                     <Route path="/login">
                       <Redirect to="/pedidos" />
                     </Route>
+                    <Route path="/home">
+                      <Redirect to="/pedidos" />
+                    </Route>
                     <Route path="/funcionarios" exact={true} component={FuncionariosADM} />
                     <Route path="/funcionarios/EditarFuncionario/:id" exact={true} component={EditarFuncionario} />
                     <Route path="/clientes" exact={true} component={ClientesADM} />
