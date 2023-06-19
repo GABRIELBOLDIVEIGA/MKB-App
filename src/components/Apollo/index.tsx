@@ -7,7 +7,8 @@ const client = new ApolloClient({
     authorization: localStorage.getItem('KMB_token') || '',
   },
   // uri: "http://localhost:4000/", // API local
-   uri: 'https://mkb-api-production.up.railway.app/' // API railway
+  //  uri: 'https://mkb-api-production.up.railway.app/' // API railway
+   uri: process.env.API_URI || 'http://localhost:4000/' // API railway
 });
 type Props = {
   children: ReactElement;
