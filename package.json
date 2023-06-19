@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.7.13",
+    "@capacitor/android": "^5.0.5",
+    "@capacitor/core": "^5.0.5",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.2",
@@ -73,6 +75,7 @@
     "iOS >=13"
   ],
   "devDependencies": {
+    "@capacitor/cli": "^5.0.5",
     "@types/pdfmake": "^0.2.2",
     "@types/react-csv": "^1.1.3",
     "@types/styled-components": "^5.1.26",

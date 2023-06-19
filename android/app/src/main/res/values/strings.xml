@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KMB</string>
+    <string name="title_activity_main">KMB</string>
+    <string name="package_name">kmb.dev.app</string>
+    <string name="custom_url_scheme">kmb.dev.app</string>
+</resources>
