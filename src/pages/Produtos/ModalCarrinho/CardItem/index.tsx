@@ -33,8 +33,8 @@ export default function CardItem({ produto }: IProps) {
       </IonCardHeader>
 
       <IonCardContent>
-        <IonItem>
-          <IonItem slot="start">R$ {produto.preco}</IonItem>
+        <IonItem lines='none'>
+          <IonItem lines='none' slot="start">R$ {produto.preco}</IonItem>
           <IonItem slot="end">
             <IonLabel position='stacked'>Quantidade: </IonLabel>
             <IonInput
@@ -48,7 +48,7 @@ export default function CardItem({ produto }: IProps) {
           </IonItem>
         </IonItem>
 
-        <IonItem>Total: {formatadorMonetario.format(produto.preco * produto.quantidade)}</IonItem>
+        <IonItem lines='none' >Total: {formatadorMonetario.format(produto.preco * produto.quantidade)}</IonItem>
 
       </IonCardContent>
     </CardS>

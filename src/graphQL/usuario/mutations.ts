@@ -38,3 +38,9 @@ export const UPDATE_SENHA = gql`
   updateSenha(novaSenhaInput: $novaSenhaInput)
 }
 `
+
+export const ESQUECI_SENHA = gql`
+  mutation EsqueciMinhaSenha($esqueciSenhaInput: EsqueciSenhaInput) {
+  esqueciMinhaSenha(esqueciSenhaInput: $esqueciSenhaInput)
+}
+`
