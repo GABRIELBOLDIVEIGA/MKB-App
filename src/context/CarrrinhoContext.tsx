@@ -127,8 +127,18 @@ export const useCarrinhoContext = () => {
   const adicionaProduto = (produto: Produto, unidades: number) => {
     if (unidades === 0) return;
 
-    setCarrinho([...carrinho, { ...produto, quantidade: unidades }]);
+    setCarrinho([...carrinho, { ...produto, quantidade: 1 }]);
   };
+
+  const editarQuantidade = (cod: string, quantidade: number) => {
+    const novaLista = carrinho.map((produto) => {
+      if (produto.cod_prod === cod) {
+        return { ...produto, quantidade }
+      }
+      return produto
+    })
+    setCarrinho([...novaLista])
+  }
 
   const removerProduto = (cod_prod: string) => {
     // if (quantidadeDeProdutos === 0) return;
@@ -140,6 +150,7 @@ export const useCarrinhoContext = () => {
 
   return {
     // quantidadeDeProdutos,
+    editarQuantidade,
     setQuantidadeDeProdutos,
     quantidadeDoItem,
     setQuantidadeDoItem,

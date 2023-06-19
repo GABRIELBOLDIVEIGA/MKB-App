@@ -59,7 +59,7 @@ export default function Produtos() {
       <IonContent>
 
         {produtos && <InfiniteScroll produtos={produtos} filtro={filtro} />}
-        {isOpen && <ModalCarrinho carrinho={carrinho} isOpen={isOpen} setIsOpen={setIsOpen}></ModalCarrinho>}
+        {isOpen && <ModalCarrinho isOpen={isOpen} setIsOpen={setIsOpen} />}
 
       </IonContent>
 
