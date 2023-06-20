@@ -8,7 +8,6 @@ import { useHistory } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useGetPedidosTabela } from "graphQL/pedidos/hooks";
 
-
 interface PedidosTabela {
   cliente: string,
   colaborador: string,
@@ -65,14 +64,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function TabelaPedidos() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
-
   const [rows, setRows] = useState<PedidosTabela[] | undefined>();
-  // const { data, error, loading } = useGetUsuarios();
-  const { data, loading, error } = useGetPedidosTabela();
+  const { data, loading } = useGetPedidosTabela();
   const history = useHistory();
 
   useEffect(() => {
-    console.log(data)
     if (data) {
       setRows(data)
     }
@@ -108,7 +104,7 @@ export default function TabelaPedidos() {
   return (
     <section>
       <IonItem>
-        <IonSearchbar placeholder='Nome, Email ou CPF' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
+        <IonSearchbar placeholder='Digite aqui o nome...' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
       </IonItem>
       <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
         {!data ?
