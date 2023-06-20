@@ -14,7 +14,6 @@ import DarkBlobLoader from 'components/DarkBlobLoader';
 import { Usuario } from 'interface/Usuario';
 import { useGetUsuarios } from 'graphQL/usuario/hook';
 
-
 interface Column {
   id: 'cpf' | 'nome' | 'email' | 'celular' | 'telefone';
   label: string;

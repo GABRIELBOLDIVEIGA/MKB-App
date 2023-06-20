@@ -9,10 +9,7 @@ import { pedidos2csv } from "utils/gerarCSVpedidos";
 import { CSVLink } from "react-csv";
 import { dateFormatter } from "common/function/formatadorDataPT-BR";
 import { Carrinho } from "interface/Carrinho";
-// <<<<<<< Updated upstream
-// =======
 import { cloudDownloadOutline } from 'ionicons/icons';
-// >>>>>>> Stashed changes
 
 const Container = styled.section`
   height: 100%;
@@ -77,31 +74,6 @@ export default function PedidoDetalhado() {
   return (
     <IonPage>
       <Cabecalho>
-{/* <<<<<<< Updated upstream
-        <IonTitle>Pedido Detalhado</IonTitle>
-        <IonItem>
-
-          <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
-            <IonButton size="small" fill="default" >
-              <BsFiletypeCsv size={24} color="#FFF" />
-            </IonButton>
-          </CSVLink>
-          <IonButton title="Baixar pedido em PDF" size="small" fill="default">
-            <BsFiletypePdf size={24} color="#FFF" />
-          </IonButton>
-        </IonItem>
-      </Cabecalho>
-
-      <IonContent>
-        <Container>
-          <Section>
-            <Div>
-              <IonRow class=" ion-align-items-center">
-                {/* <IonCol size="1"> */}
-                {/* <Img src={iconLogo} /> */}
-                {/* </IonCol> */}
-
-//======= 
         <ContainerCabecalho>
           <TitleS>Pedido Detalhado</TitleS>
           <ContainerLink>
@@ -118,11 +90,6 @@ export default function PedidoDetalhado() {
           <Section>
             <Div>
               <IonRow class=" ion-align-items-center">
-                {/* <IonCol size="1"> */}
-                {/* <Img src={iconLogo} /> */}
-                {/* </IonCol> */}
-
-{/* >>>>>>> Stashed changes */}
                 <IonCol size="8">
                   <IonRow class="ion-justify-content-center">
                     <p>Rua Professor Walter Wey, 237 - CEP : 03257-150 - São Paulo / SP</p>
