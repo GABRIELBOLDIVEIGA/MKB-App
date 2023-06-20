@@ -9,6 +9,7 @@ export default function Config() {
         <IonTitle>Configurações</IonTitle>
       </Cabecalho>
       <IonContent>
+
         <IonItem lines="none">
           <IonText>Mudar senha</IonText>
           <IonButton routerLink="/alterarSenha" slot='end'>
@@ -16,6 +17,15 @@ export default function Config() {
             Alterar Senha
           </IonButton>
         </IonItem>
+
+        <IonItem lines="none">
+          <IonText>Personalizar Avatar</IonText>
+          <IonButton routerLink="/avatar" slot='end'>
+            <IonIcon icon={lockClosedOutline} slot='start' />
+            Avatar
+          </IonButton>
+        </IonItem>
+        
       </IonContent>
     </IonPage>
   )

@@ -68,14 +68,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function TabelaProdutos() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const [rows, setRows] = useState<Produto[] | undefined>();
-  const { data, error, loading } = useProduto();
+  const { data, loading } = useProduto();
   const history = useHistory();
 
   useEffect(() => {
-    console.log(data)
     if (data) {
       setRows(data)
     }
@@ -165,7 +163,7 @@ export default function TabelaProdutos() {
               </TableContainer>
               <TablePagination
                 style={{ backgroundColor: "#383a3e", color: "#d7d8da" }}
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[15, 25, 100]}
                 component="div"
                 count={rows?.length ? rows.length : 0}
                 rowsPerPage={rowsPerPage}

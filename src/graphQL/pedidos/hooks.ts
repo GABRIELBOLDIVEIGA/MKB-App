@@ -4,6 +4,7 @@ import { GET_ALL_PEDIDOS, GET_PEDIDOS_BY_ID_2_CSV, GET_PEDIDOS_BY_USER_ID, GET_P
 import { Pedido } from "interface/Pedido";
 import { Cliente } from "interface/Cliente";
 import { Usuario } from "interface/Usuario";
+import { PedidoCSV } from "interface/PedidoCSV";
 
 export const useCriarPedido = () => {
   const [criarPedido, { data, loading, error }] = useMutation(CRIAR_PEDIDO);
@@ -52,8 +53,12 @@ export const useGetPedidoById = (id: string) => {
   return { data: data?.getPedido, loading, error, refetch };
 }
 
-export const useGetPedidoById2Csv = (id: string) => { 
-  const { data, loading, error, refetch } = useQuery(GET_PEDIDOS_BY_ID_2_CSV, {
+// <<<<<<< Updated upstream
+// export const useGetPedidoById2Csv = (id: string) => { 
+//   const { data, loading, error, refetch } = useQuery(GET_PEDIDOS_BY_ID_2_CSV, {
+// =======
+export const useGetPedidoById2Csv = (id: string) => {
+  const { data, loading, error, refetch } = useQuery<{getPedido: PedidoCSV }>(GET_PEDIDOS_BY_ID_2_CSV, {
     variables: {
       id
     }

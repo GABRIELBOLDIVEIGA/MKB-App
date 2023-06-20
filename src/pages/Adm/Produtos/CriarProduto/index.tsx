@@ -26,9 +26,7 @@ export default function CriarProdutoADM() {
       preco: preco ? +preco : 0,
       unidade: unidade ? unidade : ""
     }
-
-    console.log(`[Submit] - Criar Produto: ${produto}`);
-
+    
     createProduto({
       variables: {
         produtoInput: produto

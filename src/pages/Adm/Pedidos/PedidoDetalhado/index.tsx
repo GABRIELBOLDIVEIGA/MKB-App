@@ -1,17 +1,18 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonItem, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
-import { useGetPedidoById, useGetPedidoById2Csv, useGetPedidosByUserIdV2 } from "graphQL/pedidos/hooks"
+import { useGetPedidoById, useGetPedidoById2Csv } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
-import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import { formatadorMonetario } from "common/function/formatadorMonetario";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { pedidos2csv } from "utils/gerarCSVpedidos";
 import { CSVLink } from "react-csv";
-import iconLogo from "assets/icon-logo.jpg"
 import { dateFormatter } from "common/function/formatadorDataPT-BR";
-import { Produto } from "interface/Produto";
 import { Carrinho } from "interface/Carrinho";
+// <<<<<<< Updated upstream
+// =======
+import { cloudDownloadOutline } from 'ionicons/icons';
+// >>>>>>> Stashed changes
 
 const Container = styled.section`
   height: 100%;
@@ -24,8 +25,11 @@ const Section = styled.section`
   width: 100%;
   max-width: 900px;
   min-width: 412px;
-  margin-top: 1.5rem;
   background-color: var(--ion-color-light);
+
+  @media screen and (min-width: 450px) {
+    margin: 1.5rem 0;
+  }
 `
 const Div = styled.div`
   border: 1px solid var(--ion-color-light-contrast);
@@ -40,9 +44,19 @@ const P = styled.p`
   padding: .3rem;
   border-bottom: 1px solid var(--ion-color-light-contrast);
 `
-const Img = styled.img`
-  border: 1px solid red;
-  width: 64px;
+
+const ContainerCabecalho = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: 1rem;
+`
+const TitleS = styled(IonTitle)`
+  width: max-content;
+`
+const ContainerLink = styled.div`
+  width: max-content;
 `
 
 export default function PedidoDetalhado() {
@@ -63,6 +77,7 @@ export default function PedidoDetalhado() {
   return (
     <IonPage>
       <Cabecalho>
+{/* <<<<<<< Updated upstream
         <IonTitle>Pedido Detalhado</IonTitle>
         <IonItem>
 
@@ -86,6 +101,28 @@ export default function PedidoDetalhado() {
                 {/* <Img src={iconLogo} /> */}
                 {/* </IonCol> */}
 
+//======= 
+        <ContainerCabecalho>
+          <TitleS>Pedido Detalhado</TitleS>
+          <ContainerLink>
+            <CSVLink title="Baixar pedido em CSV" filename={"pedido.csv"} target="_blank" data={csvData}>
+              <IonIcon src={cloudDownloadOutline} color="dark" size="large" />
+            </CSVLink>
+          </ContainerLink>
+        </ContainerCabecalho>
+
+      </Cabecalho>
+
+      <IonContent>
+        <Container>
+          <Section>
+            <Div>
+              <IonRow class=" ion-align-items-center">
+                {/* <IonCol size="1"> */}
+                {/* <Img src={iconLogo} /> */}
+                {/* </IonCol> */}
+
+{/* >>>>>>> Stashed changes */}
                 <IonCol size="8">
                   <IonRow class="ion-justify-content-center">
                     <p>Rua Professor Walter Wey, 237 - CEP : 03257-150 - São Paulo / SP</p>
