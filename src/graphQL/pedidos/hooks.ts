@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client"
+import { useApolloClient, useMutation, useQuery } from "@apollo/client"
 import { CRIAR_PEDIDO } from "./mutations"
-import { GET_ALL_PEDIDOS, GET_PEDIDOS_BY_ID_2_CSV, GET_PEDIDOS_BY_USER_ID, GET_PEDIDOS_BY_USER_ID_V2, GET_PEDIDO_BY_ID } from "./queries"
+import { GET_ALL_PEDIDOS, GET_PEDIDOS_BY_ID_2_CSV, GET_PEDIDOS_BY_USER_ID, GET_PEDIDOS_BY_USER_ID_V2, GET_PEDIDO_BY_ID, PEDIDOS_TABELA } from "./queries"
 import { Pedido } from "interface/Pedido";
 import { Cliente } from "interface/Cliente";
 import { Usuario } from "interface/Usuario";
@@ -38,6 +38,21 @@ export const useGetAllPedidos = () => {
   return { data: data?.getPedidos, loading, error, refetch }
 }
 
+export const useGetPedidosTabela = () => {
+  const { data, loading, error } = useQuery(PEDIDOS_TABELA)
+
+  const pedidoTabela = data?.getPedidos?.map((pedido: any) => {
+    return { 
+      cliente: pedido.cliente.nome,
+      colaborador: pedido.usuario.nome,
+      total: pedido.pedido.total,
+      id: pedido.pedido._id
+    }
+  })
+  
+  return { data: pedidoTabela, loading, error }
+}
+
 interface IPedido {
   cliente: Cliente;
   usuario: Usuario;
@@ -54,7 +69,9 @@ export const useGetPedidoById = (id: string) => {
 }
 
 export const useGetPedidoById2Csv = (id: string) => {
+
   const { data, loading, error, refetch } = useQuery<{ getPedido: PedidoCSV }>(GET_PEDIDOS_BY_ID_2_CSV, {
+
     variables: {
       id
     }

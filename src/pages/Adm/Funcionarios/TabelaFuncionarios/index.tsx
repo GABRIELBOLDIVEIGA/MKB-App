@@ -140,14 +140,14 @@ export default function TabelaFuncionarios() {
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
-                            onDoubleClick={() => {
+                            onClick={() => {
                               history.push(`/funcionarios/EditarFuncionario/${row._id}`)
                             }}
                           >
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell title='Dois clicks para ver mais detalhes...' key={column.id} align={column.align}>
+                                <TableCell title='Click para ver mais detalhes...' key={column.id} align={column.align}>
                                   {column.format && typeof value === 'number'
                                     ? column.format(value)
                                     : value}

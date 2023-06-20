@@ -145,7 +145,7 @@ export default function TabelaClientes() {
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
-                            onDoubleClick={() => {
+                            onClick={() => {
                               history.push(`/cliente/${row._id}`)
                             }}
                           >

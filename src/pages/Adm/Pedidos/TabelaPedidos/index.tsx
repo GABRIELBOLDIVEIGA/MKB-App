@@ -1,22 +1,22 @@
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { useProduto } from 'graphQL/produtos/hooks';
-import { useEffect, useState } from 'react';
-import { Produto } from 'interface/Produto';
+import { IonItem, IonSearchbar } from "@ionic/react";
+import { Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
+import DarkBlobLoader from "components/DarkBlobLoader";
+import { useGetUsuarios } from "graphQL/usuario/hook";
+import { Usuario } from "interface/Usuario";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { styled } from '@mui/material/styles';
-import { IonItem, IonSearchbar } from '@ionic/react';
-import { useHistory } from 'react-router';
-import DarkBlobLoader from 'components/DarkBlobLoader';
+import { useGetPedidosTabela } from "graphQL/pedidos/hooks";
 
+interface PedidosTabela {
+  cliente: string,
+  colaborador: string,
+  total: number,
+  id: string
+}
 
 interface Column {
-  id: 'cod_prod' | 'descr_resumida' | 'descr_detalhada' | 'preco' | 'unidade';
+  id: 'cliente' | 'colaborador' | 'total' | 'id';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -25,29 +25,24 @@ interface Column {
 
 const columns: readonly Column[] = [
   {
-    id: 'cod_prod',
-    label: 'Codigo',
+    id: 'cliente',
+    label: 'Cliente',
     minWidth: 120,
   },
   {
-    id: 'descr_resumida',
-    label: 'Descrição Resumida',
+    id: 'colaborador',
+    label: 'Colaborador',
     minWidth: 120
   },
   {
-    id: 'descr_detalhada',
-    label: 'Descrição Detalhada',
+    id: 'total',
+    label: 'Total',
     minWidth: 200,
   },
   {
-    id: 'preco',
-    label: 'Preço',
+    id: 'id',
+    label: 'ID',
     minWidth: 120,
-  },
-  {
-    id: 'unidade',
-    label: 'Unidade',
-    minWidth: 100,
   },
 ];
 
@@ -66,11 +61,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function TabelaProdutos() {
+export default function TabelaPedidos() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
-  const [rows, setRows] = useState<Produto[] | undefined>();
-  const { data, loading } = useProduto();
+  const [rows, setRows] = useState<PedidosTabela[] | undefined>();
+  const { data, loading } = useGetPedidosTabela();
   const history = useHistory();
 
   useEffect(() => {
@@ -93,11 +88,11 @@ export default function TabelaProdutos() {
     const target = ev.target as HTMLIonSearchbarElement;
     if (target) query = target.value!.toLowerCase();
 
-    const result: Produto[] | undefined = data?.filter((prod) => {
+    const result: PedidosTabela[] = data?.filter((pedido: PedidosTabela) => {
       if (
-        prod.cod_prod.toLowerCase().includes(query) ||
-        prod.descr_resumida.toLowerCase().includes(query) ||
-        prod.descr_detalhada.toLowerCase().includes(query)
+        pedido.cliente.toLowerCase().includes(query) ||
+        pedido.colaborador.toLowerCase().includes(query)
+
       )
         return true;
     });
@@ -109,7 +104,7 @@ export default function TabelaProdutos() {
   return (
     <section>
       <IonItem>
-        <IonSearchbar placeholder='Codigo ou Descrição' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
+        <IonSearchbar placeholder='Digite aqui o nome...' onIonChange={(ev) => handleSearch(ev)} color="light" showCancelButton="focus" animated={true} />
       </IonItem>
       <div style={{ width: "100%", display: "grid", placeItems: "center" }}>
         {!data ?
@@ -136,19 +131,19 @@ export default function TabelaProdutos() {
                       .map((row) => {
                         return (
                           <StyledTableRow
-                            key={row.cod_prod}
+                            key={row.id}
                             hover
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
                             onClick={() => {
-                              history.push(`/produto/${row._id}`)
+                              history.push(`/pedidoDetalhado/${row.id}`)
                             }}
                           >
-                            {columns.map((column) => {
+                            {columns?.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell title='Dois clicks para ver mais detalhes...' key={column.id} align={column.align}>
+                                <TableCell title='Click para ver mais detalhes...' key={column.id} align={column.align}>
                                   {column.format && typeof value === 'number'
                                     ? column.format(value)
                                     : value}
@@ -175,5 +170,5 @@ export default function TabelaProdutos() {
           )}
       </ div>
     </section>
-  );
+  )
 }
