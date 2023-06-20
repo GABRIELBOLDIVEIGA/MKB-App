@@ -38,9 +38,18 @@ export const useGetAllPedidos = () => {
 }
 
 export const useGetPedidosTabela = () => {
-  const {data, loading, error} = useQuery(PEDIDOS_TABELA)
+  const { data, loading, error } = useQuery(PEDIDOS_TABELA)
 
-  return { data: data?.getPedidos, loading, error }
+  const pedidoTabela = data?.getPedidos?.map((pedido: any) => {
+    return { 
+      cliente: pedido.cliente.nome,
+      colaborador: pedido.usuario.nome,
+      total: pedido.pedido.total,
+      id: pedido.pedido._id
+    }
+  })
+  
+  return { data: pedidoTabela, loading, error }
 }
 
 interface IPedido {
@@ -58,7 +67,7 @@ export const useGetPedidoById = (id: string) => {
   return { data: data?.getPedido, loading, error, refetch };
 }
 
-export const useGetPedidoById2Csv = (id: string) => { 
+export const useGetPedidoById2Csv = (id: string) => {
   const { data, loading, error, refetch } = useQuery(GET_PEDIDOS_BY_ID_2_CSV, {
     variables: {
       id

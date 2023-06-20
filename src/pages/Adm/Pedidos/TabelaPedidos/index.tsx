@@ -8,8 +8,16 @@ import { useHistory } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useGetPedidosTabela } from "graphQL/pedidos/hooks";
 
+
+interface PedidosTabela {
+  cliente: string,
+  colaborador: string,
+  total: number,
+  id: string
+}
+
 interface Column {
-  id: 'cliente' | 'colaborador' | 'total' | 'ID';
+  id: 'cliente' | 'colaborador' | 'total' | 'id';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -33,7 +41,7 @@ const columns: readonly Column[] = [
     minWidth: 200,
   },
   {
-    id: 'ID',
+    id: 'id',
     label: 'ID',
     minWidth: 120,
   },
@@ -54,25 +62,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-interface Pedido {
-  cliente: {
-    nome: string
-  },
-  usuario: {
-    nome: string
-  },
-  pedido: {
-    total: number,
-    _id: string
-  }
-}
-
-
 export default function TabelaPedidos() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
 
-  const [rows, setRows] = useState<Usuario[] | undefined>();
+  const [rows, setRows] = useState<PedidosTabela[] | undefined>();
   // const { data, error, loading } = useGetUsuarios();
   const { data, loading, error } = useGetPedidosTabela();
   const history = useHistory();
@@ -98,11 +92,11 @@ export default function TabelaPedidos() {
     const target = ev.target as HTMLIonSearchbarElement;
     if (target) query = target.value!.toLowerCase();
 
-    const result: Pedido[] | undefined = data?.filter(() => {
+    const result: PedidosTabela[] = data?.filter((pedido: PedidosTabela) => {
       if (
-        usuario.nome?.toLowerCase().includes(query) ||
-        usuario.email?.toLowerCase().includes(query) ||
-        usuario.cpf?.toLowerCase().includes(query)
+        pedido.cliente.toLowerCase().includes(query) ||
+        pedido.colaborador.toLowerCase().includes(query)
+
       )
         return true;
     });
@@ -141,19 +135,19 @@ export default function TabelaPedidos() {
                       .map((row) => {
                         return (
                           <StyledTableRow
-                            key={row.cpf}
+                            key={row.id}
                             hover
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
                             onClick={() => {
-                              history.push(`/funcionarios/EditarFuncionario/${row._id}`)
+                              history.push(`/pedidoDetalhado/${row.id}`)
                             }}
                           >
-                            {columns.map((column) => {
+                            {columns?.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell title='Dois clicks para ver mais detalhes...' key={column.id} align={column.align}>
+                                <TableCell title='Click para ver mais detalhes...' key={column.id} align={column.align}>
                                   {column.format && typeof value === 'number'
                                     ? column.format(value)
                                     : value}
@@ -168,7 +162,7 @@ export default function TabelaPedidos() {
               </TableContainer>
               <TablePagination
                 style={{ backgroundColor: "#383a3e", color: "#d7d8da" }}
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[15, 25, 100]}
                 component="div"
                 count={rows?.length ? rows.length : 0}
                 rowsPerPage={rowsPerPage}
