@@ -1,4 +1,7 @@
-export const pedidos2csv = (data: any) => {
+import { PedidoCSV } from "interface/PedidoCSV";
+import { Carrinho } from './../interface/Carrinho';
+
+export const pedidos2csv = (data: PedidoCSV) => {
 
   // if (
   //   data.cliente === null ||
@@ -33,21 +36,11 @@ export const pedidos2csv = (data: any) => {
     array.push(pedido);
   }
   
-  var carrinho = [];
+  var carrinho: any = [];
   if (data.pedido.carrinho != null) { 
     carrinho = data.pedido.carrinho;
     array.push(carrinho);
   }
-
-
-  // const cliente = data.cliente;
-  // const funcionario = data.usuario;
-  // const pedido = {
-  //   date: data.pedido.date,
-  //   _id: data.pedido._id,
-  // };
-  // const carrinho = data.pedido.carrinho;
-  // const array = [cliente, funcionario, pedido, carrinho];
 
   var keysHeaders: Array<string[]> = [];
   array.forEach((itemDoArray, index) => {
@@ -82,7 +75,6 @@ export const pedidos2csv = (data: any) => {
 
   const headers = keysHeaders.join(',').toUpperCase();
   const csv = [headers, ...values].join('\n');
-  // console.log(csv)
 
   return csv;
 }

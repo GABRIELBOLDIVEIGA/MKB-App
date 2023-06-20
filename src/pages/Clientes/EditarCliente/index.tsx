@@ -71,9 +71,6 @@ export default function EditarCliente() {
       endereco,
       numero,
     }
-
-    console.log("[Update] - cliente:", cliente)
-
     updateCliente({
       variables: {
         id: data?._id,

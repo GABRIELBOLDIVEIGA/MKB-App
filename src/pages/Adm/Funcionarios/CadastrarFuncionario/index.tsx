@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import InputField from "components/InputField";
 import { useCriarFuncionario } from "graphQL/usuario/hook";
@@ -7,6 +7,28 @@ import { useState } from "react";
 import CardFuncionario from "../CardFuncionario";
 import { closeOutline } from 'ionicons/icons'
 import { useHistory } from "react-router";
+import styled from "styled-components";
+
+const ContainerCard = styled.section`
+  display: grid;
+  place-items: center;
+  height: 100%;
+`
+const CardS = styled(IonCard)`
+  @media screen and (max-width: 650px) {
+    padding-top: 2rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 650px) {
+    width: 50%;
+    height: max-content; 
+    margin: 0 !important;
+    transform: translateY(-50px);
+  }
+`
+
 
 export default function CadastrarFuncionario() {
   const [nome, setNome] = useState<string | undefined>("");
@@ -34,12 +56,7 @@ export default function CadastrarFuncionario() {
       privilegio: 1
     }
 
-    console.log("[Senha] - ", senha);
-    console.log("[Confirmar Senha] - ", confirmarSenha);
-
     if (senha === confirmarSenha) {
-      console.log("[Funcionario] - ", funcionario);
-
       setShowLoading(true);
       createUsuario({
         variables: { usuarioInput: { ...funcionario } },
@@ -48,7 +65,6 @@ export default function CadastrarFuncionario() {
           setIsOpen(true);
         },
         onError: (error) => {
-          console.log(error)
           setShowLoading(false);
           presentAlert({
             header: 'Atenção',
@@ -77,10 +93,16 @@ export default function CadastrarFuncionario() {
 
   return (
     <IonPage>
-      <Cabecalho><IonTitle>Cadastrar Funcionario</IonTitle></Cabecalho>
+      <Cabecalho>
+        <IonTitle>Cadastrar Funcionário</IonTitle>
+      </Cabecalho>
+      
       <IonContent >
-        <section style={{ display: "flex", justifyContent: "center", width: "100%", height: "100%" }}>
-          <IonCard style={{ width: "50%", height: "max-content", marginTop: "6rem" }}>
+        <ContainerCard>
+          <CardS>
+            <IonCardHeader>
+              <IonCardTitle style={{textAlign: 'center'}}>Dados do Funcionário</IonCardTitle>
+            </IonCardHeader>
             <IonCardContent>
               <form onSubmit={ev => handleSubmit(ev)}>
                 <InputField label="Nome" placeholder="Nome" position="stacked" required state={nome} setState={setNome} />
@@ -91,13 +113,13 @@ export default function CadastrarFuncionario() {
                 <InputField type="password" label="Senha" placeholder="Senha" position="stacked" required state={senha} setState={setSenha} />
                 <InputField type="password" label="Confirmar Senha" placeholder="Confirmar Senha" position="stacked" required state={confirmarSenha} setState={setConfirmarSenha} />
 
-                <IonItem style={{ marginTop: "1rem" }}>
+                <IonItem lines="none" style={{ marginTop: "1rem" }}>
                   <IonButton color="warning" size="default" type="reset">Limpar</IonButton>
                   <IonButton slot="end" size="default" type="submit">Confirmar</IonButton>
                 </IonItem>
               </form>
             </IonCardContent>
-          </IonCard>
+          </CardS>
 
           {data &&
             <IonModal isOpen={isOpen} onDidDismiss={() => handleModalClose()}>
@@ -120,7 +142,7 @@ export default function CadastrarFuncionario() {
             message={'Verificando...'}
           />
 
-        </section>
+        </ContainerCard>
       </IonContent>
     </IonPage>
   )

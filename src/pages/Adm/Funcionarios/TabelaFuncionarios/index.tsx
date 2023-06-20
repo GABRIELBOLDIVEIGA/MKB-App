@@ -14,7 +14,6 @@ import DarkBlobLoader from 'components/DarkBlobLoader';
 import { Usuario } from 'interface/Usuario';
 import { useGetUsuarios } from 'graphQL/usuario/hook';
 
-
 interface Column {
   id: 'cpf' | 'nome' | 'email' | 'celular' | 'telefone';
   label: string;
@@ -68,14 +67,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function TabelaFuncionarios() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const [rows, setRows] = useState<Usuario[] | undefined>();
-  const { data, error, loading } = useGetUsuarios();
+  const { data, loading } = useGetUsuarios();
   const history = useHistory();
 
   useEffect(() => {
-    console.log(data)
     if (data) {
       setRows(data)
     }
@@ -165,7 +162,7 @@ export default function TabelaFuncionarios() {
               </TableContainer>
               <TablePagination
                 style={{ backgroundColor: "#383a3e", color: "#d7d8da" }}
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[15, 25, 100]}
                 component="div"
                 count={rows?.length ? rows.length : 0}
                 rowsPerPage={rowsPerPage}

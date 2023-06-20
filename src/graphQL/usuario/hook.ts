@@ -6,7 +6,6 @@ import { Usuario } from "interface/Usuario"
 export const useLogin = () => {
   const [efetuaLogin, { loading, error, data }] = useMutation(LOGIN, {
     onCompleted({ efetuaLogin }) {
-      console.log("[onCompleted] - useLogin: ")
       if (efetuaLogin) {
         localStorage.setItem('KMB_token', efetuaLogin.token);
       }
