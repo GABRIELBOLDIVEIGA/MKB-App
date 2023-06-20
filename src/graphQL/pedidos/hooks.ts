@@ -54,11 +54,11 @@ export const useGetPedidoById = (id: string) => {
 }
 
 export const useGetPedidoById2Csv = (id: string) => {
-  const { data, loading, error, refetch } = useQuery<{getPedido: PedidoCSV }>(GET_PEDIDOS_BY_ID_2_CSV, {
+  const { data, loading, error, refetch } = useQuery<{ getPedido: PedidoCSV }>(GET_PEDIDOS_BY_ID_2_CSV, {
     variables: {
       id
     }
   });
 
   return { data: data?.getPedido, loading, error, refetch };
-}
+};
