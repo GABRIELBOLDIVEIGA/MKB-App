@@ -1,22 +1,15 @@
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import { useEffect, useState } from 'react';
+import { IonItem, IonSearchbar } from "@ionic/react";
+import { Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
+import DarkBlobLoader from "components/DarkBlobLoader";
+import { useGetUsuarios } from "graphQL/usuario/hook";
+import { Usuario } from "interface/Usuario";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { styled } from '@mui/material/styles';
-import { IonItem, IonSearchbar } from '@ionic/react';
-import { useHistory } from 'react-router';
-import DarkBlobLoader from 'components/DarkBlobLoader';
-import { Usuario } from 'interface/Usuario';
-import { useGetUsuarios } from 'graphQL/usuario/hook';
-
+import { useGetPedidosTabela } from "graphQL/pedidos/hooks";
 
 interface Column {
-  id: 'cpf' | 'nome' | 'email' | 'celular' | 'telefone';
+  id: 'cliente' | 'colaborador' | 'total' | 'ID';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -25,29 +18,24 @@ interface Column {
 
 const columns: readonly Column[] = [
   {
-    id: 'cpf',
-    label: 'CPF',
+    id: 'cliente',
+    label: 'Cliente',
     minWidth: 120,
   },
   {
-    id: 'nome',
-    label: 'Nome',
+    id: 'colaborador',
+    label: 'Colaborador',
     minWidth: 120
   },
   {
-    id: 'email',
-    label: 'Email',
+    id: 'total',
+    label: 'Total',
     minWidth: 200,
   },
   {
-    id: 'celular',
-    label: 'Celular',
+    id: 'ID',
+    label: 'ID',
     minWidth: 120,
-  },
-  {
-    id: 'telefone',
-    label: 'Telefone',
-    minWidth: 100,
   },
 ];
 
@@ -66,12 +54,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function TabelaFuncionarios() {
+interface Pedido {
+  cliente: {
+    nome: string
+  },
+  usuario: {
+    nome: string
+  },
+  pedido: {
+    total: number,
+    _id: string
+  }
+}
+
+
+export default function TabelaPedidos() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [rows, setRows] = useState<Usuario[] | undefined>();
-  const { data, error, loading } = useGetUsuarios();
+  // const { data, error, loading } = useGetUsuarios();
+  const { data, loading, error } = useGetPedidosTabela();
   const history = useHistory();
 
   useEffect(() => {
@@ -95,7 +98,7 @@ export default function TabelaFuncionarios() {
     const target = ev.target as HTMLIonSearchbarElement;
     if (target) query = target.value!.toLowerCase();
 
-    const result: Usuario[] | undefined = data?.filter((usuario) => {
+    const result: Pedido[] | undefined = data?.filter(() => {
       if (
         usuario.nome?.toLowerCase().includes(query) ||
         usuario.email?.toLowerCase().includes(query) ||
@@ -177,5 +180,5 @@ export default function TabelaFuncionarios() {
           )}
       </ div>
     </section>
-  );
+  )
 }

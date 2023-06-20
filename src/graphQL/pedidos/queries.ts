@@ -151,3 +151,20 @@ query GetPedido($id: ID!) {
   }
 }
 `
+
+export const PEDIDOS_TABELA = gql`
+query GetPedidos {
+  getPedidos {
+    cliente {
+      nome
+    }
+    usuario {
+      nome
+    }
+    pedido {
+      total
+      _id
+    }
+  }
+}
+` 

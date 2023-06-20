@@ -143,7 +143,7 @@ export default function TabelaProdutos() {
                             role="checkbox"
                             tabIndex={-1}
                             style={{ cursor: "pointer" }}
-                            onDoubleClick={() => {
+                            onClick={() => {
                               history.push(`/produto/${row._id}`)
                             }}
                           >

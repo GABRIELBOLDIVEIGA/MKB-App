@@ -42,6 +42,7 @@ import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
+import { ErrorBoundary } from "react-error-boundary";
 
 setupIonicReact();
 

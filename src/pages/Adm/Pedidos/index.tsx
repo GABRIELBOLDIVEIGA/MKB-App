@@ -8,6 +8,8 @@ import ButtonRouter from "components/ButtonRouter";
 import { addCircleOutline } from "ionicons/icons";
 import { useClientesContext } from "context/ClientesContext";
 import { useProdutosContext } from "context/ProdutosContext";
+import { ErrorBoundary } from "react-error-boundary";
+import TabelaPedidos from "./TabelaPedidos";
 
 interface IPedido {
   cliente: {
@@ -76,7 +78,7 @@ export default function PedidosADM() {
         <ButtonRouter
           icon={addCircleOutline}
           slotIcon="start"
-          
+
           text="Realizar Novo Pedido"
           routerLink="/empresas"
         />
@@ -88,7 +90,11 @@ export default function PedidosADM() {
             <IonText>Parece que não existe nem um pedido...</IonText>
           </div>
         )}
-        <IonGrid>
+
+        <TabelaPedidos />
+
+
+        {/* <IonGrid>
           <IonRow>
             {filtro?.map((pedido, index) => {
               return (
@@ -98,7 +104,7 @@ export default function PedidosADM() {
               )
             })}
           </IonRow>
-        </IonGrid>
+        </IonGrid> */}
       </IonContent>
     </IonPage>
   )

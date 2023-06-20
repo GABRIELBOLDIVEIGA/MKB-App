@@ -31,40 +31,48 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
   const [alerta, setAlerta] = useState(false)
 
   const handleCriarPedido = () => {
-    const carrinhoFormatado = carrinho.map(produto => {
-      delete produto._id
-      delete produto.__typename
-      return produto
-    })
+    if (carrinho.length === 0) {
+      presentAlert({
+        header: "Erro",
+        message: "Pedido deve conter ao menos 1 item!",
+        buttons: ["OK"],
+      })
+    } else {
+      const carrinhoFormatado = carrinho.map(produto => {
+        delete produto._id
+        delete produto.__typename
+        return produto
+      })
 
-    criarPedido({
-      variables: {
-        pedidoInput: {
-          clienteID: cliente._id,
-          usuarioID: usuario._id,
-          carrinho: carrinhoFormatado,
-          total: valorTotalCarrinho
-        }
-      },
-      onCompleted: () => {
-        presentAlert({
-          header: "Sucesso",
-          message: "Pedido cadastrado com sucesso!",
-          buttons: ["OK"],
-          onDidDismiss() {
-            history.push('/home');
-            setCarrinho([])
+      criarPedido({
+        variables: {
+          pedidoInput: {
+            clienteID: cliente._id,
+            usuarioID: usuario._id,
+            carrinho: carrinhoFormatado,
+            total: valorTotalCarrinho
           }
-        })
-      },
-      onError: () => {
-        presentAlert({
-          header: "Erro",
-          message: "Algo estranho aconteceu, tente novamente...",
-          buttons: ["OK"],
-        })
-      }
-    })
+        },
+        onCompleted: () => {
+          presentAlert({
+            header: "Sucesso",
+            message: "Pedido cadastrado com sucesso!",
+            buttons: ["OK"],
+            onDidDismiss() {
+              history.push('/home');
+              setCarrinho([])
+            }
+          })
+        },
+        onError: () => {
+          presentAlert({
+            header: "Erro",
+            message: "Algo estranho aconteceu, tente novamente...",
+            buttons: ["OK"],
+          })
+        }
+      })
+    }
   }
 
   return (
