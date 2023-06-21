@@ -7,16 +7,18 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useGetPedidosTabela } from "graphQL/pedidos/hooks";
+import { dateFormatter } from "common/function/formatadorDataPT-BR";
 
 interface PedidosTabela {
   cliente: string,
   colaborador: string,
   total: number,
   id: string
+  date: string
 }
 
 interface Column {
-  id: 'cliente' | 'colaborador' | 'total' | 'id';
+  id: 'cliente' | 'colaborador' | 'total' | 'id' | 'date' ;
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -36,7 +38,12 @@ const columns: readonly Column[] = [
   },
   {
     id: 'total',
-    label: 'Total',
+    label: 'Total R$',
+    minWidth: 200,
+  },
+  {
+    id: 'date',
+    label: 'Data do Pedido',
     minWidth: 200,
   },
   {
@@ -72,6 +79,7 @@ export default function TabelaPedidos() {
     if (data) {
       setRows(data)
     }
+    // console.log(dateFormatter(data[0].date))
   }, [loading])
 
   const handleChangePage = (event: unknown, newPage: number) => {

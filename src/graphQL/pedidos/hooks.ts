@@ -5,6 +5,8 @@ import { Pedido } from "interface/Pedido";
 import { Cliente } from "interface/Cliente";
 import { Usuario } from "interface/Usuario";
 import { PedidoCSV } from "interface/PedidoCSV";
+import { dateFormatter } from "common/function/formatadorDataPT-BR";
+import { formatadorMonetario } from "common/function/formatadorMonetario";
 
 export const useCriarPedido = () => {
   const [criarPedido, { data, loading, error }] = useMutation(CRIAR_PEDIDO);
@@ -45,8 +47,9 @@ export const useGetPedidosTabela = () => {
     return { 
       cliente: pedido.cliente.nome,
       colaborador: pedido.usuario.nome,
-      total: pedido.pedido.total,
-      id: pedido.pedido._id
+      total: formatadorMonetario.format(pedido.pedido.total),
+      id: pedido.pedido._id,
+      date: dateFormatter(pedido.pedido.date),
     }
   })
   

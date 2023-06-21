@@ -162,6 +162,7 @@ query GetPedidos {
       nome
     }
     pedido {
+      date
       total
       _id
     }

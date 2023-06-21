@@ -69,7 +69,6 @@ export default function PedidoDetalhado() {
     if (dataCSV) {
       setCsvData(pedidos2csv(dataCSV))
     }
-
   }, [loadingCSV])
 
 
@@ -169,7 +168,7 @@ export default function PedidoDetalhado() {
                       <IonCol size="1">{item.unidade}</IonCol>
                       <IonCol size="1">{item.quantidade}</IonCol>
                       <IonCol size="2">{formatadorMonetario.format(item.preco)}</IonCol>
-                      <IonCol size="2">{formatadorMonetario.format(item.preco)}</IonCol>
+                      <IonCol size="2">{formatadorMonetario.format(item.preco * item.quantidade)}</IonCol>
                     </IonRow>
                   )
                 })}
@@ -177,9 +176,14 @@ export default function PedidoDetalhado() {
             </Div>
 
             <Div>
-              <IonRow>
-                <IonCol offsetXl="10" offsetSm="0"><P><Strong>Total: </Strong>{valorTotalDoPedido}</P></IonCol>
-              </IonRow>
+              <IonGrid>
+                <IonCol>
+                  <IonRow>
+                    <IonCol><P><Strong>ID: </Strong>{data?.pedido?._id}</P></IonCol>
+                    <IonCol><P><Strong>Total: </Strong>{valorTotalDoPedido}</P></IonCol>
+                  </IonRow>
+                </IonCol>
+              </IonGrid>
             </Div>
 
           </Section>
