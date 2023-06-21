@@ -11,7 +11,13 @@ const Section = styled.section`
   margin-top: 5rem;
   display:  flex;
   justify-content: center;
+`
 
+const CardS = styled(IonCard)`
+  width: 50%;
+  @media screen and (max-width: 650px) {
+    width: 100%;
+  }
 `
 
 export default function EditarFuncionario() {
@@ -77,7 +83,6 @@ export default function EditarFuncionario() {
         })
       }
     })
-
   }
 
   return (
@@ -86,7 +91,7 @@ export default function EditarFuncionario() {
 
       <IonContent>
         <Section >
-          <IonCard style={{ width: "50%" }}>
+          <CardS>
             <IonCardContent>
               <form onSubmit={(ev) => { handleSubmit(ev) }} >
                 <InputField label="Nome" placeholder="Nome" position="stacked" state={nome} setState={setNome} />
@@ -96,12 +101,12 @@ export default function EditarFuncionario() {
                 <InputField label="Telefone" placeholder="Telefone" position="stacked" state={telefone} setState={setTelefone} />
 
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                  <IonButton type="reset" color="warning" size="default">Limpar</IonButton>
-                  <IonButton type="submit" color="primary" size="default" slot="end">Atualizar</IonButton>
+                  <IonButton type="reset" color="warning" size="small">Limpar</IonButton>
+                  <IonButton type="submit" color="primary" size="small" slot="end">Atualizar</IonButton>
                 </IonItem>
               </form>
             </IonCardContent>
-          </IonCard>
+          </CardS>
         </Section>
 
         <IonLoading

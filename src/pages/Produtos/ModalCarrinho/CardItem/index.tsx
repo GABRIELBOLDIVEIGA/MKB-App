@@ -39,7 +39,7 @@ export default function CardItem({ produto }: IProps) {
             <IonLabel position='stacked'>Quantidade: </IonLabel>
             <IonInput
               type='number'
-              min={0}
+              min={1}
               value={produto.quantidade}
               onIonChange={(ev) => {
                 editarQuantidade(produto.cod_prod, +ev.target.value!)

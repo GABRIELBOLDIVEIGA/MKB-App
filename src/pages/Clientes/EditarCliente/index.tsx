@@ -210,8 +210,8 @@ export default function EditarCliente() {
                 <IonRow>
                   <IonCol>
                     <IonItem>
-                      <IonButton type="reset" color="danger" size="default">Apagar</IonButton>
-                      <IonButton type="submit" color="primary" size="default" slot="end" >Cadastrar</IonButton>
+                      <IonButton type="reset" color="warning" size="small">Apagar</IonButton>
+                      <IonButton type="submit" color="primary" size="small" slot="end" >Cadastrar</IonButton>
                     </IonItem>
                   </IonCol>
                 </IonRow>

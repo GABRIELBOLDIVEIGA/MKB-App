@@ -38,7 +38,10 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
         buttons: ["OK"],
       })
     } else {
-      const carrinhoFormatado = carrinho.map(produto => {
+
+      const carrinhoFiltrado = carrinho.filter((prod) => prod.quantidade != 0)
+
+      const carrinhoFormatado = carrinhoFiltrado.map(produto => {
         delete produto._id
         delete produto.__typename
         return produto
