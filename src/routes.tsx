@@ -43,7 +43,7 @@ import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
 import Avatarconfig from "pages/Config/Avatar";
-import Error from "Error";
+import ErrorGlitch from "Error";
 
 setupIonicReact();
 

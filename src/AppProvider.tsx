@@ -5,27 +5,22 @@ import Routes from "routes";
 import { ErrorBoundary } from "react-error-boundary";
 import { ClientesProvider } from "context/ClientesContext";
 import { ProdutosProvider } from "context/ProdutosContext";
-import Error from "Error";
+import FallbackError from "Error/FallbackError";
 
 export default function AppProvider() {
   return (
-    <ErrorBoundary fallback={<Error />}>
+
+    <ErrorBoundary FallbackComponent={FallbackError}>
       <ApolloClient>
-        <ErrorBoundary fallback={<Error />}>
-          <UsuarioProvider>
-            <ErrorBoundary fallback={<Error />}>
-              <CarrinhoProvider>
-                <ErrorBoundary fallback={<Error />}>
-                  <ClientesProvider>
-                    <ProdutosProvider>
-                      <Routes />
-                    </ProdutosProvider>
-                  </ClientesProvider>
-                </ErrorBoundary>
-              </CarrinhoProvider>
-            </ErrorBoundary>
-          </UsuarioProvider>
-        </ErrorBoundary>
+        <UsuarioProvider>
+          <CarrinhoProvider>
+            <ClientesProvider>
+              <ProdutosProvider>
+                <Routes />
+              </ProdutosProvider>
+            </ClientesProvider>
+          </CarrinhoProvider>
+        </UsuarioProvider>
       </ApolloClient>
     </ErrorBoundary>
   );

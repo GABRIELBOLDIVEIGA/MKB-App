@@ -13,7 +13,12 @@ const Container = styled.div`
   text-align: center;
 `
 
-export default function Error() {
+export type ErrorFallbackProps = {
+  error: Error;
+  resetErrorBoundary?: () => void;
+}
+
+export default function ErrorGlitch({ error, resetErrorBoundary}: ErrorFallbackProps) {
   return (
     <div>
       <div className="container">
