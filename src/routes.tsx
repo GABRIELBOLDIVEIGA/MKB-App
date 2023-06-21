@@ -42,7 +42,8 @@ import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
-import { ErrorBoundary } from "react-error-boundary";
+import Avatarconfig from "pages/Config/Avatar";
+import Error from "Error";
 
 setupIonicReact();
 
@@ -95,6 +96,8 @@ export default function Routes() {
               }
               <Route path="/config" exact={true} component={Config}></Route>
               <Route path="/alterarSenha" exact={true} component={AlterarSenha}></Route>
+              <Route path="/avatar" exact={true} component={Avatarconfig}></Route>
+              
             </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>
