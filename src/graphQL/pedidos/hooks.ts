@@ -39,7 +39,7 @@ export const useGetAllPedidos = () => {
 }
 
 export const useGetPedidosTabela = () => {
-  const { data, loading, error } = useQuery(PEDIDOS_TABELA)
+  const { data, loading, error, refetch } = useQuery(PEDIDOS_TABELA)
 
   const pedidoTabela = data?.getPedidos?.map((pedido: any) => {
     return { 
@@ -50,7 +50,7 @@ export const useGetPedidosTabela = () => {
     }
   })
   
-  return { data: pedidoTabela, loading, error }
+  return { data: pedidoTabela, loading, error, refetch }
 }
 
 interface IPedido {

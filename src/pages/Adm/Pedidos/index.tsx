@@ -49,9 +49,7 @@ export default function PedidosADM() {
       </Cabecalho>
 
       <IonContent>
-
         <TabelaPedidos />
-
       </IonContent>
     </IonPage>
   )
