@@ -111,9 +111,7 @@ export default function Routes() {
             <Route path="/">
               <Redirect to="/login" />
               <Route path="/login" exact={true} component={Login} />
-              {/* <Route path="/login" exact={true} component={Zod} /> */}
               <Route path="/esqueciSenha" exact={true} component={EsqueciSenha} />
-
             </Route>
           </IonReactRouter>
         </Suspense>

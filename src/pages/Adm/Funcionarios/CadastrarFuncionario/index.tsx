@@ -1,13 +1,11 @@
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
-import InputField from "components/InputField";
 import { useCriarFuncionario } from "graphQL/usuario/hook";
 import { useState } from "react";
 import CardFuncionario from "../CardFuncionario";
 import { closeOutline } from 'ionicons/icons'
 import { useHistory } from "react-router";
 import styled from "styled-components";
-
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +17,10 @@ const cadastroFuncionarioFormSchema = z.object({
   nome: z.string()
     .nonempty('Nome não pode ser vazio!')
     .min(3, 'Nome deve ter no mínimo 3 caracteres!')
+    .refine(
+      (nome) => (nome.replace(/[^a-z]/gi, "").length > 3),
+      ({ message: 'Caracteres especiais e numeros serão ignorados.' })
+    )
     .transform((nome) => {
       return nome.toLowerCase().replace(/[^a-z]/gi, "")
     }),
@@ -26,23 +28,29 @@ const cadastroFuncionarioFormSchema = z.object({
     .nonempty('Email não pode ser vazio!')
     .email('Não é um formato de email valido!'),
   cpf: z.string()
-    .min(11, '')
-    .max(11, '')
-    .transform((cpf) => { 
+    .min(11, 'CPF deve ter no mínimo 11 caracteres!')
+    .max(11, 'CPF deve ter no máximo 11 caracteres!')
+    .refine(
+      (cpf) => (cpf.replace(/[^0-9]/gi, "").length === 11),
+      ({ message: 'CPF deve ter apenas numeros!' })
+    )
+    .transform((cpf) => {
       return cpf.replace(/[^0-9]/gi, "")
-    })
-    // .lte(11, 'CPF deve ter no máximo 11 números!'),
-  // senha: z.string()
-  //   .nonempty('Senha não pode ser vazia!')
-  //   .min(11, 'Senha deve ter no mínimo 6 caracteres!')
-  //   .max(30, 'Senha deve ter no máximo 30 caracteres!'),
-  // confirmarSenha: z.string()
-  //   .nonempty('Senha não pode ser vazia!')
-  //   .min(11, 'Senha deve ter no mínimo 6 caracteres!')
-  //   .max(30, 'Senha deve ter no máximo 30 caracteres!'),
-  // ddd: z.number().positive('O número deve ser positivo'),
-  // celular: z.number().positive('O número deve ser positivo'),
-  // telefone: z.number().positive('O número deve ser positivo'),
+    }),
+  senha: z.string()
+    .nonempty('Senha não pode ser vazia!')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres!')
+    .max(30, 'Senha deve ter no máximo 30 caracteres!'),
+  confirmarSenha: z.string()
+    .nonempty('Senha não pode ser vazia!')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres!')
+    .max(30, 'Senha deve ter no máximo 30 caracteres!'),
+  ddd: z.string()
+    .max(2, 'DDD deve ter no máximo 2 numeros.'),
+  celular: z.string()
+    .max(9, 'Celular deve ter no máximo 9 numeros.'),
+  telefone: z.string()
+    .max(8, 'Telefone deve ter no máximo 9 numeros.'),
 })
 
 const ContainerCard = styled.section`
@@ -65,76 +73,54 @@ const CardS = styled(IonCard)`
   }
 `
 
-
 export default function CadastrarFuncionario() {
-  // const [nome, setNome] = useState<string | undefined>("");
-  // const [email, setEmail] = useState<string | undefined>("");
-  // const [senha, setSenha] = useState<string | undefined>("");
-  // const [confirmarSenha, setConfirmarSenha] = useState<string | undefined>("");
-  // const [cpf, setCpf] = useState<string | undefined>("");
-  // const [celular, setCelular] = useState<string | undefined>("");
-  // const [telefone, setTelefone] = useState<string | undefined>("");
-
-  const { createUsuario, data, error, loading } = useCriarFuncionario();
+  const { createUsuario, data, loading } = useCriarFuncionario();
   const [isOpen, setIsOpen] = useState(true);
   const [presentAlert] = useIonAlert();
-  const [showLoading, setShowLoading] = useState(false);
   const history = useHistory();
+  const {
+    handleSubmit,
+    formState: {
+      errors
+    },
+    register
+  } = useForm<FuncionarioFormSchema>({
+    resolver: zodResolver(cadastroFuncionarioFormSchema)
+  })
 
+  const handleSubmitSchema = (data: FuncionarioFormSchema) => {
 
-  const { handleSubmit, formState: { errors }, register } = useForm<FuncionarioFormSchema>({ resolver: zodResolver(cadastroFuncionarioFormSchema) })
+    const funcionario = {
+      nome: data.nome,
+      email: data.email,
+      senha: data.senha,
+      celular: data.celular,
+      telefone: data.telefone,
+      cpf: data.cpf,
+      privilegio: 1
+    }
 
-
-  console.log('[Error] - ', errors)
-
-  const cadastro = (data: FuncionarioFormSchema) => {
-    console.log('[Funcionario] - ', data)
+    if (data.senha === data.confirmarSenha) {
+      createUsuario({
+        variables: { usuarioInput: { ...funcionario } },
+        onCompleted: () => {
+          setIsOpen(true);
+        },
+        onError: (error) => {
+          presentAlert({
+            header: 'Atenção',
+            subHeader: "Email ou CPF duplicados",
+            message: `${error.message}`,
+            buttons: ['OK'],
+          })
+        }
+      })
+    } else {
+      alert("senhas diferentes!")
+    }
   }
 
-  // const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-  //   ev.preventDefault();
-  //   const funcionario = {
-  //     nome,
-  //     email,
-  //     senha,
-  //     celular,
-  //     telefone,
-  //     cpf,
-  //     privilegio: 1
-  //   }
-
-  //   if (senha === confirmarSenha) {
-  //     setShowLoading(true);
-  //     createUsuario({
-  //       variables: { usuarioInput: { ...funcionario } },
-  //       onCompleted: (data) => {
-  //         setShowLoading(false);
-  //         setIsOpen(true);
-  //       },
-  //       onError: (error) => {
-  //         setShowLoading(false);
-  //         presentAlert({
-  //           header: 'Atenção',
-  //           subHeader: "Email ou CPF duplicados",
-  //           message: `${error.message}`,
-  //           buttons: ['OK'],
-  //         })
-  //       }
-  //     })
-  //   } else {
-  //     alert("senhas diferentes!")
-  //   }
-  // }
-
   const handleModalClose = () => {
-    // setIsOpen(false);
-    // setNome("");
-    // setEmail("");
-    // setSenha("");
-    // setConfirmarSenha("");
-    // setCpf("");
-    // setCelular("");
-    // setTelefone("");
     history.push('/funcionarios');
   }
 
@@ -151,22 +137,7 @@ export default function CadastrarFuncionario() {
               <IonCardTitle style={{ textAlign: 'center' }}>Dados do Funcionário</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              {/* <form onSubmit={ev => handleSubmit(ev)}>
-                <InputField label="Nome" placeholder="Nome" position="stacked" required state={nome} setState={setNome} />
-                <InputField label="CPF" placeholder="CPF" position="stacked" required state={cpf} setState={setCpf} />
-                <InputField label="E-mail" placeholder="E-mail" position="stacked" required state={email} setState={setEmail} />
-                <InputField label="Celular" placeholder="Celular" position="stacked" state={celular} setState={setCelular} />
-                <InputField label="telefone" placeholder="Telefone" position="stacked" state={telefone} setState={setTelefone} />
-                <InputField type="password" label="Senha" placeholder="Senha" position="stacked" required state={senha} setState={setSenha} />
-                <InputField type="password" label="Confirmar Senha" placeholder="Confirmar Senha" position="stacked" required state={confirmarSenha} setState={setConfirmarSenha} />
-
-                <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                  <IonButton color="warning" size="default" type="reset">Limpar</IonButton>
-                  <IonButton slot="end" size="default" type="submit">Confirmar</IonButton>
-                </IonItem>
-              </form> */}
-
-              <form onSubmit={handleSubmit(cadastro)}>
+              <form onSubmit={handleSubmit(handleSubmitSchema)}>
                 <Input
                   type="text"
                   placeholder="Digite o nome aqui"
@@ -189,7 +160,41 @@ export default function CadastrarFuncionario() {
                   {...register('cpf')}
                   hasError={errors.cpf?.message}
                 />
-
+                <Input
+                  type="password"
+                  placeholder="Digite a Senha aqui"
+                  label="Senha"
+                  {...register('senha')}
+                  hasError={errors.senha?.message}
+                />
+                <Input
+                  type="password"
+                  placeholder="Digite a Confirmar Senha aqui"
+                  label="Confirmar Senha"
+                  {...register('confirmarSenha')}
+                  hasError={errors.confirmarSenha?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o DDD aqui"
+                  label="DDD"
+                  {...register('ddd')}
+                  hasError={errors.ddd?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o Celular aqui"
+                  label="Celular"
+                  {...register('celular')}
+                  hasError={errors.celular?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o telefone aqui"
+                  label="Telefone"
+                  {...register('telefone')}
+                  hasError={errors.telefone?.message}
+                />
 
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
                   <IonButton color="warning" size="default" type="reset">Limpar</IonButton>
@@ -217,7 +222,7 @@ export default function CadastrarFuncionario() {
           }
 
           <IonLoading
-            isOpen={showLoading}
+            isOpen={loading}
             message={'Verificando...'}
           />
 
