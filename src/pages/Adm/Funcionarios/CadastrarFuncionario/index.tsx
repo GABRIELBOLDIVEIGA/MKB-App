@@ -94,8 +94,8 @@ export default function CadastrarFuncionario() {
       nome: data.nome,
       email: data.email,
       senha: data.senha,
-      celular: data.celular,
-      telefone: data.telefone,
+      celular: `(${data.ddd}) ${data.celular}`,
+      telefone: `(${data.ddd}) ${data.telefone}` ,
       cpf: data.cpf,
       privilegio: 1
     }
@@ -197,8 +197,8 @@ export default function CadastrarFuncionario() {
                 />
 
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                  <IonButton color="warning" size="default" type="reset">Limpar</IonButton>
-                  <IonButton slot="end" size="default" type="submit">Confirmar</IonButton>
+                  <IonButton color="warning" size="small" type="reset">Limpar</IonButton>
+                  <IonButton slot="end" size="small" type="submit">Confirmar</IonButton>
                 </IonItem>
               </form>
 
