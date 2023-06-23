@@ -43,7 +43,7 @@ import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
 import Avatarconfig from "pages/Config/Avatar";
-import ErrorGlitch from "Error";
+import Zod from './pages/TesteForm/index';
 
 setupIonicReact();
 
@@ -111,6 +111,7 @@ export default function Routes() {
             <Route path="/">
               <Redirect to="/login" />
               <Route path="/login" exact={true} component={Login} />
+              {/* <Route path="/login" exact={true} component={Zod} /> */}
               <Route path="/esqueciSenha" exact={true} component={EsqueciSenha} />
 
             </Route>

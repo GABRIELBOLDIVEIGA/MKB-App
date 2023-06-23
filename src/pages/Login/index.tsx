@@ -7,6 +7,22 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "assets/logo5.png";
 
+import { Input } from "components/Input";
+import { useForm } from "react-hook-form"
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod"
+
+type CreateUserFormData = z.infer<typeof createUserFormSchema>
+const createUserFormSchema = z.object({
+  email: z.string()
+    .nonempty('O e-mail é obrigatório!')
+    .email('Formato de e-mail invalido!'),
+  senha: z.string()
+    .nonempty('Senha não pode ser vazia!')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres!')
+    .max(30, 'Senha deve ter no máximo 30 caracteres!')
+})
+
 const Section = styled.section`
   padding-top: 6rem;
 `
@@ -14,18 +30,18 @@ const ContainerImg = styled.div`
   display: grid;
   place-items: center;
 `
-
 const Img = styled.img`
 width: 50%;
 `
 
 const Login: React.FC = () => {
   const { efetuaLogin, data, loading } = useLogin();
-  const [email, setEmail] = useState<string | undefined>("");
-  const [senha, setSenha] = useState<string | undefined>("");
   const [presentAlert] = useIonAlert();
   const [showLoading, setShowLoading] = useState(false);
   const { saveUser } = useUserContext();
+  const { register, handleSubmit, formState: { errors }, } = useForm<CreateUserFormData>({
+    resolver: zodResolver(createUserFormSchema),
+  });
 
   useEffect(() => {
     saveUser(data);
@@ -35,14 +51,12 @@ const Login: React.FC = () => {
     setShowLoading(loading)
   }, [loading])
 
-
-  function handleLogin(ev: React.FormEvent<HTMLFormElement>) {
-    ev.preventDefault();
+  const handleLogin = (data: CreateUserFormData) => {
     efetuaLogin({
       variables: {
         loginInput: {
-          email: email,
-          senha: senha
+          email: data.email,
+          senha: data.senha
         },
       },
       onCompleted(data) {
@@ -65,7 +79,6 @@ const Login: React.FC = () => {
     <IonPage >
       <IonContent>
         <Section>
-
           <IonGrid>
             <IonRow>
               <IonCol sizeLg="6" sizeXl="4" offsetLg="3" offsetXl="4">
@@ -76,23 +89,20 @@ const Login: React.FC = () => {
                     </ContainerImg>
                   </IonCardHeader>
                   <IonCardContent>
-                    <form onSubmit={(ev) => handleLogin(ev)}>
-                      <InputField
-                        required
-                        state={email}
-                        setState={setEmail}
+                    <form onSubmit={handleSubmit(handleLogin)}>
+                      <Input
                         label="E-mail"
-                        position="stacked"
-                        placeholder="Email@gmail.com"
+                        placeholder="Digite seu email"
+                        type="email"
+                        {...register('email')}
+                        hasError={errors.email?.message}
                       />
-                      <InputField
-                        required
-                        type="password"
-                        state={senha}
-                        setState={setSenha}
+                      <Input
                         label="Senha"
-                        position="stacked"
-                        placeholder="Senha"
+                        placeholder="Digite sua Senha"
+                        type="password"
+                        {...register('senha')}
+                        hasError={errors.senha?.message}
                       />
                       <IonItem lines="none" style={{ marginTop: "10px" }}>
                         <IonButton style={{ width: "100%" }} size="default" type="submit" >
