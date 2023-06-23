@@ -15,43 +15,45 @@ type FuncionarioFormSchema = z.infer<typeof cadastroFuncionarioFormSchema>
 
 const cadastroFuncionarioFormSchema = z.object({
   nome: z.string()
-    .nonempty('Nome não pode ser vazio!')
-    .min(3, 'Nome deve ter no mínimo 3 caracteres!')
-    .refine(
-      (nome) => (nome.replace(/[^a-z]/gi, "").length > 3),
-      ({ message: 'Caracteres especiais e numeros serão ignorados.' })
-    )
+    .nonempty('Nome não pode ser vazio.')
+    .min(3, 'Nome deve ter no mínimo 3 caracteres.')
+    .regex(/^[A-Za-z]+$/i, "Apenas letras são permitidas.")
+    // .refine(
+    //   (nome) => (nome.replace(/[^a-z]/gi, "").length > 3),
+    //   ({ message: 'Caracteres especiais e números serão ignorados.' })
+    // )
     .transform((nome) => {
       return nome.toLowerCase().replace(/[^a-z]/gi, "")
     }),
   email: z.string()
-    .nonempty('Email não pode ser vazio!')
-    .email('Não é um formato de email valido!'),
+    .nonempty('Email não pode ser vazio.')
+    .email('Não é um formato de email valido.'),
   cpf: z.string()
-    .min(11, 'CPF deve ter no mínimo 11 caracteres!')
-    .max(11, 'CPF deve ter no máximo 11 caracteres!')
-    .refine(
-      (cpf) => (cpf.replace(/[^0-9]/gi, "").length === 11),
-      ({ message: 'CPF deve ter apenas numeros!' })
-    )
-    .transform((cpf) => {
-      return cpf.replace(/[^0-9]/gi, "")
-    }),
+    .min(11, 'CPF deve ter no mínimo 11 caracteres.')
+    .max(11, 'CPF deve ter no máximo 11 caracteres.')
+    .regex(/^[0-9]+$/i, "Apenas números são permitidos."),
   senha: z.string()
-    .nonempty('Senha não pode ser vazia!')
-    .min(6, 'Senha deve ter no mínimo 6 caracteres!')
-    .max(30, 'Senha deve ter no máximo 30 caracteres!'),
+    .nonempty('Senha não pode ser vazia.')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres.')
+    .max(30, 'Senha deve ter no máximo 30 caracteres.'),
   confirmarSenha: z.string()
-    .nonempty('Senha não pode ser vazia!')
-    .min(6, 'Senha deve ter no mínimo 6 caracteres!')
-    .max(30, 'Senha deve ter no máximo 30 caracteres!'),
+    .nonempty('Senha não pode ser vazia.')
+    .min(6, 'Senha deve ter no mínimo 6 caracteres.')
+    .max(30, 'Senha deve ter no máximo 30 caracteres.'),
   ddd: z.string()
-    .max(2, 'DDD deve ter no máximo 2 numeros.'),
+    .max(2, 'DDD deve ter no máximo 2 números.')
+    .optional(),
   celular: z.string()
-    .max(9, 'Celular deve ter no máximo 9 numeros.'),
+    .max(9, 'Celular deve ter no máximo 9 números.')
+    .optional(),
   telefone: z.string()
-    .max(8, 'Telefone deve ter no máximo 9 numeros.'),
+    .max(8, 'Telefone deve ter no máximo 8 números.')
+    .optional(),
 })
+  .refine(({ senha, confirmarSenha }) => senha === confirmarSenha, {
+    message: "As Senhas devem ser iguais.",
+    path: ["confirmarSenha"]
+  })
 
 const ContainerCard = styled.section`
   display: grid;
@@ -94,30 +96,27 @@ export default function CadastrarFuncionario() {
       nome: data.nome,
       email: data.email,
       senha: data.senha,
-      celular: `(${data.ddd}) ${data.celular}`,
-      telefone: `(${data.ddd}) ${data.telefone}` ,
+      ddd: data.ddd,
+      celular: data.celular,
+      telefone: data.telefone,
       cpf: data.cpf,
       privilegio: 1
     }
 
-    if (data.senha === data.confirmarSenha) {
-      createUsuario({
-        variables: { usuarioInput: { ...funcionario } },
-        onCompleted: () => {
-          setIsOpen(true);
-        },
-        onError: (error) => {
-          presentAlert({
-            header: 'Atenção',
-            subHeader: "Email ou CPF duplicados",
-            message: `${error.message}`,
-            buttons: ['OK'],
-          })
-        }
-      })
-    } else {
-      alert("senhas diferentes!")
-    }
+    createUsuario({
+      variables: { usuarioInput: { ...funcionario } },
+      onCompleted: () => {
+        setIsOpen(true);
+      },
+      onError: (error) => {
+        presentAlert({
+          header: 'Atenção',
+          subHeader: "Email ou CPF duplicados",
+          message: `${error.message}`,
+          buttons: ['OK'],
+        })
+      }
+    })
   }
 
   const handleModalClose = () => {

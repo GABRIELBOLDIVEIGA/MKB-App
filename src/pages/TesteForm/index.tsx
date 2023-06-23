@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>
+
 const createUserFormSchema = z.object({
   nome: z.string()
     .nonempty('O nome é obrigatório!')
@@ -45,7 +46,6 @@ export default function Zod() {
         {...register('nome')}
         hasError={errors.nome?.message}
       />
-
       <Input
         label="E-mail"
         placeholder="Digite seu email"
@@ -53,7 +53,6 @@ export default function Zod() {
         {...register('email')}
         hasError={errors.email?.message}
       />
-
       <Input
         label="CPF"
         placeholder="Digite seu CPF"
