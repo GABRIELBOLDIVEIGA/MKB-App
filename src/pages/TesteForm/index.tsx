@@ -1,4 +1,4 @@
-import { IonButton, IonInput, IonItem, IonLabel } from "@ionic/react";
+import { IonButton } from "@ionic/react";
 import { Input } from "components/Input";
 import { useForm } from "react-hook-form"
 import { z } from "zod";

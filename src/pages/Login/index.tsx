@@ -12,8 +12,8 @@ import { useForm } from "react-hook-form"
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 
-type CreateUserFormData = z.infer<typeof createUserFormSchema>
-const createUserFormSchema = z.object({
+type LoginFormData = z.infer<typeof loginFormSchema>
+const loginFormSchema = z.object({
   email: z.string()
     .nonempty('O e-mail é obrigatório!')
     .email('Formato de e-mail invalido!'),
@@ -39,8 +39,8 @@ const Login: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const [showLoading, setShowLoading] = useState(false);
   const { saveUser } = useUserContext();
-  const { register, handleSubmit, formState: { errors }, } = useForm<CreateUserFormData>({
-    resolver: zodResolver(createUserFormSchema),
+  const { register, handleSubmit, formState: { errors }, } = useForm<LoginFormData>({
+    resolver: zodResolver(loginFormSchema),
   });
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
     setShowLoading(loading)
   }, [loading])
 
-  const handleLogin = (data: CreateUserFormData) => {
+  const handleLogin = (data: LoginFormData) => {
     efetuaLogin({
       variables: {
         loginInput: {
