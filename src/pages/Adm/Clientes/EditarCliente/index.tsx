@@ -1,16 +1,16 @@
-import { IonPage, IonContent, IonCardContent, IonItem, IonButton, IonLoading, IonTitle, IonCardHeader, IonCardTitle } from "@ionic/react";
+import { IonButton, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonItem, IonLoading, IonPage, IonTitle } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { Input } from "components/Input";
 import * as S from "components/ClienteForm/styles";
-import { useCadastrarCliente } from "./useCadastrarCliente";
+import { useEditarCliente } from "./useEditarCliente";
 
-export default function CadastrarCliente() {
-  const { errors, register, handleSubmit, reset, handleFormSubmit, loading } = useCadastrarCliente();
+export default function EditarCliente() {
+  const { errors, handleFormSubmit, handleSubmit, loadingGetCliente, loaddingUpdateCliente, register, reset } = useEditarCliente();
 
   return (
     <IonPage>
       <Cabecalho>
-        <IonTitle>Cadastrar Cliente</IonTitle>
+        <IonTitle>Editar Cliente</IonTitle>
       </Cabecalho>
 
       <IonContent>
@@ -157,11 +157,16 @@ export default function CadastrarCliente() {
         </S.Container>
 
         <IonLoading
-          isOpen={loading}
-          message={'Cadastrando...'}
+          isOpen={loadingGetCliente}
+          message={'Buscando dados do cliente...'}
+        />
+        <IonLoading
+          isOpen={loaddingUpdateCliente}
+          message={'Cadastrando dados do cliente...'}
         />
 
       </IonContent>
     </IonPage>
   );
 }
+

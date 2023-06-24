@@ -7,10 +7,11 @@ mutation CreateCliente($clienteInput: ClienteInput) {
 `
 
 export const UPDATE_CLIENTE = gql`
-mutation UpdateCliente($id: ID!, $clienteInput: ClienteInput) {
-  updateCliente(ID: $id, clienteInput: $clienteInput) {
-    cod
+mutation UpdateCliente($id: ID!, $clienteUpdateInput: ClienteUpdateInput) {
+  updateCliente(ID: $id, clienteUpdateInput: $clienteUpdateInput) {
     nome
+    _id
+    cod
     cnpj
     endereco
     bairro
@@ -25,7 +26,6 @@ mutation UpdateCliente($id: ID!, $clienteInput: ClienteInput) {
     fax
     fantasia
     numero
-    _id
   }
 }
 `

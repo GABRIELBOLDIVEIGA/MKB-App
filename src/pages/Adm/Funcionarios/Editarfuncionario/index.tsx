@@ -1,69 +1,32 @@
-import { IonButton, IonCard, IonCardContent, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
+import { IonButton, IonCardContent, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
-import InputField from "components/InputField";
-import { useGetUsuarioById, useUpdateUsuario } from "graphQL/usuario/hook";
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import styled from "styled-components";
-import { Usuario } from 'interface/Usuario';
-
-const Section = styled.section`
-  margin-top: 5rem;
-  display:  flex;
-  justify-content: center;
-`
-
-const CardS = styled(IonCard)`
-  width: 50%;
-  @media screen and (max-width: 650px) {
-    width: 100%;
-  }
-`
+import { useUpdateUsuario } from "graphQL/usuario/hook";
+import { useHistory } from "react-router-dom";
+import { Input } from "components/Input";
+import { UsuarioForm } from './types';
+import { useFuncionario } from "./useFuncionario";
+import * as S from "./styles";
 
 export default function EditarFuncionario() {
-  const params = useParams<{ id: string }>();
-  const { data, error, loading, refetch } = useGetUsuarioById(params.id);
-  const { updateUsuario, data: updateData, error: updateError, loading: updateLoading } = useUpdateUsuario();
+  const { handleSubmit, errors, register, loading, user, reset } = useFuncionario();
+  const { updateUsuario, loading: updateLoading } = useUpdateUsuario();
   const [presentAlert] = useIonAlert();
-  const [showLoading, setShowLoading] = useState(false);
   const history = useHistory();
 
-  const [nome, setNome] = useState<string | undefined>();
-  const [email, setEmail] = useState<string | undefined>();
-  const [cpf, setCpf] = useState<string | undefined>();
-  const [telefone, setTelefone] = useState<string | undefined>();
-  const [celular, setCelular] = useState<string | undefined>();
-
-  useEffect(() => {
-    refetch()
-
-    if (data) {
-      setNome(data.nome);
-      setEmail(data.email);
-      setCpf(data.cpf);
-      setTelefone(data.telefone);
-      setCelular(data.celular);
-    }
-  }, [loading])
-
-  const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
-    ev.preventDefault();
-
-    setShowLoading(true);
+  const atualizarFuncionario = (data: UsuarioForm) => {
     updateUsuario({
       variables: {
         usuarioUpdateInput: {
-          nome,
-          cpf,
-          email,
-          telefone,
-          celular,
-          privilegio: data?.privilegio ? data.privilegio : 1
+          nome: data.usuario.nome,
+          cpf: data.usuario.cpf,
+          email: data.usuario.email,
+          telefone: data.usuario.telefone,
+          celular: data.usuario.celular,
+          privilegio: user?.privilegio
         },
-        id: data?._id
+        id: user?._id
       },
       onCompleted: () => {
-        setShowLoading(false);
         presentAlert({
           header: 'Sucesso',
           subHeader: "Dados alterados com sucesso",
@@ -73,8 +36,7 @@ export default function EditarFuncionario() {
           }
         })
       },
-      onError: (errorUpdate) => {
-        setShowLoading(false);
+      onError: () => {
         presentAlert({
           header: 'Atenção',
           subHeader: "Email ou CPF duplicados",
@@ -87,31 +49,74 @@ export default function EditarFuncionario() {
 
   return (
     <IonPage>
-      <Cabecalho><IonTitle>Editar funcionario</IonTitle></Cabecalho>
-
+      <Cabecalho>
+        <IonTitle>Editar funcionario</IonTitle>
+      </Cabecalho>
       <IonContent>
-        <Section >
-          <CardS>
+        <S.Section >
+          <S.Card>
             <IonCardContent>
-              <form onSubmit={(ev) => { handleSubmit(ev) }} >
-                <InputField label="Nome" placeholder="Nome" position="stacked" state={nome} setState={setNome} />
-                <InputField label="E-mail" placeholder="E-mail" position="stacked" type="email" state={email} setState={setEmail} />
-                <InputField label="CPF" placeholder="CPF" position="stacked" state={cpf} setState={setCpf} />
-                <InputField label="Celular" placeholder="Celular" position="stacked" state={celular} setState={setCelular} />
-                <InputField label="Telefone" placeholder="Telefone" position="stacked" state={telefone} setState={setTelefone} />
+              <form onSubmit={handleSubmit(atualizarFuncionario)}>
+                <Input
+                  type="text"
+                  placeholder="Digite o nome aqui"
+                  label="Nome"
+                  {...register('usuario.nome')}
+                  hasError={errors.usuario?.nome?.message}
+                />
+                <Input
+                  type="email"
+                  placeholder="Digite o email aqui"
+                  label="E-mail"
+                  {...register('usuario.email')}
+                  hasError={errors.usuario?.email?.message}
+                />
+                <Input
+                  type="number"
+                  min={0}
+                  placeholder="Digite o CPF aqui"
+                  label="CPF"
+                  {...register('usuario.cpf')}
+                  hasError={errors.usuario?.cpf?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o DDD aqui"
+                  label="DDD"
+                  {...register('usuario.ddd')}
+                  hasError={errors.usuario?.ddd?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o Celular aqui"
+                  label="Celular"
+                  {...register('usuario.celular')}
+                  hasError={errors.usuario?.celular?.message}
+                />
+                <Input
+                  type="number"
+                  placeholder="Digite o telefone aqui"
+                  label="Telefone"
+                  {...register('usuario.telefone')}
+                  hasError={errors.usuario?.telefone?.message}
+                />
 
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                  <IonButton type="reset" color="warning" size="small">Limpar</IonButton>
-                  <IonButton type="submit" color="primary" size="small" slot="end">Atualizar</IonButton>
+                  <IonButton color="warning" size="small" onClick={() => reset()}>Limpar</IonButton>
+                  <IonButton slot="end" size="small" type="submit">Confirmar</IonButton>
                 </IonItem>
               </form>
             </IonCardContent>
-          </CardS>
-        </Section>
+          </S.Card>
+        </S.Section>
 
         <IonLoading
-          isOpen={showLoading}
-          message={'Verificando...'}
+          isOpen={updateLoading}
+          message={'Atualizando Dados...'}
+        />
+        <IonLoading
+          isOpen={loading}
+          message={'Buscando Dados...'}
         />
 
       </IonContent>

@@ -20,6 +20,7 @@ mutation CreateUsuario($usuarioInput: UsuarioInput) {
     cpf
     email
     nome
+    ddd
     privilegio
     senha
     telefone

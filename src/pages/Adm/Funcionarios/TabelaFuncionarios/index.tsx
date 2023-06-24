@@ -69,7 +69,7 @@ export default function TabelaFuncionarios() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
   const [rows, setRows] = useState<Usuario[] | undefined>();
-  const { data, loading } = useGetUsuarios();
+  const { data, loading, refetch } = useGetUsuarios();
   const history = useHistory();
 
   useEffect(() => {
@@ -77,6 +77,10 @@ export default function TabelaFuncionarios() {
       setRows(data)
     }
   }, [loading])
+
+  useEffect(() => {
+    refetch();
+  }, [])
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);

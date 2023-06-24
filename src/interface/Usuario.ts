@@ -4,6 +4,7 @@ export interface Usuario {
     cpf?: string;
     email?: string;
     telefone?: string;
+    ddd?: string;
     celular?: string;
     senha?: string;
     privilegio?: number;

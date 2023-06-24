@@ -27,23 +27,21 @@ import Home from "pages/Home";
 import Login from "pages/Login";
 import FuncionariosADM from "pages/Adm/Funcionarios";
 import ClientesADM from "pages/Adm/Clientes";
-import EditarCliente from "pages/Clientes/EditarCliente";
+import EditarCliente from "pages/Adm/Clientes/EditarCliente";
 import ProdutosADM from "pages/Adm/Produtos";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
-import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
+import CadastrarProduto from "pages/Adm/Produtos/CadastrarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
 import Clientes from "pages/Clientes";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
 import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
-import ClienteForm from "components/ClienteForm";
 import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
 import Avatarconfig from "pages/Config/Avatar";
-import ErrorGlitch from "Error";
 
 setupIonicReact();
 
@@ -84,11 +82,11 @@ export default function Routes() {
                     <Route path="/cliente/:id" exact={true} component={EditarCliente} />
                     <Route path="/produto" exact={true} component={ProdutosADM} />
                     <Route path="/produto/:id" exact={true} component={EditarProduto} />
-                    <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
+                    <Route path="/AdicionarProduto" exact={true} component={CadastrarProduto} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
                     <Route path="/cadastrarFuncionario" exact={true} component={CadastrarFuncionario} />
-                    <Route path="/cadastrarCliente" exact={true} component={ClienteForm} />
+                    <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
                   </>
@@ -112,7 +110,6 @@ export default function Routes() {
               <Redirect to="/login" />
               <Route path="/login" exact={true} component={Login} />
               <Route path="/esqueciSenha" exact={true} component={EsqueciSenha} />
-
             </Route>
           </IonReactRouter>
         </Suspense>

@@ -1,65 +1,65 @@
-import { useHistory } from "react-router-dom";
-import { useUpdateProduto } from "graphQL/produtos/hooks";
-import { IonButton, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
+import { IonButton, IonButtons, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
+import { useCreateProduto } from "graphQL/produtos/hooks";
+import { Produto } from "interface/Produto";
+import { useState } from "react";
+import CardProduto from "../CardProduto";
 import * as S from "../FormProduto/styles"
-import { Input } from 'components/Input'
-import { useCadastrarProdutoForm } from './useEditarProduto'
-import { ProdutoForm } from '../FormProduto/types'
+import { Input } from "components/Input";
+import { useCadastrarProdutoForm } from "./useCadastrarProduto";
+import { ProdutoForm } from "../FormProduto/types";
+import { useHistory } from "react-router";
 
-export default function EditarProduto() {
-  const { errors, handleSubmit, loading, register, reset, produto } = useCadastrarProdutoForm()
-  const { updateProduto, loading: loadingUpdate } = useUpdateProduto();
+export default function CadastrarProduto() {
+  const { errors, handleSubmit, register, reset } = useCadastrarProdutoForm();
+  const { createProduto, data, loading } = useCreateProduto();
   const [presentAlert] = useIonAlert();
+  const [isOpen, setIsOpen] = useState(true);
   const history = useHistory();
+  
+  const cadastrarProduto = (data: ProdutoForm) => {
+    const produto: Produto = {
+      cod_prod: data.cod_prod,
+      descr_resumida: data.descr_resumida,
+      descr_detalhada: data.descr_detalhada,
+      preco: data.preco,
+      unidade: data.unidade
+    }
 
-  const editarProduto = (data: ProdutoForm) => {
-    updateProduto({
+    createProduto({
       variables: {
-        produtoUpdateInput: {
-          cod_prod: data.cod_prod,
-          descr_resumida: data.descr_resumida,
-          descr_detalhada: data.descr_detalhada,
-          preco: data.preco,
-          unidade: data.unidade,
-        },
-        id: produto?._id,
+        produtoInput: produto
       },
       onCompleted: () => {
-        presentAlert({
-          header: 'Sucesso',
-          subHeader: "Dados alterados com sucesso.",
-          buttons: ['OK'],
-          onDidDismiss: () => {
-            history.push("/produto")
-          }
-        })
+        setIsOpen(true)
       },
-      onError: (erro) => {
+      onError: (error) => {
         presentAlert({
-          header: 'Erro',
-          subHeader: "Algo estranho aconteceu",
-          message: `${erro}`,
+          header: 'Atenção!',
+          subHeader: `${error.message}`,
           buttons: ['OK'],
         })
       }
     })
   }
 
+  const handleModalClose = () => {
+    history.push('/produto');
+  }
+
   return (
     <IonPage>
       <Cabecalho>
-        <IonTitle>Editar Produto</IonTitle>
+        <IonTitle>Criar Produto</IonTitle>
       </Cabecalho>
-
-      <IonContent>
+      <IonContent >
         <S.Container>
           <S.Card>
             <IonCardHeader>
               <IonCardTitle style={{ textAlign: 'center' }}>Dados do Produto</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              <form onSubmit={handleSubmit(editarProduto)}>
+              <form onSubmit={handleSubmit(cadastrarProduto)}>
                 <Input
                   type="text"
                   placeholder="Digite o Codigo aqui"
@@ -96,6 +96,7 @@ export default function EditarProduto() {
                   {...register('unidade')}
                   hasError={errors.unidade?.message}
                 />
+
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
                   <IonButton color="warning" size="small" onClick={() => reset()}>Limpar</IonButton>
                   <IonButton slot="end" size="small" type="submit">Confirmar</IonButton>
@@ -105,15 +106,30 @@ export default function EditarProduto() {
           </S.Card>
         </S.Container>
 
-        <IonLoading
-          isOpen={loading}
-          message={'Buscando Dados...'}
-        />
-        <IonLoading
-          isOpen={loadingUpdate}
-          message={'Atualizando Dados...'}
-        />
       </IonContent>
+      <IonLoading
+        isOpen={loading}
+        message={'Cadastrando...'}
+      />
+
+      {data &&
+        <IonModal isOpen={isOpen}onDidDismiss={() => handleModalClose()}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Produto Cadastrado com sucesso</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <CardProduto {...data} />
+          </IonContent>
+        </IonModal>
+      }
+
     </IonPage>
   )
 }
+
+
