@@ -1,97 +1,23 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
+import { IonButton, IonButtons, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonItem, IonLoading, IonModal, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useCriarFuncionario } from "graphQL/usuario/hook";
 import { useState } from "react";
 import CardFuncionario from "../CardFuncionario";
 import { closeOutline } from 'ionicons/icons'
 import { useHistory } from "react-router";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "components/Input";
-
-type FuncionarioFormSchema = z.infer<typeof cadastroFuncionarioFormSchema>
-
-const cadastroFuncionarioFormSchema = z.object({
-  nome: z.string()
-    .nonempty('Nome não pode ser vazio.')
-    .min(3, 'Nome deve ter no mínimo 3 caracteres.')
-    .regex(/^[A-Za-z]+$/i, "Apenas letras são permitidas.")
-    // .refine(
-    //   (nome) => (nome.replace(/[^a-z]/gi, "").length > 3),
-    //   ({ message: 'Caracteres especiais e números serão ignorados.' })
-    // )
-    .transform((nome) => {
-      return nome.toLowerCase().replace(/[^a-z]/gi, "")
-    }),
-  email: z.string()
-    .nonempty('Email não pode ser vazio.')
-    .email('Não é um formato de email valido.'),
-  cpf: z.string()
-    .min(11, 'CPF deve ter no mínimo 11 caracteres.')
-    .max(11, 'CPF deve ter no máximo 11 caracteres.')
-    .regex(/^[0-9]+$/i, "Apenas números são permitidos."),
-  senha: z.string()
-    .nonempty('Senha não pode ser vazia.')
-    .min(6, 'Senha deve ter no mínimo 6 caracteres.')
-    .max(30, 'Senha deve ter no máximo 30 caracteres.'),
-  confirmarSenha: z.string()
-    .nonempty('Senha não pode ser vazia.')
-    .min(6, 'Senha deve ter no mínimo 6 caracteres.')
-    .max(30, 'Senha deve ter no máximo 30 caracteres.'),
-  ddd: z.string()
-    .max(2, 'DDD deve ter no máximo 2 números.')
-    .optional(),
-  celular: z.string()
-    .max(9, 'Celular deve ter no máximo 9 números.')
-    .optional(),
-  telefone: z.string()
-    .max(8, 'Telefone deve ter no máximo 8 números.')
-    .optional(),
-})
-  .refine(({ senha, confirmarSenha }) => senha === confirmarSenha, {
-    message: "As Senhas devem ser iguais.",
-    path: ["confirmarSenha"]
-  })
-
-const ContainerCard = styled.section`
-  display: grid;
-  place-items: center;
-  height: 100%;
-`
-const CardS = styled(IonCard)`
-  @media screen and (max-width: 650px) {
-    padding-top: 2rem;
-    width: 100%;
-    height: 100%;
-  }
-
-  @media screen and (min-width: 650px) {
-    width: 50%;
-    height: max-content; 
-    margin: 0 !important;
-    transform: translateY(-50px);
-  }
-`
+import { FuncionarioForm } from "./types";
+import * as S from "./styles"
+import { useFuncionario } from "./useFuncionario";
 
 export default function CadastrarFuncionario() {
+  const { handleSubmit, errors, register, reset } = useFuncionario()
   const { createUsuario, data, loading } = useCriarFuncionario();
   const [isOpen, setIsOpen] = useState(true);
   const [presentAlert] = useIonAlert();
   const history = useHistory();
-  const {
-    handleSubmit,
-    formState: {
-      errors
-    },
-    register
-  } = useForm<FuncionarioFormSchema>({
-    resolver: zodResolver(cadastroFuncionarioFormSchema)
-  })
 
-  const handleSubmitSchema = (data: FuncionarioFormSchema) => {
-
+  const cadastrarFuncionario = (data: FuncionarioForm) => {
     const funcionario = {
       nome: data.nome,
       email: data.email,
@@ -130,13 +56,13 @@ export default function CadastrarFuncionario() {
       </Cabecalho>
 
       <IonContent >
-        <ContainerCard>
-          <CardS>
+        <S.Container>
+          <S.Card>
             <IonCardHeader>
               <IonCardTitle style={{ textAlign: 'center' }}>Dados do Funcionário</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              <form onSubmit={handleSubmit(handleSubmitSchema)}>
+              <form onSubmit={handleSubmit(cadastrarFuncionario)}>
                 <Input
                   type="text"
                   placeholder="Digite o nome aqui"
@@ -196,13 +122,13 @@ export default function CadastrarFuncionario() {
                 />
 
                 <IonItem lines="none" style={{ marginTop: "1rem" }}>
-                  <IonButton color="warning" size="small" type="reset">Limpar</IonButton>
+                  <IonButton color="warning" size="small" onClick={() => reset()}>Limpar</IonButton>
                   <IonButton slot="end" size="small" type="submit">Confirmar</IonButton>
                 </IonItem>
               </form>
 
             </IonCardContent>
-          </CardS>
+          </S.Card>
 
           {data &&
             <IonModal isOpen={isOpen} onDidDismiss={() => handleModalClose()}>
@@ -219,13 +145,11 @@ export default function CadastrarFuncionario() {
               </IonContent>
             </IonModal>
           }
-
           <IonLoading
             isOpen={loading}
-            message={'Verificando...'}
+            message={'Cadastrando...'}
           />
-
-        </ContainerCard>
+        </S.Container>
       </IonContent>
     </IonPage>
   )

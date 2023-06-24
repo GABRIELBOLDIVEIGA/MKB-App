@@ -10,6 +10,7 @@ query GetUsuarios {
       privilegio
       nome
       token
+      ddd
       telefone
       celular
     }
@@ -23,6 +24,7 @@ export const GET_USUARIO_BY_ID = gql`
     cpf
     email
     senha
+    ddd
     telefone
     celular
     privilegio

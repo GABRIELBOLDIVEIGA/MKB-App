@@ -10,9 +10,9 @@ export const useClientes = () => {
 };
 
 export const useGetAllClientes = () => {
-  const { data, loading, error } = useQuery<{ getClientes: Cliente[] }>(OBTER_ALL_CLIENTES);
+  const { data, loading, error, refetch } = useQuery<{ getClientes: Cliente[] }>(OBTER_ALL_CLIENTES);
 
-  return { data: data?.getClientes, loading, error };
+  return { data: data?.getClientes, loading, error, refetch };
 };
 
 export const useGetClienteById = (id: string) => {
