@@ -72,7 +72,7 @@ export default function TabelaClientes() {
   const [rowsPerPage, setRowsPerPage] = useState(15);
 
   const [rows, setRows] = useState<Cliente[] | undefined>();
-  const { data, loading } = useGetAllClientes();
+  const { data, loading, refetch } = useGetAllClientes();
   const history = useHistory();
 
   useEffect(() => {
@@ -80,6 +80,10 @@ export default function TabelaClientes() {
       setRows(data)
     }
   }, [loading])
+
+  useEffect(() => {
+    refetch();
+  }, [])
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);

@@ -72,15 +72,18 @@ export default function TabelaPedidos() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
   const [rows, setRows] = useState<PedidosTabela[] | undefined>();
-  const { data, loading } = useGetPedidosTabela();
+  const { data, loading, refetch } = useGetPedidosTabela();
   const history = useHistory();
 
   useEffect(() => {
     if (data) {
       setRows(data)
     }
-    // console.log(dateFormatter(data[0].date))
   }, [loading])
+
+  useEffect(() => {
+    refetch();
+  }, [])
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
