@@ -2,7 +2,7 @@ export interface Cliente {
     _id: string;
     cod?: string;
     nome: string;
-    cnpj?: string;
+    cnpj: string;
     endereco?: string;
     bairro?: string;
     cidade?: string;

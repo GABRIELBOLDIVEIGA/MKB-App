@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Cliente } from "interface/Cliente";
 import { OBTER_CLIENTES, OBTER_CLIENTE, OBTER_ALL_CLIENTES } from "./queries";
 import { CRIAR_CLIENTE, UPDATE_CLIENTE } from "./mudations";
+import { ClienteForm } from "components/ClienteForm/types";
 
 export const useClientes = () => {
   const { data, loading, error } = useQuery<{ getClientes: Cliente[] }>(OBTER_CLIENTES);
