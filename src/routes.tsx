@@ -30,7 +30,7 @@ import ClientesADM from "pages/Adm/Clientes";
 import EditarCliente from "pages/Clientes/EditarCliente";
 import ProdutosADM from "pages/Adm/Produtos";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
-import CriarProdutoADM from "pages/Adm/Produtos/CriarProduto";
+import CadastrarProduto from "pages/Adm/Produtos/CadastrarProduto";
 import PedidosADM from "pages/Adm/Pedidos";
 import PedidoDetalhado from "pages/Adm/Pedidos/PedidoDetalhado";
 import Clientes from "pages/Clientes";
@@ -43,7 +43,6 @@ import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
 import Avatarconfig from "pages/Config/Avatar";
-import Zod from './pages/TesteForm/index';
 
 setupIonicReact();
 
@@ -84,7 +83,7 @@ export default function Routes() {
                     <Route path="/cliente/:id" exact={true} component={EditarCliente} />
                     <Route path="/produto" exact={true} component={ProdutosADM} />
                     <Route path="/produto/:id" exact={true} component={EditarProduto} />
-                    <Route path="/AdicionarProduto" exact={true} component={CriarProdutoADM} />
+                    <Route path="/AdicionarProduto" exact={true} component={CadastrarProduto} />
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
                     <Route path="/cadastrarFuncionario" exact={true} component={CadastrarFuncionario} />
