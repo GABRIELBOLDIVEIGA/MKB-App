@@ -70,7 +70,7 @@ export default function TabelaProdutos() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(15);
   const [rows, setRows] = useState<Produto[] | undefined>();
-  const { data, loading } = useProduto();
+  const { data, loading, refetch } = useProduto();
   const history = useHistory();
 
   useEffect(() => {
@@ -78,6 +78,10 @@ export default function TabelaProdutos() {
       setRows(data)
     }
   }, [loading])
+
+  useEffect(() => {
+    refetch();
+  }, [])
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
