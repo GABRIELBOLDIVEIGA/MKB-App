@@ -27,7 +27,7 @@ import Home from "pages/Home";
 import Login from "pages/Login";
 import FuncionariosADM from "pages/Adm/Funcionarios";
 import ClientesADM from "pages/Adm/Clientes";
-import EditarCliente from "pages/Clientes/EditarCliente";
+import EditarCliente from "pages/Adm/Clientes/EditarCliente";
 import ProdutosADM from "pages/Adm/Produtos";
 import EditarProduto from "pages/Adm/Produtos/EditarProduto";
 import CadastrarProduto from "pages/Adm/Produtos/CadastrarProduto";
@@ -37,7 +37,6 @@ import Clientes from "pages/Clientes";
 import Produtos from "pages/Produtos";
 import CadastrarCliente from "pages/CadastrarCliente";
 import CadastrarFuncionario from "pages/Adm/Funcionarios/CadastrarFuncionario";
-import ClienteForm from "components/ClienteForm";
 import EditarFuncionario from "pages/Adm/Funcionarios/Editarfuncionario";
 import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
@@ -87,7 +86,7 @@ export default function Routes() {
                     <Route path="/pedidos" exact={true} component={PedidosADM} />
                     <Route path="/pedidoDetalhado/:id" exact={true} component={PedidoDetalhado} />
                     <Route path="/cadastrarFuncionario" exact={true} component={CadastrarFuncionario} />
-                    <Route path="/cadastrarCliente" exact={true} component={ClienteForm} />
+                    <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
                   </>
