@@ -19,7 +19,8 @@ export const Input = styled.input<{ hasError: boolean }>`
 
 padding: .5rem;
 border-radius: 8px;
-border: 1px solid ${blue};
+/* border: 1px solid ${blue}; */
+border: 1px solid var(--ion-color-dark-shade);
 color: var(--ion-color-secondary-contrast);
 
 &:focus {
