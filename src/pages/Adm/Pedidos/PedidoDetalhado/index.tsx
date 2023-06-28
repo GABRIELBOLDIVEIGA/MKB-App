@@ -56,6 +56,9 @@ const TitleS = styled(IonTitle)`
 `
 const ContainerLink = styled.div`
   width: max-content;
+  @media screen and (max-width: 750px) {
+      display: none;
+  }
 `
 
 export default function PedidoDetalhado() {
