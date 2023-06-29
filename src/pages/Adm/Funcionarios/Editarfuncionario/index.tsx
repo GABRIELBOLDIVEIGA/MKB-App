@@ -20,6 +20,7 @@ export default function EditarFuncionario() {
           nome: data.usuario.nome,
           cpf: data.usuario.cpf,
           email: data.usuario.email,
+          ddd: data.usuario.ddd,
           telefone: data.usuario.telefone,
           celular: data.usuario.celular,
           privilegio: user?.privilegio
