@@ -66,14 +66,14 @@ export default function CadastrarFuncionario() {
                 <Input
                   type="text"
                   placeholder="Digite o nome aqui"
-                  label="Nome"
+                  label="Nome (Obrigatório)"
                   {...register('nome')}
                   hasError={errors.nome?.message}
                 />
                 <Input
                   type="email"
                   placeholder="Digite o email aqui"
-                  label="E-mail"
+                  label="E-mail (Obrigatório)"
                   {...register('email')}
                   hasError={errors.email?.message}
                 />
@@ -81,21 +81,21 @@ export default function CadastrarFuncionario() {
                   type="number"
                   min={0}
                   placeholder="Digite o CPF aqui"
-                  label="CPF"
+                  label="CPF (Obrigatório)"
                   {...register('cpf')}
                   hasError={errors.cpf?.message}
                 />
                 <Input
                   type="password"
                   placeholder="Digite a Senha aqui"
-                  label="Senha"
+                  label="Senha (Obrigatório)"
                   {...register('senha')}
                   hasError={errors.senha?.message}
                 />
                 <Input
                   type="password"
-                  placeholder="Digite a Confirmar Senha aqui"
-                  label="Confirmar Senha"
+                  placeholder="Digite a Senha aqui"
+                  label="Confirmar Senha (Obrigatório)"
                   {...register('confirmarSenha')}
                   hasError={errors.confirmarSenha?.message}
                 />

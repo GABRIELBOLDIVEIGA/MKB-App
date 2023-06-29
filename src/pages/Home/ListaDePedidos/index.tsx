@@ -63,11 +63,12 @@ export default function ListaDePedidos() {
         (
           <>
             {!loading ? (
-              <IonList style={{ minHeight: "100%" }}>
+              <>
+               {/* <IonList style={{ minHeight: "100%" }}> */}
                 {data?.map((pedido: IPedido, index: number) => {
                   return (
-                    <IonItem key={index}>
-                      <IonCard style={{ minWidth: "95%" }}>
+                    // <IonItem key={index}>
+                      <IonCard key={index} style={{ minWidth: "95%" }}>
                         <IonCardHeader>
                           <IonCardTitle>{pedido.cliente.nome}</IonCardTitle>
                           <IonCardSubtitle>{pedido.cliente.email}</IonCardSubtitle>
@@ -100,10 +101,11 @@ export default function ListaDePedidos() {
                           </IonItem>
                         </IonCardContent>
                       </IonCard>
-                    </IonItem>
+                    // </IonItem>
                   )
                 })}
-              </IonList>
+               {/* </IonList> */}
+                </>
             ) : (
               <IonList style={{ minHeight: "100%" }}>
                 {dataJSON?.getPedidosByUserIdV2.map((pedido, index) => {

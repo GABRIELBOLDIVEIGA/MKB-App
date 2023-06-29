@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { IonButton, IonModal, IonHeader, IonContent, IonToolbar, useIonAlert, IonLoading, IonAlert } from '@ionic/react';
+import { IonButton, IonModal, IonHeader, IonContent, IonToolbar, useIonAlert, IonLoading, IonAlert, IonItem, IonSelect, IonSelectOption, IonLabel, IonFooter, IonText, IonTitle } from '@ionic/react';
 import styled from 'styled-components';
 import { useCarrinhoContext } from 'context/CarrrinhoContext';
 import CardItem from './CardItem';
 import { useCriarPedido } from 'graphQL/pedidos/hooks';
 import { useUserContext } from 'context/UsuarioContext';
 import { useHistory } from 'react-router';
+import { formatadorMonetario } from 'common/function/formatadorMonetario';
 
 const CabecalhoModal = styled.div`
   display: flex;
@@ -31,10 +32,10 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
   const [alerta, setAlerta] = useState(false)
 
   const handleCriarPedido = () => {
-    if (carrinho.length === 0) {
+    if (carrinho.length === 0 || valorTotalCarrinho === 0) {
       presentAlert({
         header: "Erro",
-        message: "Pedido deve conter ao menos 1 item!",
+        message: "Pedido deve conter ao menos 1 item e valor maior que R$ 0.00",
         buttons: ["OK"],
       })
     } else {
@@ -94,11 +95,28 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
       </IonHeader>
       <IonContent>
 
+        <IonItem>
+          <IonLabel>Desconto</IonLabel>
+          <IonSelect aria-label="desconto" placeholder="Desconto">
+            <IonSelectOption value="0">0%</IonSelectOption>
+            <IonSelectOption value="5">5%</IonSelectOption>
+            <IonSelectOption value="10">10%</IonSelectOption>
+          </IonSelect>
+        </IonItem>
+
         {carrinho?.map((prod) => (
           <CardItem key={prod.cod_prod} produto={prod} />
         ))}
 
       </IonContent>
+      
+      <IonFooter>
+        <IonToolbar>
+          <IonItem>
+            <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
+          </IonItem>
+        </IonToolbar>
+      </IonFooter>
 
       <IonAlert
         isOpen={alerta}

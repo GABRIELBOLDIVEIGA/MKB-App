@@ -65,9 +65,12 @@ export default function Produtos() {
 
       <IonFooter>
         <IonToolbar>
-          <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
+          <IonItem>
+            <IonTitle>Valor Total: {formatadorMonetario.format(valorTotalCarrinho)}</IonTitle>
+          </IonItem>
         </IonToolbar>
       </IonFooter>
+
       <IonLoading
         isOpen={loading}
         message={'Carregando lista de produtos...'}

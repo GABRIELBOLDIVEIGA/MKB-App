@@ -1,4 +1,4 @@
-import { IonButton, IonCardContent, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
+import { IonButton, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonItem, IonLoading, IonPage, IonTitle, useIonAlert } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useUpdateUsuario } from "graphQL/usuario/hook";
 import { useHistory } from "react-router-dom";
@@ -51,11 +51,14 @@ export default function EditarFuncionario() {
   return (
     <IonPage>
       <Cabecalho>
-        <IonTitle>Editar funcionario</IonTitle>
+        <IonTitle>Editar Funcionário</IonTitle>
       </Cabecalho>
       <IonContent>
         <S.Section >
           <S.Card>
+            <IonCardHeader>
+              <IonCardTitle style={{ textAlign: 'center' }}>Dados do Funcionário</IonCardTitle>
+            </IonCardHeader>
             <IonCardContent>
               <form onSubmit={handleSubmit(atualizarFuncionario)}>
                 <Input

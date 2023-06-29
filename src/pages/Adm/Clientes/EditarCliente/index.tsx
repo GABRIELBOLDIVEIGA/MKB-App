@@ -17,7 +17,7 @@ export default function EditarCliente() {
         <S.Container>
           <S.Card>
             <IonCardHeader>
-              <IonCardTitle>Cadastrar Cliente</IonCardTitle>
+              <IonCardTitle style={{ textAlign: 'center' }}>Dados Cliente</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
               <form onSubmit={handleSubmit(handleFormSubmit)}>

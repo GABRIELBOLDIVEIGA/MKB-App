@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
+import { IonCol, IonContent, IonGrid, IonIcon, IonLoading, IonPage, IonRow, IonText, IonTitle } from "@ionic/react";
 import Cabecalho from "components/Cabecalho";
 import { useGetPedidoById, useGetPedidoById2Csv } from "graphQL/pedidos/hooks"
 import { useParams } from "react-router";
@@ -101,7 +101,7 @@ export default function PedidoDetalhado() {
                     <p>TEL. : (11) 2703-5745 - FAX: (11) 2143-0452</p>
                   </IonRow>
                   <IonRow class="ion-justify-content-center">
-                    <p>site: www.kmbrodizios.com.br e-mail kmb@kmbrodizios.com.br</p>
+                    <p>Site: www.kmbrodizios.com.br E-mail: kmb@kmbrodizios.com.br</p>
                   </IonRow>
                 </IonCol>
 
@@ -192,6 +192,10 @@ export default function PedidoDetalhado() {
           </Section>
         </Container>
       </IonContent >
+      <IonLoading
+          isOpen={loading}
+          message={'Buscando Dados...'}
+        />
     </IonPage >
   )
 }
