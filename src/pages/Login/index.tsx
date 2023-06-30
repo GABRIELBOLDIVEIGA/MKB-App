@@ -5,7 +5,7 @@ import { useUserContext } from "context/UsuarioContext";
 import InputField from "components/InputField";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "assets/logo5.png";
+import logo from "assets/logo_kmb.jpeg";
 
 import { Input } from "components/Input";
 import { useForm } from "react-hook-form"

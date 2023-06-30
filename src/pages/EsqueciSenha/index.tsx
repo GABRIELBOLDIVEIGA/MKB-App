@@ -2,7 +2,7 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCon
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import logo from "assets/logo5.png";
+import logo from "assets/logo_kmb.jpeg";
 import { useEsqueciMinhaSenha } from "graphQL/usuario/hook";
 
 const Section = styled.section`
