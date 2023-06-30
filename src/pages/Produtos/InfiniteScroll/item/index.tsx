@@ -29,7 +29,7 @@ export default function ProdutoItem({ item }: IProps) {
   return (
     <IonItem>
       <ContainerItem>
-        <ContainerTexto>{item.descr_detalhada}</ContainerTexto>
+        <ContainerTexto>{item.descr_resumida}</ContainerTexto>
         <Checkbox
           value={item._id}
           onIonChange={(ev) => {

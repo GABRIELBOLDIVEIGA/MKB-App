@@ -26,7 +26,7 @@ export default function Produtos() {
   useEffect(() => {
     const b = busca && busca.toLowerCase();
 
-    const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_detalhada.toLowerCase().includes(b!));
+    const result: Produto[] | undefined = produtos?.filter((prod) => prod.descr_resumida.toLowerCase().includes(b!));
 
     result ? setFiltro(result) : setFiltro([]);
 

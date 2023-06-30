@@ -24,7 +24,7 @@ export default function CardItem({ produto }: IProps) {
     <CardS key={produto.cod_prod}>
       <IonCardHeader>
         <CardTitleS>
-          {produto.descr_detalhada.toUpperCase()}
+          {produto.descr_resumida.toUpperCase()}
           <IonButton onClick={() => removerProduto(produto.cod_prod)} size='small' fill='solid' color='light'>
             <IonIcon icon={trashOutline} color='danger' />
           </IonButton>
