@@ -16,7 +16,7 @@ export const cadastroFuncionarioFormSchema = z.object({
       .email('Não é um formato de email valido.'),
     cpf: z.string()
       .min(11, 'CPF deve ter no mínimo 11 caracteres.')
-      .max(11, 'CPF deve ter no máximo 11 caracteres.')
+      .max(14, 'CNPJ deve ter no máximo 14 caracteres.')
       .regex(/^[0-9]+$/i, "Apenas números são permitidos."),
     senha: z.string()
       .nonempty('Senha não pode ser vazia.')
