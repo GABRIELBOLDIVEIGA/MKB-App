@@ -5,6 +5,7 @@ export const OBTER_CLIENTES = gql`
         getClientes(limit: $limit) {
             _id
             nome
+            cnpj
         }
     }
 `;
