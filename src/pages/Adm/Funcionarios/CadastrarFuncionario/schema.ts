@@ -4,7 +4,8 @@ export const cadastroFuncionarioFormSchema = z.object({
     nome: z.string()
       .nonempty('Nome não pode ser vazio.')
       .min(3, 'Nome deve ter no mínimo 3 caracteres.')
-      .regex(/^[a-zA-Z\s]+$/, "Apenas letras são permitidas.")
+      // .regex(/^[a-zA-Z\s]+$/, "Apenas letras são permitidas.")
+      .regex(/^[^\'\"\;\:\,\s]+$/, "Caracteres não permitidos.")
       .transform(name => {
         return name.trim().split(' ').map(word => {
           return word[0].toLocaleUpperCase().concat(word.substring(1))

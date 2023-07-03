@@ -17,12 +17,13 @@ interface Props {
   cpf?: string;
   email?: string;
   nome?: string;
+  ddd?: string;
   telefone?: string;
   celular?: string;
   privilegio?: number;
 }
 
-export default function CardFuncionario({ _id, cpf, email, nome, telefone, celular, privilegio }: Props) {
+export default function CardFuncionario({ _id, cpf, email, nome, ddd, telefone, celular, privilegio }: Props) {
   return (
     <IonCard >
       <IonCardHeader>
@@ -38,6 +39,9 @@ export default function CardFuncionario({ _id, cpf, email, nome, telefone, celul
           }
           <IonRow>
             <IonText>CPF: {cpf}</IonText>
+          </IonRow>
+          <IonRow>
+            <IonText>DDD: {ddd}</IonText>
           </IonRow>
           <IonRow>
             <IonText>Telefone: {telefone}</IonText>
