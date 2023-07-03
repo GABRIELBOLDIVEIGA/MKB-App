@@ -21,7 +21,8 @@ padding: .5rem;
 border-radius: 8px;
 /* border: 1px solid ${blue}; */
 border: 1px solid var(--ion-color-dark-shade);
-color: var(--ion-color-secondary-contrast);
+/* color: var(--ion-color-secondary-contrast); */
+color: var(--ion-color-light-contrast);
 
 &:focus {
   border-color: ${darken(0.1, blue)};
