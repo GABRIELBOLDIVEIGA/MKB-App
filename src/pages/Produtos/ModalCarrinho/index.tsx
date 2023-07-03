@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonButton, IonModal, IonHeader, IonContent, IonToolbar, useIonAlert, IonLoading, IonAlert, IonItem, IonSelect, IonSelectOption, IonLabel, IonFooter, IonText, IonTitle } from '@ionic/react';
+import { IonButton, IonModal, IonHeader, IonContent, IonToolbar, useIonAlert, IonLoading, IonAlert, IonItem, IonSelect, IonSelectOption, IonLabel, IonFooter, IonText, IonTitle, IonInput } from '@ionic/react';
 import styled from 'styled-components';
 import { useCarrinhoContext } from 'context/CarrrinhoContext';
 import CardItem from './CardItem';
@@ -18,6 +18,11 @@ const Title = styled.h2`
   width: max-content !important;
   margin: 0;
 `
+
+const ContinerDescontos = styled(IonItem)`
+
+` 
+
 interface IProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -95,21 +100,27 @@ export default function ModalCarrinho({ isOpen, setIsOpen }: IProps) {
       </IonHeader>
       <IonContent>
 
-        <IonItem>
-          <IonLabel>Desconto</IonLabel>
-          <IonSelect aria-label="desconto" placeholder="Desconto">
-            <IonSelectOption value="0">0%</IonSelectOption>
-            <IonSelectOption value="5">5%</IonSelectOption>
-            <IonSelectOption value="10">10%</IonSelectOption>
-          </IonSelect>
-        </IonItem>
+        <ContinerDescontos>
+          <IonItem style={{width: "80%"}}>
+            <IonLabel position='stacked'>Desconto 1</IonLabel>
+            <IonInput type='number' min={0} max={100} />
+          </IonItem>
+          <IonItem style={{width: "80%"}}>
+            <IonLabel position='stacked'>Desconto 2</IonLabel>
+            <IonInput type='number' min={0} max={100} />
+          </IonItem>
+          <IonItem style={{width: "80%"}}>
+            <IonLabel position='stacked'>Desconto 3</IonLabel>
+            <IonInput type='number' min={0} max={100} />
+          </IonItem>
+        </ContinerDescontos>
 
         {carrinho?.map((prod) => (
           <CardItem key={prod.cod_prod} produto={prod} />
         ))}
 
       </IonContent>
-      
+
       <IonFooter>
         <IonToolbar>
           <IonItem>

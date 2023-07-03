@@ -32,6 +32,7 @@ const ContainerImg = styled.div`
 `
 const Img = styled.img`
 width: 50%;
+border-radius: 999%;
 `
 
 const Login: React.FC = () => {

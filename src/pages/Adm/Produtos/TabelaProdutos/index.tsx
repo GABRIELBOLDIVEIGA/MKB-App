@@ -16,7 +16,7 @@ import DarkBlobLoader from 'components/DarkBlobLoader';
 
 
 interface Column {
-  id: 'cod_prod' | 'descr_resumida' | 'descr_detalhada' | 'preco' | 'unidade';
+  id: 'cod_prod' | 'descr_resumida' | 'preco';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -35,20 +35,10 @@ const columns: readonly Column[] = [
     minWidth: 120
   },
   {
-    id: 'descr_detalhada',
-    label: 'Descrição Detalhada',
-    minWidth: 200,
-  },
-  {
     id: 'preco',
     label: 'Preço',
     minWidth: 120,
-  },
-  {
-    id: 'unidade',
-    label: 'Unidade',
-    minWidth: 100,
-  },
+  }
 ];
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -152,7 +142,7 @@ export default function TabelaProdutos() {
                             {columns.map((column) => {
                               const value = row[column.id];
                               return (
-                                <TableCell title='Dois clicks para ver mais detalhes...' key={column.id} align={column.align}>
+                                <TableCell title='Click para ver mais detalhes...' key={column.id} align={column.align}>
                                   {column.format && typeof value === 'number'
                                     ? column.format(value)
                                     : value}

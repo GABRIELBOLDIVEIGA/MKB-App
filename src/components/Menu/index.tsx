@@ -61,7 +61,7 @@ const menuADM: menuLink[] = [
     url: "/funcionarios",
     iosIcon: peopleOutline,
     mdIcon: peopleOutline,
-  },
+  }
 ];
 
 const ListHeader = styled.div`

@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonInput, IonItem, IonLabel, IonLoading, IonPage, useIonAlert } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonToolbar, useIonAlert } from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
@@ -19,9 +19,11 @@ const Div = styled.div`
 const ContainerImg = styled.div`
   display: grid;
   place-items: center;
+  margin-bottom: 2rem;
 `
 const Img = styled.img`
 width: 50%;
+border-radius: 999%;
 `
 
 export default function EsqueciSenha() {
@@ -65,6 +67,13 @@ export default function EsqueciSenha() {
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonItem>
+            <IonButton onClick={() => {history.push('/login');}}>Voltar</IonButton>
+          </IonItem>
+        </IonToolbar>
+      </IonHeader>
       <IonContent>
         <Section>
           <Div>
