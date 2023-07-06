@@ -29,3 +29,48 @@ mutation UpdateCliente($id: ID!, $clienteUpdateInput: ClienteUpdateInput) {
   }
 }
 `
+
+///////////////////// NOVO BANCO
+
+export const CADASTRAR_CLIENTE_NOVO_BANCO = gql`
+  mutation AdicionarCliente($clienteInput: ClienteInput) {
+  adicionarCliente(clienteInput: $clienteInput) {
+    _id
+    nome
+    documento
+    inscricaoEstadual
+    razaoSocial
+    cep
+    endereco
+    numero
+    complemento
+    bairro
+    municipio
+    uf
+    telefone
+    email
+    observacoes
+    usuario {
+      _id
+      nome
+      documento
+      razaoSocial
+      cep
+      endereco
+      numero
+      complemento
+      bairro
+      municipio
+      uf
+      telefone
+      email
+      observacoes
+      ativo
+      jwt
+      senha
+      permicao
+      dataCadastro
+    }
+  }
+}
+` 

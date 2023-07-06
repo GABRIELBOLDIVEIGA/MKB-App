@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Cliente } from "interface/Cliente";
 import { OBTER_CLIENTES, OBTER_CLIENTE, OBTER_ALL_CLIENTES } from "./queries";
-import { CRIAR_CLIENTE, UPDATE_CLIENTE } from "./mudations";
+import { CADASTRAR_CLIENTE_NOVO_BANCO, CRIAR_CLIENTE, UPDATE_CLIENTE } from "./mudations";
 import { ClienteForm } from "components/ClienteForm/types";
 
 export const useClientes = () => {
@@ -36,4 +36,11 @@ export const useUpdateCliente = () => {
   const [updateCliente, { data, loading, error }] = useMutation<Cliente>(UPDATE_CLIENTE)
   
   return {updateCliente, data, loading, error }
+}
+
+////////// NOVO BANCO
+export const useCadastrarClientesNovoBanco = () => {
+  const [adicionarCliente, { data, loading, error }] = useMutation(CADASTRAR_CLIENTE_NOVO_BANCO)
+
+  return { adicionarCliente, data, loading, error }
 }

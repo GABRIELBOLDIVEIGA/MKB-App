@@ -42,6 +42,9 @@ import EsqueciSenha from "pages/EsqueciSenha";
 import Config from "pages/Config";
 import AlterarSenha from "pages/Config/AlterarSenha";
 import Avatarconfig from "pages/Config/Avatar";
+import LoadUsuarios from "pages/DEV/LoadUsuarios";
+import LoadClientes from "pages/DEV/LoadClientes";
+import LoadProdutos from "pages/DEV/LoadProdutos";
 
 setupIonicReact();
 
@@ -89,6 +92,10 @@ export default function Routes() {
                     <Route path="/cadastrarCliente" exact={true} component={CadastrarCliente} />
                     <Route path="/empresas" exact={true} component={Clientes} />
                     <Route path="/produtos" exact={true} component={Produtos}></Route>
+
+                    {/* <Route path="/loadProdutos" exact={true} component={LoadProdutos}></Route>
+                    <Route path="/loadUsuarios" exact={true} component={LoadUsuarios}></Route>
+                    <Route path="/loadClientes" exact={true} component={LoadClientes}></Route> */}
                   </>
                 )
               }

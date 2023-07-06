@@ -45,3 +45,17 @@ export const ESQUECI_SENHA = gql`
   esqueciMinhaSenha(esqueciSenhaInput: $esqueciSenhaInput)
 }
 `
+
+///////// NOVO_BANCO
+
+export const CADASTRAR_USUARIO_NOVO_BANCO = gql`
+  mutation AdicionarUsuario($usuarioInput: UsuarioInput) {
+  adicionarUsuario(usuarioInput: $usuarioInput) {
+    _id
+    nome
+    documento
+    razaoSocial
+  }
+}
+`
+

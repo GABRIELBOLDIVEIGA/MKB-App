@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PRODUTO_BY_ID, OBTER_PRODUTOS } from "./queries";
 import { Produto } from "interface/Produto";
-import { CREATE_PRODUTO, UPDATE_PRODUTO } from "./mutations";
+import { CREATE_PRODUTO, CRIAR_PRODUTO_NOVO_BANCO, UPDATE_PRODUTO } from "./mutations";
 
 export const useProduto = () => {
     const { data, loading, error, refetch } = useQuery<{ getProdutos: Produto[] }>(OBTER_PRODUTOS);
@@ -30,4 +30,10 @@ export const useUpdateProduto = () => {
     const [updateProduto, { data, error, loading }] = useMutation<{updateProduto: Produto}>(UPDATE_PRODUTO)
 
     return {updateProduto, data: data?.updateProduto, loading, error}
+}
+
+export const useCriarProdutoNovoBanco = () => { 
+    const [adicionarProduto, { data, error, loading }] = useMutation(CRIAR_PRODUTO_NOVO_BANCO);
+
+    return { adicionarProduto, data, error, loading}
 }

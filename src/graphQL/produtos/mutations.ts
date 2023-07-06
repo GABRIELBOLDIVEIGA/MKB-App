@@ -37,3 +37,12 @@ mutation UpdateProduto($produtoUpdateInput: ProdutoUpdateInput, $id: ID!) {
   }
 }
 `
+
+///////// NOVO BANCO 
+export const CRIAR_PRODUTO_NOVO_BANCO = gql`
+  mutation AdicionarProduto($produtoInput: ProdutoInput) {
+  adicionarProduto(produtoInput: $produtoInput) {
+    _id
+  }
+}
+`

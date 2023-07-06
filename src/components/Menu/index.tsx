@@ -61,7 +61,26 @@ const menuADM: menuLink[] = [
     url: "/funcionarios",
     iosIcon: peopleOutline,
     mdIcon: peopleOutline,
-  }
+  },
+
+  // {
+  //   title: "loadProdutos",
+  //   url: "/loadProdutos",
+  //   iosIcon: peopleOutline,
+  //   mdIcon: peopleOutline,
+  // },
+  // {
+  //   title: "loadUsuarios",
+  //   url: "/loadUsuarios",
+  //   iosIcon: peopleOutline,
+  //   mdIcon: peopleOutline,
+  // },
+  // {
+  //   title: "loadClientes",
+  //   url: "/loadClientes",
+  //   iosIcon: peopleOutline,
+  //   mdIcon: peopleOutline,
+  // }
 ];
 
 const ListHeader = styled.div`
