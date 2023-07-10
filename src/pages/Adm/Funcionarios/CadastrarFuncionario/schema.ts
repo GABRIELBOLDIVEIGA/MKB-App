@@ -3,9 +3,6 @@ import { z } from "zod"
 export const cadastroFuncionarioFormSchema = z.object({
     nome: z.string()
       .nonempty('Nome não pode ser vazio.')
-      .min(3, 'Nome deve ter no mínimo 3 caracteres.')
-      // .regex(/^[a-zA-Z\s]+$/, "Apenas letras são permitidas.")
-      .regex(/^[^\'\"\;\:\,\s]+$/, "Caracteres não permitidos.")
       .transform(name => {
         return name.trim().split(' ').map(word => {
           return word[0].toLocaleUpperCase().concat(word.substring(1))
@@ -15,9 +12,7 @@ export const cadastroFuncionarioFormSchema = z.object({
       .nonempty('Email não pode ser vazio.')
       .email('Não é um formato de email valido.'),
     cpf: z.string()
-      .min(11, 'CPF deve ter no mínimo 11 caracteres.')
-      .max(14, 'CNPJ deve ter no máximo 14 caracteres.')
-      .regex(/^[0-9]+$/i, "Apenas números são permitidos."),
+      .default(""),
     senha: z.string()
       .nonempty('Senha não pode ser vazia.')
       .min(6, 'Senha deve ter no mínimo 6 caracteres.')
